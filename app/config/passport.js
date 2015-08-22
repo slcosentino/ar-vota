@@ -7,18 +7,18 @@ module.exports = function(passport) {
   });
 
   passport.deserializeUser(function(id, done) {
-    Usuario.findById(id, '-Password -__v',function(err, usuario) {
+    Usuario.findById(id, '-password -__v',function(err, usuario) {
       done(err, usuario);
     })
   });
 
   passport.use(new LocalStrategy({
-    usernameField: 'Id_Usuario',
-    passwordField: 'Password'
-  }, function(Id_Usuario, Password, done) {
+    usernameField: 'id_usuario',
+    passwordField: 'password'
+  }, function(id_usuario, password, done) {
     process.nextTick(function() {
       Usuario.findOne({
-        'Id_Usuario': Id_Usuario,
+        'id_usuario': id_usuario,
       }, function(err, usuario) {
         if (err) {
           return done(err);
@@ -26,7 +26,7 @@ module.exports = function(passport) {
         if (!usuario) {
           return done(null, false);
         }
-        if (!usuario.checkPassword(Password)) {
+        if (!usuario.checkPassword(password)) {
           return done(null, false);
         }
         return done(null, usuario);

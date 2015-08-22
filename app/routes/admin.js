@@ -10,6 +10,9 @@ router.post('/login', function(req, res, next) {
     if (!usuario) {
       return res.status(401).json({message:'Nombre de usuario o password incorrecto'});
     }
+    if (!usuario.admin) {
+      return res.status(401).json({message:'No es admin'});
+    }
     req.login(usuario, function(err) {
       if (err) {
         return next(err);
@@ -19,12 +22,13 @@ router.post('/login', function(req, res, next) {
   })(req, res, next);
 });
 
-router.post('/registro', function(req, res, next) {
+router.post('/debug', function(req, res, next) {
   var usuario = new Usuario();
   usuario.id_usuario = req.body.id_usuario;
   if (req.body.password) {
       usuario.password = usuario.hashPassword(req.body.password);
   }
+  usuario.admin = true;
   usuario.nombre = req.body.nombre;
   usuario.apellido = req.body.apellido;
   usuario.save(function(err) {
@@ -42,16 +46,6 @@ router.post('/registro', function(req, res, next) {
 
 router.get('/perfil', authentication.isLoggedIn, function(req, res, next) {
   res.json(req.user);
-});
-
-router.get('/', authentication.isLoggedInAdmin, function(req, res, next) {
-  Usuario.find(function(err, usuarios) {
-    if (!err) {
-      res.json(usuarios);
-    } else {
-      return next(err);
-    }
-  });
 });
 
 module.exports = router;
