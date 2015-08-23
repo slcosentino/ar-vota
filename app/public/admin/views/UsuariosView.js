@@ -1,7 +1,8 @@
 define(function(require) {
   var template = require('text!admin/templates/usuarios.html'),
       Usuarios = require('admin/collections/Usuarios'),
-      UsuarioView = require('admin/views/UsuarioView');
+      UsuarioView = require('admin/views/UsuarioView'),
+      ErrorHelper = require('admin/helpers/ErrorHelper');
 
   return Backbone.View.extend({
     template: _.template(template),
@@ -14,7 +15,10 @@ define(function(require) {
 
 
       this.collection.fetch({
-        reset: true
+        reset: true,
+        error: function(collection, xhr, options) {
+          ErrorHelper.showError(xhr);
+        }
       });
       return this;
     },

@@ -1,5 +1,6 @@
 define(function(require) {
-  var template = require('text!admin/templates/login.html');
+  var template = require('text!admin/templates/login.html'),
+      ErrorHelper = require('admin/helpers/ErrorHelper');
 
   return Backbone.View.extend({
     template: _.template(template),
@@ -28,9 +29,7 @@ define(function(require) {
           console.log('Esta logueado');
         })
         .fail(function(jqXHR, textStatus, errorThrown) {
-          var errorObject = $.parseJSON(jqXHR.responseText);
-          console.log(errorObject.status);
-          console.log(errorObject.message);
+          ErrorHelper.showError(jqXHR);
         });
     }
   });
