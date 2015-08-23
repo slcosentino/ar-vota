@@ -25,8 +25,8 @@ define(function(require) {
           'password': view.$('#password').val()})
       })
       .done(
-        function() {
-          console.log('Esta logueado');
+        function(data, textStatus, jqXHR) {
+            window.location.replace('/admin');
         })
         .fail(function(jqXHR, textStatus, errorThrown) {
           ErrorHelper.showError(jqXHR);

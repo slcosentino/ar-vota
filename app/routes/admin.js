@@ -48,4 +48,9 @@ router.get('/perfil', authentication.isLoggedIn, function(req, res, next) {
   res.json(req.user);
 });
 
+router.get('/logout', function(req, res, next){
+  req.logout();
+  res.redirect('/admin');
+});
+
 module.exports = router;

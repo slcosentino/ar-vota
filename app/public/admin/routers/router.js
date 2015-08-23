@@ -1,13 +1,19 @@
 define(function(require) {
   var ViewManager = require('admin/helpers/ViewManager'),
       UsuariosView = require('admin/views/UsuariosView'),
-      LoginView = require('admin/views/LoginView');
+      LoginView = require('admin/views/LoginView'),
+      InicioView = require('admin/views/InicioView');
 
   return Backbone.Router.extend({
     routes: {
-      '' : 'login',
+      '' : 'inicio',
       'usuarios': 'usuarios',
       'login': 'login'
+    },
+
+    inicio: function() {
+      var inicioView = new InicioView();
+      ViewManager.render(inicioView, $('#main-container'));
     },
 
     usuarios: function() {
