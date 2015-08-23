@@ -5,6 +5,7 @@ define(function(require) {
 
   return Backbone.Router.extend({
     routes: {
+      '' : 'login',
       'usuarios': 'usuarios',
       'login': 'login'
     },
