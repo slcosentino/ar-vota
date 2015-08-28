@@ -53,4 +53,27 @@ router.get('/logout', function(req, res, next){
   res.redirect('/admin');
 });
 
+router.get('/usuarios', authentication.isLoggedInAdmin, function(req, res, next) {
+  Usuario.find(function(err, usuarios) {
+    if (!err) {
+      res.json(usuarios);
+    } else {
+      return next(err);
+    }
+  });
+});
+
+
+router.get('/usuarios/:id_usuario', authentication.isLoggedInAdmin, function(req, res, next) {
+  var id_usuario = req.params.id_usuario;
+
+  Usuario.findOne(id_usuario,'-password -__v', function(err, usuario) {
+    if (!err) {
+      res.json(usuario);
+    } else {
+      return next(err);
+    }
+  });
+});
+
 module.exports = router;

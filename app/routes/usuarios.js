@@ -44,14 +44,4 @@ router.get('/perfil', authentication.isLoggedIn, function(req, res, next) {
   res.json(req.user);
 });
 
-router.get('/', authentication.isLoggedInAdmin, function(req, res, next) {
-  Usuario.find(function(err, usuarios) {
-    if (!err) {
-      res.json(usuarios);
-    } else {
-      return next(err);
-    }
-  });
-});
-
 module.exports = router;

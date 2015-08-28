@@ -3,6 +3,6 @@ define(function(require) {
 
   return Backbone.Collection.extend({
     model: Usuario,
-    url: '/api/usuarios'
+    url: '/api/admin/usuarios'
   });
 });

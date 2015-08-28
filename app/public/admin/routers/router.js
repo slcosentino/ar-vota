@@ -3,14 +3,16 @@ define(function(require) {
       UsuariosView = require('admin/views/UsuariosView'),
       LoginView = require('admin/views/LoginView'),
       InicioView = require('admin/views/InicioView'),
-      BienvenidaView = require('admin/views/BienvenidaView');
+      BienvenidaView = require('admin/views/BienvenidaView'),
+      PerfilView = require('admin/views/PerfilView');
 
   return Backbone.Router.extend({
     routes: {
       '' : 'bienvenida',
       'inicio': 'inicio',
       'usuarios': 'usuarios',
-      'login': 'login'
+      'login': 'login',
+      'usuarios/:id_usuario': 'perfil'
     },
 
     bienvenida: function() {
@@ -31,6 +33,13 @@ define(function(require) {
     login: function() {
       var loginView = new LoginView();
       ViewManager.render(loginView, $('#main-container'));
+    },
+
+    perfil: function(id_usuario) {
+      var perfilView = new PerfilView();
+      perfilView.id_usuario = id_usuario;
+      ViewManager.render(perfilView, $('#main-container'));
     }
+
   });
 });
