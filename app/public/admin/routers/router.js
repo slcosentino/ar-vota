@@ -2,13 +2,20 @@ define(function(require) {
   var ViewManager = require('admin/helpers/ViewManager'),
       UsuariosView = require('admin/views/UsuariosView'),
       LoginView = require('admin/views/LoginView'),
-      InicioView = require('admin/views/InicioView');
+      InicioView = require('admin/views/InicioView'),
+      BienvenidaView = require('admin/views/BienvenidaView');
 
   return Backbone.Router.extend({
     routes: {
-      '' : 'inicio',
+      '' : 'bienvenida',
+      'inicio': 'inicio',
       'usuarios': 'usuarios',
       'login': 'login'
+    },
+
+    bienvenida: function() {
+      var bienvenidaView = new BienvenidaView();
+      ViewManager.render(bienvenidaView, $('#main-container'));
     },
 
     inicio: function() {

@@ -26,7 +26,7 @@ define(function(require) {
       })
       .done(
         function(data, textStatus, jqXHR) {
-            window.location.replace('/admin');
+            window.location.replace('/admin/#inicio');
         })
         .fail(function(jqXHR, textStatus, errorThrown) {
           ErrorHelper.showError(jqXHR);

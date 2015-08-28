@@ -21,14 +21,18 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="/admin">#AV - Admin</a>
+          <% if (!usuario) { %>
+            <a class="navbar-brand" href="/admin">#AV - Admin</a>
+          <% } else { %>
+            <a class="navbar-brand" href="/admin/#inicio">#AV - Admin</a>
+          <% } %>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="navbar-collapse">
           <ul class="nav navbar-nav navbar-right">
             <li id="login-nav-link">
-              <% if(!usuario) { %>
+              <% if (!usuario) { %>
                 <a href="#login"><span class="glyphicon glyphicon-user" style="margin-right:5px"></span>Login</a>
               <% } else { %>
 
