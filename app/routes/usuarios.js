@@ -44,4 +44,44 @@ router.get('/perfil', authentication.isLoggedIn, function(req, res, next) {
   res.json(req.user);
 });
 
+router.get('/', authentication.isLoggedInAdmin, function(req, res, next) {
+  Usuario.find(function(err, usuarios) {
+    if (!err) {
+      res.json(usuarios);
+    } else {
+      return next(err);
+    }
+  });
+});
+
+router.get('/:id_usuario', authentication.isLoggedIn, function(req, res, next) {
+  var id_usuario = req.params.id_usuario;
+
+  Usuario.findOne(id_usuario,'-password -__v', function(err, usuario) {
+    if (!err) {
+      res.json(usuario);
+    } else {
+      return next(err);
+    }
+  });
+});
+
+router.put('/:id_usuario', authentication.isLoggedIn, function(req, res, next) {
+  var id_usuario = req.params.id_usuario;
+
+  if (!req.user.admin) {
+    if (!req.user.id_usuario === id_usuario) {
+      res.status(403).json({message: 'No tiene autorización'});
+    }
+  }
+
+  Usuario.findOneAndUpdate(id_usuario, req.body, function(err, usuario) {
+    if (!err) {
+      res.json({message: 'Usuario actualizado con exito'});
+    } else {
+      return next(err);
+    }
+  });
+});
+
 module.exports = router;

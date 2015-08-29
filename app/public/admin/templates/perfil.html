@@ -11,23 +11,25 @@
           <table class="table">
             <tbody>
               <tr>
-                <td>Nombre:</td>
-                <td><%= nombre %></td>
+                <td class="col-md-2">Nombre:</td>
+                <td id="nombre" class="user-data"><%= nombre %></td>
               </tr>
               <tr>
-                <td>Apellido:</td>
-                <td><%= apellido %></td>
+                <td class="col-md-2">Apellido:</td>
+                <td id="apellido" class="user-data"><%= apellido %></td>
               </tr>
             </tbody>
           </table>
         </div>
       </div>
+      <div id="ui-container" class="text-center">
+      </div>
     </div>
     <div class="panel-footer">
-      <a herf="#mensaje" type="button" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-envelope"></span></a>
+      <button id="mensaje-button" type="button" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-envelope"></span></button>
       <span class="pull-right">
-        <a href="#editar" type="button" class="btn btn-sm btn-warning"><span class="glyphicon glyphicon-edit"></span></a>
-        <a type="button" class="btn btn-sm btn-danger"><span class="glyphicon glyphicon-remove"></span></a>
+        <button id="editar-button" type="button" class="btn btn-sm btn-warning"><span class="glyphicon glyphicon-edit"></span></button>
+        <button id="desactivar-button" type="button" class="btn btn-sm btn-danger"><span class="glyphicon glyphicon-remove"></span></button>
       </span>
     </div>
 
