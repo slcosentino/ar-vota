@@ -26,7 +26,8 @@ define(function(require) {
       })
       .done(
         function(data, textStatus, jqXHR) {
-            window.location.hash = '#inicio';
+            //window.location.hash = '#inicio';
+            Backbone.history.navigate('#inicio', false);
             location.reload();
         })
         .fail(function(jqXHR, textStatus, errorThrown) {
