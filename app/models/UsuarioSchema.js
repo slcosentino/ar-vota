@@ -2,12 +2,15 @@ var mongoose = require('mongoose');
 var crypto = require('crypto');
 
 var UsuarioSchema = new mongoose.Schema({
-  id_usuario: {type: String, required: '{PATH} es un campo requerido'},
-  password: {type: String, required: '{PATH} es un campo requerido'},
-  admin: Boolean,
-  nombre: {type: String, required: '{PATH} es un campo requerido'},
-  apellido: {type: String, required: '{PATH} es un campo requerido'}
-});
+	  id_usuario: {type: String, required: '{PATH} es un campo requerido'},
+	  password: {type: String, required: '{PATH} es un campo requerido'},
+	  admin: Boolean,
+	  nombre: {type: String, required: '{PATH} es un campo requerido'},
+	  apellido: {type: String, required: '{PATH} es un campo requerido'},
+	  fechaCreacion: { type: String },
+	  email: { type: String },
+	  esCiudadano:{ type: Boolean }
+	});
 
 UsuarioSchema.methods.hashPassword = function(password) {
   var salt = crypto.randomBytes(64).toString('base64');
