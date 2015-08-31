@@ -79,10 +79,12 @@ router.put('/:id_usuario', authentication.isLoggedIn, function(req, res, next) {
     }
   }
 
-  Usuario.findOneAndUpdate(id_usuario, req.body, function(err, usuario) {
+  console.log(req.body);
+  Usuario.findOneAndUpdate({id_usuario: id_usuario}, req.body, function(err, usuario) {
     if (!err) {
       res.json({message: 'Usuario actualizado con exito'});
     } else {
+      console.log(err);
       return next(err);
     }
   });
