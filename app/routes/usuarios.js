@@ -60,8 +60,8 @@ router.get('/', authentication.isLoggedInAdmin, function(req, res, next) {
 
 router.get('/:id_usuario', authentication.isLoggedIn, function(req, res, next) {
   var id_usuario = req.params.id_usuario;
-
-  Usuario.findOne(id_usuario,'-password -__v', function(err, usuario) {
+ 
+  Usuario.findOne({id_usuario: id_usuario},'-password -__v', function(err, usuario) {
     if (!err) {
       res.json(usuario);
     } else {
