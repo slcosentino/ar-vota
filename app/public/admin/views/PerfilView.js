@@ -8,7 +8,7 @@ define(function(require) {
     events: {
       'click #editar-button': 'editar',
       'click #cancelar-button': 'cancelar',
-      'click #guardar-button': 'guardar'
+      'click #guardar-button': 'guardar'  
     },
 
     render: function() {

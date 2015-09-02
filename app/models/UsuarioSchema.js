@@ -9,7 +9,8 @@ var UsuarioSchema = new mongoose.Schema({
 	  apellido: {type: String, required: '{PATH} es un campo requerido'},
 	  fechaCreacion: { type: String },
 	  email: { type: String },
-	  esCiudadano:{ type: Boolean }
+	  esCiudadano:{ type: Boolean, default: true}, 
+    desactivado: {type: Boolean, default: false}
 	});
 
 UsuarioSchema.methods.hashPassword = function(password) {
