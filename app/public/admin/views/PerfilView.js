@@ -30,15 +30,8 @@ define(function(require) {
     },
 
     editar: function() {
-      this.$('.user-data').each(function(index, element) {
-        var previousValue = $(element).html();
-        $(element).html('<input type="text" class="form-control" id="nombre" value="' + previousValue + '">');
-      });
-
-      this.$('#ui-container').html(' \
-        <button id="guardar-button" type="button" class="btn btn-primary"><span class="glyphicon glyphicon-ok"></span> Guardar</button> \
-        <button id="cancelar-button" type="button" class="btn btn-default"><span class="glyphicon glyphicon-remove"></span> Cancelar</button> \
-      ');
+      url = '#usuarios/' + this.model.attributes.id_usuario + '/editar';
+      Backbone.history.navigate(url, true); 
     },
 
     cancelar: function() {

@@ -18,6 +18,20 @@
                 <td class="col-md-2">Apellido:</td>
                 <td id="apellido" class="user-data"><%= apellido %></td>
               </tr>
+              <tr>
+                <td class="col-md-2">Email:</td>
+                <td id="apellido" class="user-data"><%= email %></td>
+              </tr>
+              <tr>
+                <td class="Col-md-2">Tipo:</td>
+                <td id="tipo" class="user-data">
+                  <% if (esCiudadano) { %>
+                    Ciudadano
+                  <% } else { %>
+                    Candidato
+                  <% }%>
+                </td>
+              </tr>
             </tbody>
           </table>
         </div>
