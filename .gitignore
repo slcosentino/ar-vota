@@ -38,4 +38,4 @@ fonts/
 !app/**/*.css
 !app/**/*.json
 !app/**/*.ejs
-!www
+!app/bin/www
