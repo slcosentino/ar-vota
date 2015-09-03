@@ -39,11 +39,9 @@ define(function(require) {
         view.model.set($(element).attr('id'), value);
       });
 
-      var valor = $('input:radio[name=estadoRadios]:checked').val();
-      if (valor === 'desactivado') {
+      if ($('input[value=desactivado]').is(':checked')) {
         this.model.set('desactivado', true);
-      }
-      if (valor === 'activo') {
+      } else {
         this.model.set('desactivado', false);
       }
 
