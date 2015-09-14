@@ -1,0 +1,90 @@
+<div class="container">
+  <div class="panel panel-danger">
+    <div class="panel-heading">
+      <h3 class="panel-title"><%= id_usuario %> (Modo edición)</h3>
+    </div>
+    <div class="panel-body">
+
+      <div class="row">
+        <div class="col-md-3" align="center"> <img src="https://placehold.it/255x255" height="255px" width="255px"> </div>
+        <br>
+        <div class="col-md-9">
+          <span><h3>Datos generales del usuario</h3></span>
+          <form class="form-horizontal">
+            <div class="form-group">
+              <label class="col-md-2 control-label">Nombre</label>
+              <div class="col-md-8">
+                <input id="nombre" type="text" class="user-data form-control" value="<%= nombre %>">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-md-2 control-label">Apellido</label>
+              <div class="col-md-8">
+                <input id="apellido" type="text" class="user-data form-control" value="<%= apellido %>">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-md-2 control-label">Email</label>
+              <div class="col-md-8">
+                <input type="text" class="form-control" value="<%= email %>">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-md-2 control-label">Tipo</label>
+              <div class="col-md-8">
+                <% if (esCiudadano) { %>
+                <input type="text" class="form-control" value="Ciudadano" disabled>
+                <% } else { %>
+                <input type="text" class="form-control" value="Ciudadano" disabled>
+                <% }%>
+                Para cambiar este campo, debe seguir el procedimiento de verificación. Consulte el manual.
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-md-offset-1"><h4>Estado del usuario</h4></div>
+              <% if (desactivado) { %>
+              <div class="radio col-md-offset-1">
+                <label>
+                  <input type="radio" name="estadoRadios" value="desactivado" checked>
+                  Desactivado
+                </label>
+              </div>
+              <div class="radio col-md-offset-1">
+                <label>
+                  <input type="radio" name="estadoRadios" value="activo">
+                  Activo
+                </label>
+              </div>
+              <% } else { %>
+              <div class="radio col-md-offset-1">
+                <label>
+                  <input type="radio" name="estadoRadios" value="desactivado">
+                  Desactivado
+                </label>
+              </div>
+              <div class="radio col-md-offset-1">
+                <label>
+                  <input type="radio" name="estadoRadios" value="activo" checked>
+                  Activo
+                </label>
+              </div>
+              <% }%>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <div class="text-center">
+        <hr width="50%">
+
+        <button id="guardar-button" type="button" class="btn btn-primary">
+          <span class="glyphicon glyphicon-ok"></span> Guardar
+        </button>
+
+        <button id="cancelar-button" type="button" class="btn btn-default">
+          <span class="glyphicon glyphicon-remove"></span> Cancelar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
