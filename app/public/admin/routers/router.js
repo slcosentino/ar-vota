@@ -5,7 +5,8 @@ define(function(require) {
       InicioView = require('admin/views/InicioView'),
       BienvenidaView = require('admin/views/BienvenidaView'),
       PerfilView = require('admin/views/PerfilView'),
-      EditarPerfilView = require('admin/views/EditarPerfilView');
+      EditarPerfilView = require('admin/views/EditarPerfilView'),
+      CrearEncuestaView = require('admin/views/CrearEncuestaView');
 
   return Backbone.Router.extend({
     routes: {
@@ -14,7 +15,8 @@ define(function(require) {
       'usuarios': 'usuarios',
       'login': 'login',
       'usuarios/:id_usuario': 'perfil',
-      'usuarios/:id_usuario/editar': 'editar'
+      'usuarios/:id_usuario/editar': 'editar',
+      'encuestas/crear': 'crearEncuesta'
     },
 
     bienvenida: function() {
@@ -47,6 +49,11 @@ define(function(require) {
       var editarPerfilView = new EditarPerfilView();
       editarPerfilView.id_usuario = id_usuario;
       ViewManager.render(editarPerfilView, $('#main-container'));     
+    },
+
+    crearEncuesta: function() {
+      var crearEncuestaView = new CrearEncuestaView();
+      ViewManager.render(crearEncuestaView, $('#main-container'));
     }
 
   });
