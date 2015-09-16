@@ -5,6 +5,7 @@ define(function(require) {
   return Backbone.View.extend({
     template: _.template(template),
     events: {
+      'click #publish-button': 'publish'
     },
 
     render: function() {	
@@ -12,12 +13,12 @@ define(function(require) {
       return this;
     },
 	
-	publicar: function(event) {
+	publish: function(event) {
 		event.preventDefault();
 			view = this;
 			$.ajax({
 				method: 'POST',
-				url: '/api/publicar',
+				url: '/api/propuestas/pepe',
 				contentType: 'application/json',
 				data: JSON.stringify({
 				'id_usuario': view.$('#id_usuario').val(),

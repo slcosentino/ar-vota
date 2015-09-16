@@ -3,11 +3,11 @@ var router = express.Router();
 var passport = require('passport');
 
 var authentication = require('../middlewares/authentication');
-var Propuesta = require('../models/PropuestasSchema');
+var Propuesta = require('../models/PropuestaSchema');
 
-router.post('/', function(req, res, next) {
+router.post('/pepe', function(req, res, next) {
   var propuesta = new Propuesta();
-  propuesta.id_usuario = req.body.id_usuario;
+  //propuesta.id_usuario = req.body.id_usuario;
   propuesta.descripcion = req.body.descripcion;
   // propuesta.imagen = req.body.imagen;
 
