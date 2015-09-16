@@ -11,6 +11,27 @@ define(function(require) {
       this.$el.html(this.template);
       return this;
     },
+	
+	publicar: function(event) {
+		event.preventDefault();
+			view = this;
+			$.ajax({
+				method: 'POST',
+				url: '/api/publicar',
+				contentType: 'application/json',
+				data: JSON.stringify({
+				'id_usuario': view.$('#id_usuario').val(),
+				'descripcion': view.$('#descripcion').val()})
+			})
+			.done(
+			function(data, textStatus, jqXHR) {
+				window.location.replace('/');
+			})
+			.fail(function(jqXHR, textStatus, errorThrown) {
+			  ErrorHelper.showError(jqXHR);
+			});
+	}
+	
 	// $(".js-ListaCandidatos").select2({
 		// ajax: {
 			// url: "/api/usuarios/...",

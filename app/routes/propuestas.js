@@ -5,12 +5,11 @@ var passport = require('passport');
 var authentication = require('../middlewares/authentication');
 var Propuesta = require('../models/PropuestasSchema');
 
-router.post('/propuesta', function(req, res, next) {
+router.post('/publicar', function(req, res, next) {
   var propuesta = new Propuesta();
   propuesta.id_usuario = req.body.id_usuario;
-  propuesta.texto = req.body.texto;
-  propuesta.imagen = req.body.imagen;
-  propuesta.email = req.body.email;
+  propuesta.descripcion = req.body.descripcion;
+  // propuesta.imagen = req.body.imagen;
 
   propuesta.save(function(err) {
     if (!err)
