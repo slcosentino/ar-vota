@@ -13,13 +13,12 @@ router.post('/propuesta', function(req, res, next) {
   propuesta.email = req.body.email;
 
   propuesta.save(function(err) {
-    if (!err) {
-      req.login(usuario, function(err) {
-        if (!err) {
-          res.json({message: 'Propuesta creada con exito'})
-        }
-      });
-    } else {
+    if (!err)
+	{
+		res.json({message: 'Propuesta creada con exito'})
+    } 
+	else
+	{
       res.status(400).json({message: 'Verifique los campos'});
     }
   });
