@@ -5,7 +5,7 @@ var passport = require('passport');
 var authentication = require('../middlewares/authentication');
 var Propuesta = require('../models/PropuestaSchema');
 
-router.post('/pepe', function(req, res, next) {
+router.post('/', function(req, res, next) {
   var propuesta = new Propuesta();
   //propuesta.id_usuario = req.body.id_usuario;
   propuesta.descripcion = req.body.descripcion;

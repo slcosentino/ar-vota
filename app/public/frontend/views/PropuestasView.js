@@ -18,7 +18,7 @@ define(function(require) {
 			view = this;
 			$.ajax({
 				method: 'POST',
-				url: '/api/propuestas/pepe',
+				url: '/api/propuestas/',
 				contentType: 'application/json',
 				data: JSON.stringify({
 				'id_usuario': view.$('#id_usuario').val(),
@@ -35,7 +35,7 @@ define(function(require) {
 	
 	// $(".js-ListaCandidatos").select2({
 		// ajax: {
-			// url: "/api/usuarios/...",
+			// url: "/api/usuarios/",
 			// dataType: 'json',
 			// delay: 250,
 			// data: function (params) {
