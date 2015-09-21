@@ -101,7 +101,10 @@ define(function(require) {
       }
 
       var encuesta = new Encuesta();
+      encuesta.set('topico', this.$('#topico-select').find('option:selected').text());
+      encuesta.set('titulo', this.$('#titulo-input').val());
       encuesta.set('preguntas', this.collection);
+
       encuesta.save();
     },
 
