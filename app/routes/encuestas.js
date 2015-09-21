@@ -19,7 +19,10 @@ router.get('/', authentication.isLoggedInAdmin, function(req, res, next) {
 router.post('/', function(req, res, next) {
   var encuesta = new Encuesta();
 
+  encuesta.topico = req.body.topico;
+  encuesta.titulo = req.body.titulo;
   encuesta.preguntas = req.body.preguntas;
+
   console.log(encuesta.preguntas);
 
   encuesta.save(function(err) {
