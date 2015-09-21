@@ -11,7 +11,7 @@ define(function(require) {
     template: _.template(template),
     events: {
       'click #agregar-pregunta-button': 'agregarPregunta',
-         'click #crear-encuesta-button': 'crearEncuesta'
+      'click #crear-encuesta-button': 'crearEncuesta'
     },
 
     initialize: function() {

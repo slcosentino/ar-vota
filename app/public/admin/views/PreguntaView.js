@@ -17,7 +17,7 @@ define(function(require) {
       this.preguntas = options.parent.collection; 
       this.respuestaViews = [];
       this.respuestas = this.model.get('respuestas');
-      this.listenTo(this.respuestas, 'add', this.renderCollection);
+      this.listenTo(this.respuestas, 'add', this.renderItem);
     },
 
     render: function() {
