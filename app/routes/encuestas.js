@@ -4,6 +4,7 @@ var passport = require('passport');
 
 var authentication = require('../middlewares/authentication');
 var Encuesta = require('../models/EncuestaSchema');
+var Topico = require('../models/TopicoSchema');
 
 router.get('/', authentication.isLoggedInAdmin, function(req, res, next) {
   Encuesta.find(function(err, encuestas){
@@ -26,6 +27,16 @@ router.post('/', function(req, res, next) {
       res.json({message: 'Encuesta creada con exito'})
     } else {
       res.status(400).json({message: 'Error al crear la encuesta'});
+    }
+  });
+});
+
+router.get('/topicos', function(req, res, next) {
+  Topico.find('-_id', function(err, topicos){
+    if (!err) {
+      res.json(topicos);
+    } else {
+      return next(err);
     }
   });
 });

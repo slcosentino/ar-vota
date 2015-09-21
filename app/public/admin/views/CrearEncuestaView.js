@@ -4,13 +4,14 @@ define(function(require) {
       Preguntas = require('admin/collections/Preguntas'),
       Encuesta = require('admin/models/Encuesta'),
       Pregunta = require('admin/models/Pregunta'),
-      Respuestas = require('admin/collections/Respuestas');
+      Respuestas = require('admin/collections/Respuestas'),
+      Topicos = require('admin/collections/Topicos');
 
-return Backbone.View.extend({
-  template: _.template(template),
+  return Backbone.View.extend({
+    template: _.template(template),
     events: {
       'click #agregar-pregunta-button': 'agregarPregunta',
-      'click #crear-encuesta-button': 'crearEncuesta'
+         'click #crear-encuesta-button': 'crearEncuesta'
     },
 
     initialize: function() {
@@ -18,20 +19,44 @@ return Backbone.View.extend({
       this.collection = new Preguntas();
       this.index = 0;
 
+      this.topicos = new Topicos();
+
       this.listenTo(this.collection, 'add', this.refresh);
+      this.listenTo(this.topicos, 'reset', this.setTopicos);
+
+      this.topicos.fetch({
+        reset: true
+      });
     },
 
-   render: function() {
-     this.$el.html(this.template());
-     return this;
-   },
+    render: function() {
+      this.$el.html(this.template());
+      return this;
+    },
 
-   agregarPregunta: function() {
-     var pregunta = new Pregunta(this.getAttributes());
-     pregunta.index = this.getIndex();
-     this.incIndex();
-     this.collection.add(pregunta);
-   },
+    setTopicos: function() {
+      console.log(this.topicos);
+      var topicos = [];
+      var counter = 0;
+      this.topicos.each(function(item) {
+        topicos.push({id: counter, text: item.get('texto')});
+        counter++;
+      }, this);
+
+      console.log(topicos)
+        this.$('#topico-select').select2({
+          theme: "bootstrap",
+          data: topicos
+        });
+
+    },
+
+    agregarPregunta: function() {
+      var pregunta = new Pregunta(this.getAttributes());
+      pregunta.index = this.getIndex();
+      this.incIndex();
+      this.collection.add(pregunta);
+    },
 
     getAttributes: function() {
       return {
@@ -39,12 +64,17 @@ return Backbone.View.extend({
         respuestas: new Respuestas()
       }
     },
- 
+
     refresh: function() {
       this.updateModels(); 
-      this.preguntaViews = [];
-      this.render();
+      this.cleanUp();
       this.renderCollection();
+    },
+
+    cleanUp: function() {
+      for (var i = 0; i < this.preguntaViews.length ; i++) {
+        this.preguntaViews[i].eliminarPregunta();
+      }
     },
 
     renderCollection: function() { 
@@ -58,7 +88,7 @@ return Backbone.View.extend({
     renderItem: function(pregunta) {
       var preguntaView = new PreguntaView({
         model: pregunta,
-        parent: this
+      parent: this
       });
 
       this.preguntaViews.push(preguntaView);

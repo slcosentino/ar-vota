@@ -2,7 +2,6 @@
   <div class="page-header text-center">
     <h2>Creación de encuesta</h2>
   </div>
-
   <div>
     <button id="agregar-pregunta-button" type="button" class="btn btn-primary pull-right" style="margin-right:20px">
       <span class="glyphicon glyphicon-plus-sign"></span> Pregunta    
@@ -10,10 +9,26 @@
     <button id="crear-encuesta-button" type="button" class="btn btn-primary" style="margin-left:20px">
       <span class="glyphicon glyphicon-hdd"></span> Crear
     </button>
-
   </div>
 
-  <div style="margin-top:100px">
+  <br>
+  <br>
+
+  <div class="col-sm-6 col-sm-offset-3">
+    <form role="form">
+      <div class="form-group">
+        <label for="topico-select">Topico</label>
+        <select id="topico-select" class="select2 form-control" style="width:auto">
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="titulo-input">Titulo</label>
+        <input type="text" class="form-control" id="titulo-input" placeholder="Titulo de la encuesta">
+      </div>
+    </form>
+  </div>
+
+  <div style="margin-top:200px">
     <div id="preguntas-container"></div>
   </div>
 </div>

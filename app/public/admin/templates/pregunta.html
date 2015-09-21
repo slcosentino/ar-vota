@@ -1,49 +1,49 @@
-<div class="row">
-  <div class="col-xs-8 col-xs-offset-2">
-    <div class="panel panel-default">
-      <div class="panel-body">
-        <span>
-          <h4>Pregunta <%= nro_pregunta + 1 %></h4>
-        </span>
+<div class="col-xs-8 col-xs-offset-2">
+  <div class="panel panel-default">
+    <div class="panel-body">
+      <span>
+        <h4>Pregunta <%= nro_pregunta + 1 %></h4>
+      </span>
 
-        <div>
-          <% if (texto) { %>
-          <input id="pregunta-input" type="text" class="form-control" value="<%= texto %>" placeholder="Ingrese la pregunta">
-          <% } else { %>
-          <input id="pregunta-input" type="text" class="form-control" value="" placeholder="Ingrese la pregunta">
-          <% } %>
-        </div>
-
-        <div style="margin-top:20px">
-          <h5>Agregar respuesta</h5>
-        </div>
-
-        <div class="input-group">
-          <input id="agregar-respuesta-input" type="text" class="form-control" value="" placeholder="Ingrese la respuesta">
-          <span class="input-group-btn">
-            <button id="agregar-respuesta-button" type="button" class="btn btn-primary btn-small">
-              <span class="glyphicon glyphicon-plus-sign"></span>
-            </button>
-          </span>
-        </div>
-
-        <br>
-        <div>
-          <h4>Respuestas</h4>
-        </div>
-        <div id="respuestas-container"></div>
+      <div>
+        <% if (texto) { %>
+        <input id="pregunta-input" type="text" class="form-control" value="<%= texto %>" placeholder="Ingrese la pregunta">
+        <% } else { %>
+        <input id="pregunta-input" type="text" class="form-control" value="" placeholder="Ingrese la pregunta">
+        <% } %>
       </div>
-      <div class="panel-footer">
+
+      <div style="margin-top:20px">
+        <h5>Agregar respuesta</h5>
+      </div>
+
+      <div class="input-group">
+        <input id="agregar-respuesta-input" type="text" class="form-control" value="" placeholder="Ingrese la respuesta">
+        <span class="input-group-btn">
+          <button id="agregar-respuesta-button" type="button" class="btn btn-primary btn-small">
+            <span class="glyphicon glyphicon-plus-sign"></span>
+          </button>
+        </span>
+      </div>
+
+      <br>
+
+      <div>
+        <h4>Respuestas</h4>
+      </div>
+      <div id="respuestas-container"></div>
+    </div>
+    <div class="panel-footer">
+      <div class="btn-group" role="group">
+        <button id="up-button" type="button" class="btn btn-sm btn-primary">
+          <span class="glyphicon glyphicon-arrow-up"></span>
+        </button>
+        <button id="down-button" type="button" class="btn btn-sm btn-primary">
+          <span class="glyphicon glyphicon-arrow-down"></span>
+        </button>
+      </div>
+      <div class="pull-right">
         <div class="btn-group" role="group">
-          <button id="up-button" type="button" class="btn btn-sm btn-primary">
-            <span class="glyphicon glyphicon-arrow-up"></span>
-          </button>
-          <button id="down-button" type="button" class="btn btn-sm btn-primary">
-            <span class="glyphicon glyphicon-arrow-down"></span>
-          </button>
-        </div>
-        <div class="pull-right">
-          <div class="btn-group" role="group">
           <button id="agregar-pregunta-button" type="button" class="btn btn-sm btn-primary">
             <span class="glyphicon glyphicon-plus-sign"></span>
           </button>
@@ -52,11 +52,7 @@
             <span class="glyphicon glyphicon-remove"></span>
           </button>
         </div>
-
-        </div>
       </div>
-
     </div>
-
   </div>
 </div>
