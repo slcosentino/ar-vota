@@ -2,14 +2,19 @@ define(function(require) {
 	var ViewManager = require('frontend/helpers/ViewManager'),
 	LoginView = require('frontend/views/LoginView'),
 	RecoverView = require('frontend/views/RecoverView'),
-	PropuestasView = require('frontend/views/PropuestasView'),
-	RegisterView = require('frontend/views/RegisterView');;
+	PropuestasAddView = require('frontend/views/propuestas/AddView'),
+	PropuestasOverView = require('frontend/views/propuestas/OverView'),
+	PropuestasView = require('frontend/views/propuestas/PropuestasView'),
+	PropuestaView = require('frontend/views/propuestas/PropuestaView'),
+	RegisterView = require('frontend/views/RegisterView');
 
   return Backbone.Router.extend({
     routes: {
 	  'login': 'login',
 	  'recover': 'recover',
 	  'register': 'register',
+	  'propuestasAdd': 'propuestasAdd',
+	  'propuestasOverview': 'propuestasOverview',
 	  'propuestas': 'propuestas'
     },
 	login: function() {
@@ -24,9 +29,18 @@ define(function(require) {
       var recoverView = new RecoverView();
       ViewManager.render(recoverView, $('#main-container'));
     },
-	propuestas: function() {
-      var propuestasView = new PropuestasView();
-      ViewManager.render(propuestasView, $('#main-container'));
+	propuestasAdd: function() {
+      var propuestasAddView = new PropuestasAddView();
+      ViewManager.render(propuestasAddView, $('#main-container'));
+    },
+ 	propuestasOverview: function() {
+      var propuestasOverView = new PropuestasOverView();
+      propuestasOverView._id = "5600550306b736d052bc6097";
+      ViewManager.render(propuestasOverView, $('#main-container'));
+    },
+    propuestas: function() {	
+    	var propuestasView = new PropuestasView();
+        ViewManager.render(propuestasView, $('#main-container'));
     }
   });
 });
