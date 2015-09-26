@@ -93,4 +93,14 @@ router.put('/:id_usuario', authentication.isLoggedIn, function(req, res, next) {
   });
 });
 
+router.get('/candidatos', function(req, res, next) {
+  Usuario.find('-_id', function(err, candidatos){
+    if (!err) {
+      res.json(candidatos);
+    } else {
+      return next(err);
+    }
+  });
+});
+
 module.exports = router;

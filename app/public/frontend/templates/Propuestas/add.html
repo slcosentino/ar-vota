@@ -8,13 +8,18 @@
 			<div class="form-group">			
 				<label for="input-titulo">Titulo</label>
                 <input type="text" class="form-control" id="titulo" placeholder="Titulo">			
+			</div>
+			<div class="form-group">
 				<label for="input-descripcion">Descripción</label>
 				<textarea id="descripcion" rows="5" cols="40">Escribe aquí tus comentarios</textarea>
-			    <select class="js-ListaCandidatos">
-				</select>
-				<!-- <div id="uploadFile"></div> -->
 			</div>
-            <button id="publish-button" type="submit" class="btn btn-sm btn-default">Publicar</button>
+			<div class="form-group">
+				<label for="candidato-select">Candidato</label>
+				<select id="candidato-select" class="select2 form-control" style="width:auto">
+				</select>
+			</div>
+			<!-- <div id="uploadFile"></div> -->
+			<button id="publish-button" type="submit" class="btn btn-sm btn-default">Publicar</button>
           </form>
         </div>
       </div>
