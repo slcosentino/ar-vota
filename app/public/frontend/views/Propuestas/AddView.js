@@ -11,12 +11,8 @@ define(function(require) {
     },
 	
     initialize: function() {
-      this.index = 0;
-
       this.usuarios = new Usuarios();
-
       this.listenTo(this.usuarios, 'reset', this.setCandidatos);
-
       this.usuarios.fetch({
         reset: true
       });
@@ -35,7 +31,7 @@ define(function(require) {
 			url: '/api/propuestas/',
 			contentType: 'application/json',
 			data: JSON.stringify({
-			'id_usuario': view.$('#id_usuario').val(),
+			'id_usuario': view.$('#id_usuario').val(), //El id de usuario lo obtenes en la carga de la pagina principal
 			'titulo': view.$('#titulo').val(),
 			'descripcion': view.$('#descripcion').val()})
 		})
@@ -53,44 +49,16 @@ define(function(require) {
       var usuarios = [];
       var counter = 0;
       this.usuarios.each(function(item) {
-        usuarios.push({id: counter, text: item.get('texto')});
+        usuarios.push({id: counter, text: item.get('id_usuario')});
         counter++;
       }, this);
 
-      console.log(usuarios)
+
         this.$('#candidato-select').select2({
           theme: "bootstrap",
           data: usuarios
         });
     },
 	
-	// Backbone.TemplateManager.baseUrl = 'templates/{name}';
-	 
-	// // Create the upload manager
-	// var uploadManager = new Backbone.UploadManager({
-		// 'uploadUrl': '/upload',
-		// 'templates': {
-			// 'main': 'upload-manager.main',
-			// 'file': 'upload-manager.file'
-		// }
-	// });
-	 
-	// // Render it
-	// uploadManager.renderTo($('div#uploadFile'));
-	
-	// // On file uploaded, refresh list.
-	// uploadManager.on('filedone', function () {
-		// $.get('/files').done(function(result){
-			// var target = $('ul#file-list').empty();
-			
-			// $.each(result, function (index, file) {
-				// target.append(
-					// '<li>'+file.name+' ('+file.size+' bytes) '+
-					// '<a href="'+file.download_url+'">Downlooad<a>'+
-					// '</li>'
-				// );
-			// });
-		// });
-	// });
   });
 });

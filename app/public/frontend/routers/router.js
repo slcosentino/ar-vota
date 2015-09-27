@@ -2,10 +2,10 @@ define(function(require) {
 	var ViewManager = require('frontend/helpers/ViewManager'),
 	LoginView = require('frontend/views/LoginView'),
 	RecoverView = require('frontend/views/RecoverView'),
-	PropuestasAddView = require('frontend/views/propuestas/AddView'),
-	PropuestasOverView = require('frontend/views/propuestas/OverView'),
-	PropuestasView = require('frontend/views/propuestas/PropuestasView'),
-	PropuestaView = require('frontend/views/propuestas/PropuestaView'),
+	PropuestasAddView = require('frontend/views/Propuestas/AddView'),
+	PropuestasOverView = require('frontend/views/Propuestas/OverView'),
+	PropuestasView = require('frontend/views/Propuestas/PropuestasView'),
+	PropuestaView = require('frontend/views/Propuestas/PropuestaView'),
 	RegisterView = require('frontend/views/RegisterView');
 
   return Backbone.Router.extend({

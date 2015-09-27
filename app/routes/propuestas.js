@@ -32,7 +32,7 @@ router.get('/', authentication.isLoggedIn, function(req, res, next) {
   });
 });
 
-router.get('/pepe', authentication.isLoggedIn, function(req, res, next) {
+router.get('/pepe',  function(req, res, next) {
 	var id_propuesta = req.params.propuesta;
  
 	Propuesta.findOne({titulo: 'prop'}, function(err, propuesta) {
@@ -44,32 +44,30 @@ router.get('/pepe', authentication.isLoggedIn, function(req, res, next) {
 	});
 });
 
-// router.post('/comentar/:_id', function(req, res, next) {
-	
-	// var comentario = new Comentario();
-	// var propuesta = Propuesta.findOne({_id: _id}, function(err, propuesta) {
-		// if (!err) {
-			// res.json(propuesta);
-		// } else {
-			// return next(err);
-		// }
-	// });
-  
-	// if(propuesta != 'undefined') {
-		// comentario.id_propuesta = req.body.id_propuesta;
-		// comentario.descripcion = req.body.descripcion;  
-	// } else {
-		// res.status(400).json({message: 'Verifique los campos'});
-    // }
+router.post('/comentar/:id', function(req, res, next) {
+  var id = req.params.id; //Faltaba esto
 
-	// comentario.save(function(err) {
-		// if (!err) {
-		  // res.json({message: 'Comentario creada con exito'})
-		// } else {
-		  // res.status(400).json({message: 'Verifique los campos'});
-		// }
-	// });
-// });
+  var comentario = new Comentario();
+  var propuesta = Propuesta.findOne({_id: id}, function(err, propuesta) {
+    if (err) {
+      console.log(err);
+      res.status(400).json({message: 'Propuesta no encontrada'})
+    } else {
+      propuesta.toObject(); 
+      comentario.id_propuesta = propuesta['_id'];
+      comentario.descripcion = req.body.comentario;
+
+      comentario.save(function(err) {
+        if (!err) {
+          res.json({message: 'Comentario creada con exito'})
+        } else {
+          console.log(err);
+          res.status(400).json({message: 'Verifique los campos'});
+        }
+      });
+    }
+  });
+});
 
 router.put('/like/pepe', function(req, res, next) {
     Propuesta.findOneAndUpdate({titulo: 'prop'},  req.body, function(err, propuesta) {
