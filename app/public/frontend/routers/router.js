@@ -1,5 +1,6 @@
 define(function(require) {
 	var ViewManager = require('frontend/helpers/ViewManager'),
+	IndexView = require('frontend/views/IndexView'),
 	LoginView = require('frontend/views/LoginView'),
 	RecoverView = require('frontend/views/RecoverView'),
 	PropuestasAddView = require('frontend/views/Propuestas/AddView'),
@@ -10,12 +11,18 @@ define(function(require) {
 
   return Backbone.Router.extend({
     routes: {
+      '': 'index',
+      'index': 'index',
 	  'login': 'login',
 	  'recover': 'recover',
 	  'register': 'register',
 	  'propuestasAdd': 'propuestasAdd',
 	  'propuestasOverview': 'propuestasOverview',
 	  'propuestas': 'propuestas'
+    },
+    index: function() {
+        var indexView = new IndexView();
+        ViewManager.render(indexView, $('#main-container'));
     },
 	login: function() {
       var loginView = new LoginView();

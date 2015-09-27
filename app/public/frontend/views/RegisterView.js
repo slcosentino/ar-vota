@@ -1,16 +1,49 @@
 define(function(require) {
   var template = require('text!frontend/templates/register.html'),
-      ErrorHelper = require('frontend/helpers/ErrorHelper');
+  		ProvinciasCiudades = require('frontend/collections/ProvinciaCiudad')
+  		ErrorHelper = require('frontend/helpers/ErrorHelper');
 
   return Backbone.View.extend({
     template: _.template(template),
     events: {
       'click #register-button': 'register'
     },
+    
+	initialize: function() {	 
+	console.log("acaaaaaaaa");
+	    this.provinciasCiudades = new ProvinciasCiudades();
+	
+	  
+	    this.listenTo(this.provinciasCiudades, 'reset', this.setProvinciasCiudades);
+	
+	    this.provinciasCiudades.fetch({
+	      reset: true
+	    });
+	    
+	    
+	},
 
     render: function() {	
       this.$el.html(this.template);
       return this;
+    },
+    
+    setProvinciasCiudades: function() {
+    	console.log("aca");
+        console.log(this.provinciasCiudades);
+        /*var topicos = [];
+        var counter = 0;
+        this.topicos.each(function(item) {
+          topicos.push({id: counter, text: item.get('texto')});
+          counter++;
+        }, this);
+
+        console.log(topicos)
+          this.$('#topico-select').select2({
+            theme: "bootstrap",
+            data: topicos
+          });
+		*/
     },
 		
 	register: function(event) {

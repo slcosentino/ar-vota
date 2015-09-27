@@ -2,7 +2,7 @@ define(function(require) {
   var template = require('text!frontend/templates/Propuestas/propuesta.html');
 
   return Backbone.View.extend({
-    tagName: 'tr',
+    tagName: 'article',    
     template: _.template(template),
     events: {
       'click #ver-button': 'perfil'
