@@ -48,7 +48,6 @@ define(function(require) {
           theme: "bootstrap",
           data: topicos
         });
-
     },
 
     agregarPregunta: function() {
@@ -73,14 +72,17 @@ define(function(require) {
 
     cleanUp: function() {
       for (var i = 0; i < this.preguntaViews.length ; i++) {
-        this.preguntaViews[i].eliminarPregunta();
+        this.preguntaViews[i].cleanUp();
       }
     },
 
-    renderCollection: function() { 
+    renderCollection: function() {
+      var nro_pregunta = 0;
       this.collection.sort();
 
       this.collection.each(function(item) {
+        nro_pregunta++;
+        item.set('nro_pregunta', nro_pregunta);
         this.renderItem(item);
       }, this);
     },
@@ -88,7 +90,7 @@ define(function(require) {
     renderItem: function(pregunta) {
       var preguntaView = new PreguntaView({
         model: pregunta,
-      parent: this
+        parent: this
       });
 
       this.preguntaViews.push(preguntaView);
@@ -120,6 +122,10 @@ define(function(require) {
       for (var i = 0; i < this.preguntaViews.length ; i++) {
         this.preguntaViews[i].updateModel();
       }
+    },
+
+    eliminarPregunta: function(pregunta) {
+      this.collection.remove(pregunta);
     }
   });
 });

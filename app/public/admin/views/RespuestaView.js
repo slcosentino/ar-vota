@@ -12,18 +12,18 @@ define(function(require) {
       return this;
     },
 
-    initialize: function() {
-      
+    initialize: function(options) {
+      this.parent = options.parent;
     },
 
     eliminarRespuesta: function() {
+      this.parent.eliminarRespuesta(this.model, this);
       this.close();
     },
 
     updateModel: function() {
       this.model.set('texto', this.$('#respuesta-input').val());
-      return this.model;
- 
+      return this.model; 
     }
   });
 });
