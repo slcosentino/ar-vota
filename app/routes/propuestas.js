@@ -45,7 +45,7 @@ router.get('/pepe',  function(req, res, next) {
 });
 
 router.post('/comentar/:id', function(req, res, next) {
-  var id = req.params.id; //Faltaba esto
+  var id = req.params.id;
 
   var comentario = new Comentario();
   var propuesta = Propuesta.findOne({_id: id}, function(err, propuesta) {
@@ -69,8 +69,10 @@ router.post('/comentar/:id', function(req, res, next) {
   });
 });
 
-router.put('/like/pepe', function(req, res, next) {
-    Propuesta.findOneAndUpdate({titulo: 'prop'},  req.body, function(err, propuesta) {
+router.put('/like/:id', function(req, res, next) {
+	var id = req.params.id;
+    
+	Propuesta.findOneAndUpdate({_id: id},  req.body, function(err, propuesta) {
     if (!err) {
       propuesta = propuesta.toObject();
 	  propuesta.cantidad_likes = 1; 
@@ -82,14 +84,27 @@ router.put('/like/pepe', function(req, res, next) {
   });
 });
 
-router.put('/disLike/pepe', function(req, res, next) {
-    Propuesta.findOneAndUpdate({titulo: 'prop'},  req.body, function(err, propuesta) {
+router.put('/disLike/:id', function(req, res, next) {
+	var id = req.params.id;
+		
+    Propuesta.findOneAndUpdate({_id: id},  req.body, function(err, propuesta) {
     if (!err) {
       propuesta = propuesta.toObject();
 	  propuesta.cantidad_disLikes = 1; 
       res.json(propuesta);
     } else {
       console.log(err);
+      return next(err);
+    }
+  });
+});
+
+router.get('/comentarios/:id_propuesta', authentication.isLoggedIn, function(req, res, next) {
+  var id_propuesta = req.params.id_propuesta;
+  Comentarios.find({id_propuesta : id_propuesta}, function(err, comentarios) {
+    if (!err) {
+      res.json(comentarios);
+    } else {
       return next(err);
     }
   });

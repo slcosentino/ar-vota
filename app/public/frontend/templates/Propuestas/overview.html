@@ -7,20 +7,25 @@
 				<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
 					<div class="box">
 						<div class="info">
-							<h4 class="text-center">Title</h4>
-							<img src="https://placehold.it/500x200" width=500 height=200 >
+							<h4 class="text-center"><%= titulo %></h4>
+							<div>
+								<img src="https://placehold.it/500x200" width=500 height=200 >
+							</div>
 							<div class="box-icon">
 								<span class="fa fa-4x fa-html5"><div class="col-md-3 col-lg-3 " align="center"> <img alt="User Pic" src="https://placehold.it/255x255" class="img-circle img-responsive"> </div></span>
 							</div>							
-							<input type="text" class="form-control" id="titulo" value="<%= descripcion %>">	
-							<textarea id="descripcion" rows="5" cols="40"><%= descripcion %></textarea>			
+							<div>
+								<p><%= descripcion %></p>
+							</div>
 							<span>
 								<button id="likePropuesta-button" type="button" class="btn btn-default tip fav ladda-button" title="" data-style="expand-right" data-spinner-color="#428bca" data-original-title="like">
 									<span class="glyphicon glyphicon-thumbs-up"></span>
 								</button>
 							</span>
 							<span>
-								<button id="disLikePropuesta-button" class="btn btn-default tip fav ladda-button" title="" data-style="expand-right" data-spinner-color="#428bca" data-original-title="dislike"><span class="glyphicon glyphicon-thumbs-down"></span></button>
+								<button id="disLikePropuesta-button" class="btn btn-default tip fav ladda-button" title="" data-style="expand-right" data-spinner-color="#428bca" data-original-title="dislike">
+									<span class="glyphicon glyphicon-thumbs-down"></span>
+								</button>
 							</span>
 							<div class="required-field-block">
 								<textarea id="comentario" rows="3" class="form-control" placeholder="Deje un comentario"></textarea>
@@ -32,6 +37,11 @@
 								  <span class="glyphicon glyphicon-remove"></span> Cancelar
 								</button>
 							</div>
+							
+							<div style="margin-top:200px">
+								<div id="comentarios-container"></div>
+							</div>
+					
 						</div>
 					</div>				
 				</div>

@@ -42,7 +42,6 @@ define(function(require) {
     },
  	propuestasOverview: function() {
       var propuestasOverView = new PropuestasOverView();
-      propuestasOverView._id = "5600550306b736d052bc6097";
       ViewManager.render(propuestasOverView, $('#main-container'));
     },
     propuestas: function() {	
