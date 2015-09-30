@@ -71,18 +71,16 @@ router.post('/comentar/:id', function(req, res, next) {
 });
 
 router.put('/like/:id', function(req, res, next) {
-	var id = req.params.id;
-    
-	Propuesta.findOneAndUpdate({_id: id},  req.body, function(err, propuesta) {
+  var id = req.params.id;
+
+  Propuesta.findOneAndUpdate({_id: id},  {$inc: {cantidad_likes: 1}}, function(err, propuesta) {
     if (!err) {
-      propuesta = propuesta.toObject();
-	  propuesta.cantidad_likes = 1; 
       res.json(propuesta);
     } else {
       console.log(err);
       return next(err);
-    }
-  });
+    }   
+  }); 
 });
 
 router.put('/disLike/:id', function(req, res, next) {
