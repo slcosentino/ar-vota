@@ -34,52 +34,52 @@ define(function(require) {
         this.$el.html(this.template(this.model.attributes));
     },
 	  
-	comentar: function(event) {
-		 event.preventDefault();
-			 view = this;
-			 $.ajax({
-				 method: 'POST',
-				 url: '/api/propuestas/comentar/' + this.model.get('id'),
-				 contentType: 'application/json',
-				 data: JSON.stringify({
-				 'comentario': view.$('#comentario').val()})
-			 })
-			 .done()
-			 .fail(function(jqXHR, textStatus, errorThrown) {
-			   ErrorHelper.showError(jqXHR);
-			 });
-	 },
-	  
-	likePropuesta: function(event) {
-		event.preventDefault();
-		view = this;
-		$.ajax({
-			method: 'POST',
-			url: '/api/propuestas/like/' + this.model.get('id'),
-			contenttype: 'application/json',
-			data: JSON.stringify({})
-		})
-		.done()
-		.fail(function(jqXHR, textStatus, errorThrown) {
-		  ErrorHelper.showError(jqXHR);
-		});
-	},
-	
-	disLikePropuesta: function(event) {
-		event.preventDefault();
-		view = this;
-		$.ajax({
-			method: 'POST',
-			url: '/api/propuestas/disLike/' + this.model.get('id'),
-			contentType: 'application/json',
-			data: JSON.stringify({})
-		})
-		.done()
-		.fail(function(jqXHR, textStatus, errorThrown) {
-		  ErrorHelper.showError(jqXHR);
-		});
-	}
-	
+	  comentar: function(event) {
+      event.preventDefault();
+      view = this;
+      $.ajax({
+        method: 'POST',
+        url: '/api/propuestas/comentar/' + this.model.get('id'),
+        contentType: 'application/json',
+        data: JSON.stringify({
+          'comentario': view.$('#comentario').val()})
+      })
+      .done()
+        .fail(function(jqXHR, textStatus, errorThrown) {
+          ErrorHelper.showError(jqXHR);
+        });
+    },
+
+	  likePropuesta: function(event) {
+      event.preventDefault();
+      view = this;
+      $.ajax({
+        method: 'PUT',
+        url: '/api/propuestas/like/' + this.model.get('id'),
+        contenttype: 'application/json',
+        data: JSON.stringify({})
+      })
+      .done()
+        .fail(function(jqXHR, textStatus, errorThrown) {
+          ErrorHelper.showError(jqXHR);
+        });
+    },
+
+    disLikePropuesta: function(event) {
+      event.preventDefault();
+      view = this;
+      $.ajax({
+        method: 'POST',
+        url: '/api/propuestas/disLike/' + this.model.get('id'),
+        contentType: 'application/json',
+        data: JSON.stringify({})
+      })
+      .done()
+        .fail(function(jqXHR, textStatus, errorThrown) {
+          ErrorHelper.showError(jqXHR);
+        });
+    },
+
     renderCollection: function() { 
       this.collection.sort();
 
@@ -91,10 +91,11 @@ define(function(require) {
     renderItem: function(comentario) {
       var comentarioView = new ComentarioView({
         model: comentario,
-		parent: this
-      });
+        parent: this
+       });
 
       this.comentarioView.push(preguntaViewcomentarioView);
       this.$('#comentario-container').append(comentarioView.render().$el); 
     }
+  });
 });
