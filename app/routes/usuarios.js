@@ -4,7 +4,6 @@ var passport = require('passport');
 
 var authentication = require('../middlewares/authentication');
 var Usuario = require('../models/UsuarioSchema');
-var ProvinciaCiudad = require('../models/ProvinciaCiudadSchema');
 
 router.post('/login', function(req, res, next) {
   passport.authenticate('local', function(err, usuario, info) {
@@ -103,18 +102,5 @@ router.get('/candidatos', function(req, res, next) {
     }
   });
 });
-
-router.get('/provinciasCiudades', function(req, res, next) {	
-	return 1;
-	console.log(req);
-	ProvinciaCiudad.find(function(err, provinciaCiudad){
-	    if (!err) {
-	      res.json(provinciaCiudad);
-	    } else {
-	      return next(err);
-	    }
-	  });
-	});
-
 
 module.exports = router;
