@@ -7,7 +7,8 @@ define(function(require) {
       PerfilView = require('admin/views/PerfilView'),
       EditarPerfilView = require('admin/views/EditarPerfilView'),
       CrearEncuestaView = require('admin/views/CrearEncuestaView'),
-      VerEncuestasView = require('admin/views/VerEncuestasView');
+      VerEncuestasView = require('admin/views/VerEncuestasView'),
+      PreviewEncuestaView = require('admin/views/PreviewEncuestaView');
 
   return Backbone.Router.extend({
     routes: {
@@ -17,8 +18,9 @@ define(function(require) {
       'login': 'login',
       'usuarios/:id_usuario': 'perfil',
       'usuarios/:id_usuario/editar': 'editar',
-      'encuestas/crear': 'crearEncuesta',
-      'encuestas/ver': 'verEncuestas'
+      'encuestas/creacion': 'crearEncuesta',
+      'encuestas': 'verEncuestas',
+      'encuestas/preview/:id_encuesta': 'previewEncuesta'
     },
 
     bienvenida: function() {
@@ -61,6 +63,12 @@ define(function(require) {
     verEncuestas: function() {
       var verEncuestasView = new VerEncuestasView();
       ViewManager.render(verEncuestasView, $('#main-container'));
+    },
+
+    previewEncuesta: function(id_encuesta) {
+      var previewEncuestaView = new PreviewEncuestaView();
+      previewEncuestaView.id_encuesta = id_encuesta;
+      ViewManager.render(previewEncuestaView, $('#main-container'));
     }
 
   });

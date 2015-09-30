@@ -23,19 +23,19 @@ define(function(require) {
     },
 
     renderEncuestas: function() {
-     this.encuestas.each(function(item) {
-      this.renderItem(item);
-     console.log(item); 
+      this.encuestas.each(function(item) {
+        this.renderItem(item);
+        console.log(item); 
       }, this);
     },
 
     renderItem: function(item) {
-     var itemEncuestaView = new ItemEncuestaView({
+      var itemEncuestaView = new ItemEncuestaView({
        model: item
      });
 
-     this.$('#item-encuestas-container').append(itemEncuestaView.render().el);
-
+      this.$('#item-encuestas-container').append(itemEncuestaView.render().el);
     }
+
   });
 });

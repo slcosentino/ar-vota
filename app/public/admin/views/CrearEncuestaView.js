@@ -107,7 +107,15 @@ define(function(require) {
       encuesta.set('titulo', this.$('#titulo-input').val());
       encuesta.set('preguntas', this.collection);
 
-      encuesta.save();
+      var xhr = encuesta.save(null, {
+        success: function() {
+          url = '#encuestas/preview/' + xhr.responseJSON.id;
+          Backbone.history.navigate(url, true);
+        },
+        error: function() {
+          ErrorHelper.showError(xhr);
+        }
+      });
     },
 
     getIndex: function() {

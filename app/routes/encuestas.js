@@ -27,7 +27,7 @@ router.post('/', function(req, res, next) {
 
   encuesta.save(function(err) {
     if (!err) {
-      res.json({message: 'Encuesta creada con exito'})
+      res.json(encuesta);
     } else {
       res.status(400).json({message: 'Error al crear la encuesta'});
     }
@@ -40,6 +40,18 @@ router.get('/topicos', function(req, res, next) {
       res.json(topicos);
     } else {
       return next(err);
+    }
+  });
+});
+
+router.get('/:id_encuesta', function(req, res, next) {
+  var id_encuesta = req.params.id_encuesta;
+ 
+  Encuesta.findOne({_id: id_encuesta},'-__v', function(err, encuesta) {
+    if (!err) {
+      res.json(encuesta);
+    } else {
+      res.status(400).json({message: 'No se encuentra la encuesta'});
     }
   });
 });
