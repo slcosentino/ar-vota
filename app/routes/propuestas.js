@@ -5,6 +5,7 @@ var passport = require('passport');
 var authentication = require('../middlewares/authentication');
 var Propuesta = require('../models/PropuestaSchema');
 var Comentario = require('../models/ComentarioSchema');
+var Provincia = require('../models/ProvinciaSchema');
 
 router.post('/', function(req, res, next) {
   var propuesta = new Propuesta();
@@ -109,5 +110,16 @@ router.get('/comentarios/:id_propuesta', authentication.isLoggedIn, function(req
     }
   });
 });
+
+router.get('/provinciasCiudades', function(req, res, next) {
+	Provincia.find(function(err, provinciaCiudad){
+	    if (!err) {
+	      res.json(provinciaCiudad);
+	    } else {
+	      return next(err);
+	    }
+	});
+});
+
 
 module.exports = router;

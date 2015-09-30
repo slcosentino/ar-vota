@@ -1,6 +1,6 @@
 define(function(require) {
   var template = require('text!frontend/templates/register.html'),
-  		ProvinciasCiudades = require('frontend/collections/ProvinciaCiudad')
+  		Provincias = require('frontend/collections/Provincias')
   		ErrorHelper = require('frontend/helpers/ErrorHelper');
 
   return Backbone.View.extend({
@@ -9,14 +9,11 @@ define(function(require) {
       'click #register-button': 'register'
     },
     
-	initialize: function() {	 
-	console.log("acaaaaaaaa");
-	    this.provinciasCiudades = new ProvinciasCiudades();
+	initialize: function() {
+	    this.provincias = new Provincias();
+	    this.listenTo(this.provincias, 'reset', this.setProvincias);
 	
-	  
-	    this.listenTo(this.provinciasCiudades, 'reset', this.setProvinciasCiudades);
-	
-	    this.provinciasCiudades.fetch({
+	    this.provincias.fetch({
 	      reset: true
 	    });
 	    
@@ -25,30 +22,67 @@ define(function(require) {
 
     render: function() {	
       this.$el.html(this.template);
+      
+    /*  $("#register-form").validate({
+    	    
+          // Specify the validation rules
+          rules: {
+              nombre: "required",
+              apellido: "required"			       
+          },
+          
+          // Specify the validation error messages
+          messages: {
+              nombre: "Please enter your first name",
+              apellido: "Please enter your last name"			
+          },
+          
+          submitHandler: function(form) {
+              //form.submit();
+          }
+      });*/
+      
+      
       return this;
     },
     
-    setProvinciasCiudades: function() {
-    	console.log("aca");
-        console.log(this.provinciasCiudades);
-        /*var topicos = [];
-        var counter = 0;
-        this.topicos.each(function(item) {
-          topicos.push({id: counter, text: item.get('texto')});
-          counter++;
-        }, this);
-
-        console.log(topicos)
-          this.$('#topico-select').select2({
-            theme: "bootstrap",
-            data: topicos
-          });
-		*/
+    setProvincias: function() {
+    	
+        var provincias = [];     
+        
+        provincias["Seleccione.."] = [];        
+        provincias["Seleccione.."].push('');
+        
+        this.provincias.each(function(item) {
+        	
+        	provincias[item.get('provincia')] = [];
+        	$.each( item.get('ciudades'), function( key, value ) {
+        		if (value != undefined )
+        			provincias[item.get('provincia')].push(value.ciudad);
+        	});        	
+       
+        }, this);        
+        
+		 this.$('#provincia-select').select2({
+			 theme: "bootstrap",
+			 data: Object.keys(provincias)
+		 });
+		 
+         this.$('#provincia-select').change(function() { 
+        	 
+        	 $('#ciudad-select').find('option').remove();
+        	 
+        	  $('#ciudad-select').select2({
+                  theme: "bootstrap",
+                  data: provincias[$('#provincia-select').val()]
+               });
+         });		
     },
 		
 	register: function(event) {
 		event.preventDefault();
 			view = this;
+			  
 			$.ajax({
 				method: 'POST',
 				url: '/api/usuarios/registro',
@@ -70,6 +104,7 @@ define(function(require) {
 			.fail(function(jqXHR, textStatus, errorThrown) {
 			  ErrorHelper.showError(jqXHR);
 			});
+			
 	}
     
   });
