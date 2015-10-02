@@ -28,7 +28,6 @@ define(function(require) {
     renderEncuestas: function() {
       this.encuestas.each(function(item) {
         this.renderItem(item);
-        console.log(item); 
       }, this);
     },
 
