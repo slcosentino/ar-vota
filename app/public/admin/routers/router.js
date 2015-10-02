@@ -22,6 +22,7 @@ define(function(require) {
       'encuestas/creacion': 'crearEncuesta',
       'encuestas': 'verEncuestas',
       'encuestas/:id_encuesta/preview': 'previewEncuesta',
+      'encuestas/:id_encuesta/editar': 'editarEncuesta'
     },
 
     bienvenida: function() {
@@ -57,7 +58,9 @@ define(function(require) {
     },
 
     crearEncuesta: function() {
-      var crearEncuestaView = new CrearEncuestaView();
+      var crearEncuestaView = new CrearEncuestaView({
+        editar: false
+      });
       ViewManager.render(crearEncuestaView, $('#main-container'));
     },
 
@@ -70,6 +73,15 @@ define(function(require) {
       var previewEncuestaView = new PreviewEncuestaView();
       previewEncuestaView.id_encuesta = id_encuesta;
       ViewManager.render(previewEncuestaView, $('#main-container'));
+    },
+
+    editarEncuesta: function(id_encuesta) {
+      var editarEncuestaView = new CrearEncuestaView({
+        editar: true,
+        id_encuesta: id_encuesta
+      });
+     // editarEncuestaView.id_encuesta = id_encuesta;
+      ViewManager.render(editarEncuestaView, $('#main-container'));
     }
 
   });

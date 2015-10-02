@@ -5,7 +5,8 @@ define(function(require) {
     tagName: 'tr',
     template: _.template(template),
     events: {
-      'click #preview-button': 'previewEncuesta'
+      'click #preview-button': 'previewEncuesta',
+      'click #editar-button': 'editarEncuesta'
     },
 
     render: function() {
@@ -20,6 +21,12 @@ define(function(require) {
     previewEncuesta: function() {
       url = '#encuestas/' + this.model.get('id') + '/preview';
       Backbone.history.navigate(url, true);
+    },
+
+    editarEncuesta: function() {
+      url = '#encuestas/' + this.model.get('id') + '/editar';
+      Backbone.history.navigate(url, true);
+
     }
 
   });

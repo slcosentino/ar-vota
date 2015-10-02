@@ -56,4 +56,16 @@ router.get('/:id_encuesta', function(req, res, next) {
   });
 });
 
+router.put('/:id_encuesta', function(req, res, next) {
+  var id_encuesta = req.params.id_encuesta;
+
+  Encuesta.findOneAndUpdate({_id: id_encuesta},  req.body, function(err, encuesta) {
+    if (!err) {
+      res.json(encuesta);
+    } else {
+      res.status(400).json({message: 'No se pudo actualizar la encuesta'});
+    }
+  });
+});
+
 module.exports = router;

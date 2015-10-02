@@ -11,17 +11,61 @@ define(function(require) {
     template: _.template(template),
     events: {
       'click #agregar-pregunta-button': 'agregarPregunta',
-      'click #crear-encuesta-button': 'crearEncuesta'
+      'click #guardar-encuesta-button': 'guardarEncuesta'
     },
 
-    initialize: function() {
-      this.preguntaViews = [];
-      this.collection = new Preguntas();
-      this.index = 0;
+    initialize: function(options) {
+        this.preguntaViews = [];
+        this.index = 0;
+        this.getTopicos();
+        this.collection = new Preguntas();
+        this.topicosArray = [];
+        this.editar = options.editar;
 
+      if (this.editar == false) {
+        this.listenTo(this.collection, 'add', this.refresh);
+      } else {
+        this.encuesta = new Encuesta();
+        this.encuesta.url = this.encuesta.url + '/' + options.id_encuesta;
+        var view = this;
+        
+        this.encuesta.fetch({
+          success: function() {
+            view.parseEncuesta();
+          },
+          error: function(collection, xhr, options) {
+            ErrorHelper.showError(xhr);
+          }
+        });
+      }
+    },
+
+    parseEncuesta: function() {
+      if (this.editar) {
+        var topicoTexto = this.encuesta.get('topico');
+        var topico = _.select(this.topicosArray, function(item) {
+          return item.text === topicoTexto;
+        });
+
+        this.$('#topico-select').select2('val',topico[0].id);
+        this.$('#titulo-input').val(this.encuesta.get('titulo'));
+
+        var preguntas = this.encuesta.get('preguntas');
+
+        for (var i = 0; i < preguntas.length ; i++) {
+          var respuestas = preguntas[i].respuestas;
+          preguntas[i].respuestas = new Respuestas();
+          for (var j = 0; j < respuestas.length ; j++) {
+            preguntas[i].respuestas.add(respuestas[j]);
+          }
+          this.collection.add(preguntas[i]);
+        }
+        this.renderCollection();
+      }
+    },
+
+    getTopicos: function() {
       this.topicos = new Topicos();
-
-      this.listenTo(this.collection, 'add', this.refresh);
       this.listenTo(this.topicos, 'reset', this.setTopicos);
 
       this.topicos.fetch({
@@ -31,23 +75,24 @@ define(function(require) {
 
     render: function() {
       this.$el.html(this.template());
+
+      if (this.editar) {
+        this.$('#titulo-vista').text('Edición de encuesta');
+      }
       return this;
     },
 
     setTopicos: function() {
-      console.log(this.topicos);
-      var topicos = [];
       var counter = 0;
       this.topicos.each(function(item) {
-        topicos.push({id: counter, text: item.get('texto')});
+        this.topicosArray.push({id: counter, text: item.get('texto')});
         counter++;
       }, this);
 
-      console.log(topicos)
-        this.$('#topico-select').select2({
-          theme: "bootstrap",
-          data: topicos
-        });
+      this.$('#topico-select').select2({
+        theme: "bootstrap",
+        data: this.topicosArray
+      });
     },
 
     agregarPregunta: function() {
@@ -97,7 +142,35 @@ define(function(require) {
       this.$('#preguntas-container').append(preguntaView.render().$el); 
     },
 
-    crearEncuesta: function() {
+    guardarEncuesta: function() {
+      if (this.editar) {
+        this.actualizarEncuesta();
+      } else {
+        this.guardarEncuestaNueva();
+      }
+    },
+
+    actualizarEncuesta: function () {
+      for (var i = 0; i < this.preguntaViews.length ; i++) {
+        this.preguntaViews[i].updateModel();
+      }
+
+      this.encuesta.set('topico', this.$('#topico-select').find('option:selected').text());
+      this.encuesta.set('titulo', this.$('#titulo-input').val());
+      this.encuesta.set('preguntas', this.collection);
+
+      var xhr = this.encuesta.save(null, {
+        success: function() {
+          url = '#encuestas/' + xhr.responseJSON.id + '/preview';
+          Backbone.history.navigate(url, true);
+        },
+        error: function() {
+          ErrorHelper.showError(xhr);
+        }
+      });
+    },
+
+    guardarEncuestaNueva: function() {
       for (var i = 0; i < this.preguntaViews.length ; i++) {
         this.preguntaViews[i].updateModel();
       }
