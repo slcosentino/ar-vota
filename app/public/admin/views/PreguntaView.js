@@ -14,7 +14,7 @@ define(function(require) {
 
     initialize: function(options) {
       this.parent = options.parent;
-      //this.preguntas = options.parent.collection; 
+      this.preguntas = options.parent.collection;
       this.respuestaViews = [];
       this.respuestas = this.model.get('respuestas');
       this.listenTo(this.respuestas, 'add', this.renderItem);
