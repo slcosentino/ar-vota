@@ -69,7 +69,10 @@ define(function(require) {
       this.listenTo(this.topicos, 'reset', this.setTopicos);
 
       this.topicos.fetch({
-        reset: true
+        reset: true,
+        error: function(collection, xhr, options) {
+          ErrorHelper.showError(xhr);
+        }
       });
     },
 
