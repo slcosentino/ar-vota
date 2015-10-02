@@ -13,7 +13,10 @@ define(function(require) {
       this.listenTo(this.encuestas, 'reset', this.renderEncuestas);
 
       this.encuestas.fetch({
-        reset: true
+        reset: true,
+        error: function(collection, xhr, options) {
+          ErrorHelper.showError(xhr);
+        }
       });
     },
 
