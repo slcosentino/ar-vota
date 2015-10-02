@@ -10,6 +10,7 @@ define(function(require) {
       VerEncuestasView = require('admin/views/VerEncuestasView'),
       PreviewEncuestaView = require('admin/views/PreviewEncuestaView');
 
+
   return Backbone.Router.extend({
     routes: {
       '' : 'bienvenida',
@@ -20,7 +21,7 @@ define(function(require) {
       'usuarios/:id_usuario/editar': 'editar',
       'encuestas/creacion': 'crearEncuesta',
       'encuestas': 'verEncuestas',
-      'encuestas/preview/:id_encuesta': 'previewEncuesta'
+      'encuestas/:id_encuesta/preview': 'previewEncuesta',
     },
 
     bienvenida: function() {

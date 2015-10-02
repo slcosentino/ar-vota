@@ -18,7 +18,7 @@ define(function(require) {
     },
     
     previewEncuesta: function() {
-      url = '#encuestas/preview/' + this.model.get('id');
+      url = '#encuestas/' + this.model.get('id') + '/preview';
       Backbone.history.navigate(url, true);
     }
 

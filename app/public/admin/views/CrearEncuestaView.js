@@ -109,7 +109,7 @@ define(function(require) {
 
       var xhr = encuesta.save(null, {
         success: function() {
-          url = '#encuestas/preview/' + xhr.responseJSON.id;
+          url = '#encuestas/' + xhr.responseJSON.id + '/preview';
           Backbone.history.navigate(url, true);
         },
         error: function() {
