@@ -16,14 +16,12 @@ router.get('/', authentication.isLoggedInAdmin, function(req, res, next) {
   });
 });
 
-router.post('/', function(req, res, next) {
+router.post('/', authentication.isLoggedInAdmin, function(req, res, next) {
   var encuesta = new Encuesta();
 
   encuesta.topico = req.body.topico;
   encuesta.titulo = req.body.titulo;
   encuesta.preguntas = req.body.preguntas;
-
-  console.log(encuesta.preguntas);
 
   encuesta.save(function(err) {
     if (!err) {
@@ -34,7 +32,7 @@ router.post('/', function(req, res, next) {
   });
 });
 
-router.get('/topicos', function(req, res, next) {
+router.get('/topicos', authentication.isLoggedInAdmin, function(req, res, next) {
   Topico.find('-_id', function(err, topicos){
     if (!err) {
       res.json(topicos);
@@ -44,7 +42,7 @@ router.get('/topicos', function(req, res, next) {
   });
 });
 
-router.get('/:id_encuesta', function(req, res, next) {
+router.get('/:id_encuesta', authentication.isLoggedInAdmin, function(req, res, next) {
   var id_encuesta = req.params.id_encuesta;
  
   Encuesta.findOne({_id: id_encuesta},'-__v', function(err, encuesta) {
@@ -56,7 +54,7 @@ router.get('/:id_encuesta', function(req, res, next) {
   });
 });
 
-router.put('/:id_encuesta', function(req, res, next) {
+router.put('/:id_encuesta', authentication.isLoggedInAdmin, function(req, res, next) {
   var id_encuesta = req.params.id_encuesta;
 
   Encuesta.findOneAndUpdate({_id: id_encuesta},  req.body, function(err, encuesta) {
