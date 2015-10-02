@@ -61,6 +61,8 @@ define(function(require) {
           this.collection.add(preguntas[i]);
         }
         this.renderCollection();
+
+        this.listenTo(this.collection, 'add', this.refresh);
       }
     },
 
