@@ -5,7 +5,8 @@ define(function(require) {
       Encuesta = require('admin/models/Encuesta'),
       Pregunta = require('admin/models/Pregunta'),
       Respuestas = require('admin/collections/Respuestas'),
-      Topicos = require('admin/collections/Topicos');
+      Topicos = require('admin/collections/Topicos'),
+      Respuesta = require('admin/models/Respuesta');
 
   return Backbone.View.extend({
     template: _.template(template),
@@ -53,15 +54,29 @@ define(function(require) {
         var preguntas = this.encuesta.get('preguntas');
 
         for (var i = 0; i < preguntas.length ; i++) {
-          var respuestas = preguntas[i].respuestas;
-          preguntas[i].respuestas = new Respuestas();
-          for (var j = 0; j < respuestas.length ; j++) {
-            preguntas[i].respuestas.add(respuestas[j]);
-          }
-          this.collection.add(preguntas[i]);
-        }
-        this.renderCollection();
+          // Parse preguntas
+          var pregunta = new Pregunta();
+          pregunta.index = this.getIndex();
+          pregunta.set('texto', preguntas[i].texto);
 
+          // Parse respuestas
+          var respuestasArray = preguntas[i].respuestas;
+          var respuestas = new Respuestas();
+
+          for (var j = 0; j < respuestasArray.length ; j++) {
+            var respuesta = new Respuesta();
+            respuesta.set('texto', respuestasArray[j].texto);
+            respuesta.set('seleccionada', respuestasArray[j].seleccionada);
+            respuestas.add(respuesta);
+          }
+          pregunta.set('respuestas', respuestas);
+
+          // Add to collection
+          this.incIndex();
+          this.collection.add(pregunta);
+        }
+
+        this.renderCollection();
         this.listenTo(this.collection, 'add', this.refresh);
       }
     },
