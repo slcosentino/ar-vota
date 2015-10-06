@@ -18,6 +18,7 @@ define(function(require) {
     render: function() {
 		this.model = new Propuesta();
 		this.collection = new Comentarios();
+	    this.listenTo(this.collection, 'reset', this.renderCollection);
 		this.model.urlRoot = '/api/propuestas/' + this.id;
 		this.listenTo(this.collection, 'add', this.refresh);
         this.listenTo(this.model, 'change', this.renderModel);
@@ -27,7 +28,13 @@ define(function(require) {
             ErrorHelper.showError(xhr);
           }
         });
-		return this;
+        this.collection.fetch({
+		  reset: true,
+		  error: function(collection, xhr, options) {
+		    ErrorHelper.showError(xhr);
+		  }
+	    });
+        return this;
     },
 	
 	refresh: function() {
@@ -98,8 +105,6 @@ define(function(require) {
         model: comentario,
         parent: this
        });
-
-      this.comentarioView.push(preguntaViewcomentarioView);
       this.$('#comentario-container').append(comentarioView.render().$el); 
     }
   });

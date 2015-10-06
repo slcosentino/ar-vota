@@ -97,9 +97,8 @@ router.put('/disLike/:id', function(req, res, next) {
   }); 
 });
 
-router.get('/comentarios/:id', authentication.isLoggedIn, function(req, res, next) {
-  var id = req.params.id;
-  Comentarios.find({_id : id}, function(err, comentarios) {
+router.get('/comentarios', authentication.isLoggedIn, function(req, res, next) {
+  Propuesta.find(function(err, comentarios) {
     if (!err) {
       res.json(comentarios);
     } else {
