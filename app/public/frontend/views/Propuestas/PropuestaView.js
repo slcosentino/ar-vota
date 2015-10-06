@@ -5,7 +5,7 @@ define(function(require) {
     tagName: 'article',    
     template: _.template(template),
     events: {
-      'click #ver-button': 'perfil'
+      'click #abrir-propuesta-button': 'abrirPropuesta'
     },
 
     render: function() {
@@ -13,8 +13,8 @@ define(function(require) {
       return this;
     },
 
-    perfil: function() {
-      url = '#propuesta/' + this.model.attributes.id_propuesta;
+    abrirPropuesta: function() {
+      url = '#propuestas/' + this.model.attributes.id;
       Backbone.history.navigate(url, true);
     }
   });

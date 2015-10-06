@@ -17,7 +17,7 @@ define(function(require) {
 	  'recover': 'recover',
 	  'register': 'register',
 	  'propuestasAdd': 'propuestasAdd',
-	  'propuestasOverview': 'propuestasOverview',
+      'propuestas/:id_propuesta': 'propuestasOverview',
 	  'propuestas': 'propuestas'
     },
     index: function() {
@@ -40,8 +40,9 @@ define(function(require) {
       var propuestasAddView = new PropuestasAddView();
       ViewManager.render(propuestasAddView, $('#main-container'));
     },
- 	propuestasOverview: function() {
+	propuestasOverview: function(id_propuesta) {
       var propuestasOverView = new PropuestasOverView();
+      propuestasOverView.id = id_propuesta;
       ViewManager.render(propuestasOverView, $('#main-container'));
     },
     propuestas: function() {	

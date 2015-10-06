@@ -9,6 +9,7 @@ var Provincia = require('../models/ProvinciaSchema');
 
 router.post('/', function(req, res, next) {
   var propuesta = new Propuesta();
+  var id = req.params.id;
   //propuesta.id_usuario = req.body.id_usuario;
   propuesta.titulo = req.body.titulo;
   propuesta.descripcion = req.body.descripcion;
@@ -33,10 +34,10 @@ router.get('/', authentication.isLoggedIn, function(req, res, next) {
   });
 });
 
-router.get('/pepe',  function(req, res, next) {
-	var id_propuesta = req.params.propuesta;
+router.get('/:id',  function(req, res, next) {
+  var id = req.params.id;
  
-	Propuesta.findOne({titulo: 'prop'}, function(err, propuesta) {
+	Propuesta.findOne({_id: id}, function(err, propuesta) {
 		if (!err) {
 		  res.json(propuesta);
 		} else {
@@ -84,23 +85,21 @@ router.put('/like/:id', function(req, res, next) {
 });
 
 router.put('/disLike/:id', function(req, res, next) {
-	var id = req.params.id;
+  var id = req.params.id;
 		
-    Propuesta.findOneAndUpdate({_id: id},  req.body, function(err, propuesta) {
+  Propuesta.findOneAndUpdate({_id: id},  {$inc: {cantidad_disLikes: 1}}, function(err, propuesta) {
     if (!err) {
-      propuesta = propuesta.toObject();
-	  propuesta.cantidad_disLikes = 1; 
       res.json(propuesta);
     } else {
       console.log(err);
       return next(err);
-    }
-  });
+    }   
+  }); 
 });
 
-router.get('/comentarios/:id_propuesta', authentication.isLoggedIn, function(req, res, next) {
-  var id_propuesta = req.params.id_propuesta;
-  Comentarios.find({id_propuesta : id_propuesta}, function(err, comentarios) {
+router.get('/comentarios/:id', authentication.isLoggedIn, function(req, res, next) {
+  var id = req.params.id;
+  Comentarios.find({_id : id}, function(err, comentarios) {
     if (!err) {
       res.json(comentarios);
     } else {
