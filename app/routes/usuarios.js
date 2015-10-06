@@ -79,7 +79,7 @@ router.put('/:id_usuario', authentication.isLoggedIn, function(req, res, next) {
     }
   }
 
-  Usuario.findOneAndUpdate({id_usuario: id_usuario},  req.body, function(err, usuario) {
+  Usuario.findOneAndUpdate({id_usuario: id_usuario},  req.body, {runValidators: true}, function(err, usuario) {
     if (!err) {
       usuario = usuario.toObject();
       delete usuario['password'];
@@ -87,8 +87,9 @@ router.put('/:id_usuario', authentication.isLoggedIn, function(req, res, next) {
 
       res.json(usuario);
     } else {
-      console.log(err);
-      return next(err);
+      //return next(err);
+
+      res.status(401).json({message: 'Verifique los campos'});
     }
   });
 });
