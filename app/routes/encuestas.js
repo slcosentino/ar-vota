@@ -21,13 +21,27 @@ router.post('/', authentication.isLoggedInAdmin, function(req, res, next) {
 
   encuesta.topico = req.body.topico;
   encuesta.titulo = req.body.titulo;
-  encuesta.preguntas = req.body.preguntas;
+
+  var preguntas = req.body.preguntas;
+  if (preguntas.length <= 0) {
+    res.status(401).json({message: 'Debe agregar al menos una pregunta'});
+    return;
+  }
+
+  for (var i = 0 ; i < preguntas.length ; i++) {
+    if (preguntas[i].respuestas.length <= 1) {
+      res.status(401).json({message: 'Debe agregar al menos dos respuestas'});
+      return;
+    }
+  }
+
+  encuesta.preguntas = preguntas;
 
   encuesta.save(function(err) {
     if (!err) {
       res.json(encuesta);
     } else {
-      res.status(400).json({message: 'Error al crear la encuesta'});
+      res.status(401).json({message: 'Error al crear la encuesta, verifique los campos'});
     }
   });
 });
