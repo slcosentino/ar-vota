@@ -7,7 +7,9 @@ define(function(require) {
       PerfilView = require('admin/views/PerfilView'),
       EditarPerfilView = require('admin/views/EditarPerfilView'),
       CrearEncuestaView = require('admin/views/CrearEncuestaView'),
-      VerEncuestasView = require('admin/views/VerEncuestasView');
+      VerEncuestasView = require('admin/views/VerEncuestasView'),
+      PreviewEncuestaView = require('admin/views/PreviewEncuestaView');
+
 
   return Backbone.Router.extend({
     routes: {
@@ -17,8 +19,10 @@ define(function(require) {
       'login': 'login',
       'usuarios/:id_usuario': 'perfil',
       'usuarios/:id_usuario/editar': 'editar',
-      'encuestas/crear': 'crearEncuesta',
-      'encuestas/ver': 'verEncuestas'
+      'encuestas/creacion': 'crearEncuesta',
+      'encuestas': 'verEncuestas',
+      'encuestas/:id_encuesta/preview': 'previewEncuesta',
+      'encuestas/:id_encuesta/editar': 'editarEncuesta'
     },
 
     bienvenida: function() {
@@ -54,13 +58,30 @@ define(function(require) {
     },
 
     crearEncuesta: function() {
-      var crearEncuestaView = new CrearEncuestaView();
+      var crearEncuestaView = new CrearEncuestaView({
+        editar: false
+      });
       ViewManager.render(crearEncuestaView, $('#main-container'));
     },
 
     verEncuestas: function() {
       var verEncuestasView = new VerEncuestasView();
       ViewManager.render(verEncuestasView, $('#main-container'));
+    },
+
+    previewEncuesta: function(id_encuesta) {
+      var previewEncuestaView = new PreviewEncuestaView();
+      previewEncuestaView.id_encuesta = id_encuesta;
+      ViewManager.render(previewEncuestaView, $('#main-container'));
+    },
+
+    editarEncuesta: function(id_encuesta) {
+      var editarEncuestaView = new CrearEncuestaView({
+        editar: true,
+        id_encuesta: id_encuesta
+      });
+     // editarEncuestaView.id_encuesta = id_encuesta;
+      ViewManager.render(editarEncuestaView, $('#main-container'));
     }
 
   });

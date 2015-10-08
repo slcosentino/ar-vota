@@ -16,30 +16,81 @@ router.get('/', authentication.isLoggedInAdmin, function(req, res, next) {
   });
 });
 
-router.post('/', function(req, res, next) {
+router.post('/', authentication.isLoggedInAdmin, function(req, res, next) {
   var encuesta = new Encuesta();
 
   encuesta.topico = req.body.topico;
   encuesta.titulo = req.body.titulo;
-  encuesta.preguntas = req.body.preguntas;
 
-  console.log(encuesta.preguntas);
+  var preguntas = req.body.preguntas;
+  if (preguntas.length <= 0) {
+    res.status(401).json({message: 'Debe agregar al menos una pregunta'});
+    return;
+  }
+
+  for (var i = 0 ; i < preguntas.length ; i++) {
+    if (preguntas[i].respuestas.length <= 1) {
+      res.status(401).json({message: 'Debe agregar al menos dos respuestas'});
+      return;
+    }
+  }
+
+  encuesta.preguntas = preguntas;
 
   encuesta.save(function(err) {
     if (!err) {
-      res.json({message: 'Encuesta creada con exito'})
+      res.json(encuesta);
     } else {
-      res.status(400).json({message: 'Error al crear la encuesta'});
+      res.status(401).json({message: 'Error al crear la encuesta, verifique los campos'});
     }
   });
 });
 
-router.get('/topicos', function(req, res, next) {
+router.get('/topicos', authentication.isLoggedInAdmin, function(req, res, next) {
   Topico.find('-_id', function(err, topicos){
     if (!err) {
       res.json(topicos);
     } else {
       return next(err);
+    }
+  });
+});
+
+router.get('/:id_encuesta', authentication.isLoggedInAdmin, function(req, res, next) {
+  var id_encuesta = req.params.id_encuesta;
+ 
+  Encuesta.findOne({_id: id_encuesta},'-__v', function(err, encuesta) {
+    if (!err) {
+      res.json(encuesta);
+    } else {
+      res.status(400).json({message: 'No se encuentra la encuesta'});
+    }
+  });
+});
+
+router.put('/:id_encuesta', authentication.isLoggedInAdmin, function(req, res, next) {
+  var id_encuesta = req.params.id_encuesta;
+
+  var preguntas = req.body.preguntas;
+  if (preguntas.length <= 0) {
+    res.status(401).json({message: 'Debe agregar al menos una pregunta'});
+    return;
+  }
+
+  for (var i = 0 ; i < preguntas.length ; i++) {
+    if (preguntas[i].respuestas.length <= 1) {
+      res.status(401).json({message: 'Debe agregar al menos dos respuestas'});
+      return;
+    }
+  }
+
+  encuesta.preguntas = preguntas;
+  
+  Encuesta.findOneAndUpdate({_id: id_encuesta},  req.body, function(err, encuesta) {
+    if (!err) {
+      res.json(encuesta);
+    } else {
+      res.status(400).json({message: 'No se pudo actualizar la encuesta'});
     }
   });
 });

@@ -1,0 +1,27 @@
+<div class="container-fluid">
+  <div class="page-header text-center">
+    <h2><b>Preview de encuesta</b></h2>
+  </div>
+  <div> <h3><b>Tópico:</b> <%= topico %></h3> </div>
+  <div> <h3><b>Título:</b> <%= titulo %> </h3></div>
+
+  <div class="text-center"><h3><b>Preguntas</b></h3></div>
+  <% _.each(preguntas, function(pregunta) { %>
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <div>
+          <div> <h4> <b>Pregunta: </b> <%= pregunta.nro_pregunta %></h4> </div>
+          <div> <%= pregunta.texto %> </div>
+          <% _.each(pregunta.respuestas, function(respuesta){ %>
+           <div class="radio">
+             <label>
+              <input type="radio">
+              <%= respuesta.texto %>
+             </label>
+           </div> 
+          <% }) %>
+        </div>
+      </div>
+    </div>
+  <% }); %>
+</div>

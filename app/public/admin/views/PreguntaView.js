@@ -14,14 +14,14 @@ define(function(require) {
 
     initialize: function(options) {
       this.parent = options.parent;
-      this.preguntas = options.parent.collection; 
+      this.preguntas = options.parent.collection;
       this.respuestaViews = [];
       this.respuestas = this.model.get('respuestas');
       this.listenTo(this.respuestas, 'add', this.renderItem);
     },
 
     render: function() {
-      this.model.set('nro_pregunta', this.model.index);
+
       this.$el.html(this.template(this.model.attributes));
       this.renderCollection();
       return this;
@@ -36,7 +36,8 @@ define(function(require) {
 
     renderItem: function(respuesta) {       
       var respuestaView = new RespuestaView({
-        model: respuesta
+        model: respuesta,
+        parent: this
       });
       this.$('#respuestas-container').append(respuestaView.render().$el); 
       this.respuestaViews.push(respuestaView); 
@@ -54,8 +55,13 @@ define(function(require) {
     },
 
     eliminarPregunta: function() {
+      this.parent.eliminarPregunta(this.model);
+      this.parent.refresh();
+    },
+
+    cleanUp: function() {
       for (var i = 0 ; i < this.respuestaViews.length ; i++) {
-        this.respuestasView[i].close();
+        this.respuestaViews[i].close();
       }
       this.close();
     },
@@ -76,7 +82,6 @@ define(function(require) {
         this.model.index = currentIndex - 1;
 
         this.parent.refresh();
-
       }
     },
 
@@ -88,6 +93,12 @@ define(function(require) {
 
         this.parent.refresh();
       }
+    },
+
+    eliminarRespuesta: function(respuesta, respuestaView) {
+      this.respuestas.remove(respuesta);
+      var index = this.respuestaViews.indexOf(respuestaView);
+      this.respuestaViews.splice(index, 1); 
     }
   });
 });

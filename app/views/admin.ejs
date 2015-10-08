@@ -61,17 +61,18 @@
           </ul>
           <ul class="nav navbar-nav">
             <!-- Dropdown administracion -->
-            <li class="dropdown">
+            <% if (usuario && usuario.admin) { %>
+              <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                 <span class="glyphicon glyphicon-wrench" style="margin-right:5px"></span>
-                Administración
+                  Administración
                 <span class="caret"></span>
               </a>
               <ul class="dropdown-menu">
                 <li>
                   <a href="#usuarios">Usuarios</a>
                 </li>
-                <li role="separator" class="divider"></li>
+                  <li role="separator" class="divider"></li>
                 <li>
                   <a href="#">Candidatos</a>
                 </li>
@@ -79,39 +80,44 @@
                   <a href="#">Verificar candidato</a>
                 </li>
               </ul>
-            </li>
+              </li>
+            <% } %>
             <!-- Dropdown Encuestas -->
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                <span class="glyphicon glyphicon-list" style="margin-right:5px"></span>
-                Encuestas
-                <span class="caret"></span>
-              </a>
-              <ul class="dropdown-menu">
-                <li>
-                  <a href="#encuestas/crear">Crear encuesta</a>
-                </li>
-                <li>
-                  <a href="#">Ver encuestas</a>
-                </li>
-              </ul>
-            </li>
+            <% if (usuario && usuario.admin) { %>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                  <span class="glyphicon glyphicon-list" style="margin-right:5px"></span>
+                    Encuestas
+                  <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+                  <li>
+                    <a href="#encuestas/creacion">Crear encuesta</a>
+                  </li>
+                  <li>
+                    <a href="#encuestas">Ver encuestas</a>
+                  </li>
+                </ul>
+              </li>
+            <% } %>
             <!-- Dropdown Estadisticas -->
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                <span class="glyphicon glyphicon-stats" style="margin-right:5px"></span>
-                Estadísticas
-                <span class="caret"></span>
-              </a>
-              <ul class="dropdown-menu">
-                <li>
-                  <a href="#">Generar estadística</a>
-                </li>
-                <li>
-                  <a href="#">Ver estadísticas</a>
-                </li>
-              </ul>
-            </li>
+            <% if (usuario && usuario.admin) { %>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                  <span class="glyphicon glyphicon-stats" style="margin-right:5px"></span>
+                    Estadísticas
+                  <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+                  <li>
+                    <a href="#">Generar estadística</a>
+                  </li>
+                  <li>
+                    <a href="#">Ver estadísticas</a>
+                  </li>
+                </ul>
+              </li>
+            <% } %>
           </ul>
         </div><!-- /.navbar-collapse -->
       </div><!-- /.container-fluid -->

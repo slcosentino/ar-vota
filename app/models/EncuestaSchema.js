@@ -1,8 +1,8 @@
 var mongoose = require('mongoose');
 
 var EncuestaSchema = new mongoose.Schema({
-    topico: { type: String },
-    titulo: { type: String},
+    topico: { type: String, required: true},
+    titulo: { type: String, required: true},
     fechaCreacion: { type: Date },
     fechaModificacion: { type: Date, default: Date.now },
     preguntas: [{
