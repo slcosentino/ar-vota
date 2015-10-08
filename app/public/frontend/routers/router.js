@@ -7,6 +7,7 @@ define(function(require) {
 	PropuestasOverView = require('frontend/views/Propuestas/OverView'),
 	PropuestasView = require('frontend/views/Propuestas/PropuestasView'),
 	PropuestaView = require('frontend/views/Propuestas/PropuestaView'),
+	EnConstruccionView = require('frontend/views/EnConstruccionView'),
 	RegisterView = require('frontend/views/RegisterView');
 
   return Backbone.Router.extend({
@@ -18,7 +19,8 @@ define(function(require) {
 	  'register': 'register',
 	  'propuestasAdd': 'propuestasAdd',
       'propuestas/:id_propuesta': 'propuestasOverview',
-	  'propuestas': 'propuestas'
+	  'propuestas': 'propuestas',
+	  'enConstruccion': 'enConstruccion',
     },
     index: function() {
         var indexView = new IndexView();
@@ -48,6 +50,10 @@ define(function(require) {
     propuestas: function() {	
     	var propuestasView = new PropuestasView();
         ViewManager.render(propuestasView, $('#main-container'));
+    },
+    enConstruccion: function() {	
+    	var enConstruccionView = new EnConstruccionView();
+        ViewManager.render(enConstruccionView, $('#main-container'));
     }
   });
 });

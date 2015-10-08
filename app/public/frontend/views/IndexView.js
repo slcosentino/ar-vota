@@ -73,6 +73,24 @@ define(function(require) {
 				});
 			});
 			
+			$(document).ready(function() {
+				$('#quejas-container').pinterest_grid({
+					no_columns : 4,
+					itemSelector : "article",
+					// itemWidth: 50,
+					align : "center",
+					fitWidth : true,
+					autoResize : true,
+
+					padding_x : 10,
+					padding_y : 10,
+					margin_bottom : 10,
+					single_column_breakpoint : 700
+
+				});
+			});
+			
+			
 		
 		},
 
