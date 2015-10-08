@@ -1,8 +1,9 @@
 var mongoose = require('mongoose'),
 	Schema = mongoose.Schema;
 
-var propuestaSchema = new Schema({
+var quejaSchema = new Schema({
     id_usuario: { type: String, required: true },
+	id_candidato: { type: String},
 	titulo: { type: String, required: true },
 	descripcion: { type: String, required: true },
 	imagen: { type: String },
@@ -12,6 +13,6 @@ var propuestaSchema = new Schema({
 	fechaModificacion: { type: String }
 });
 
-module.exports = mongoose.model('Propuesta', propuestaSchema);
+module.exports = mongoose.model('Queja', quejaSchema);
 
 var mongoose = require('mongoose');
