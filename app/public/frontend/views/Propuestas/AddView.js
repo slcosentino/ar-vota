@@ -1,21 +1,11 @@
 define(function(require) {
   var template = require('text!frontend/templates/Propuestas/add.html'),
       ErrorHelper = require('frontend/helpers/ErrorHelper');
-      Candidatos = require('frontend/collections/Candidatos');
-      Usuarios = require('frontend/collections/Usuarios');
 
   return Backbone.View.extend({
     template: _.template(template),
     events: {
       'click #publish-button': 'publish'
-    },
-	
-    initialize: function() {
-      this.usuarios = new Usuarios();
-      this.listenTo(this.usuarios, 'reset', this.setCandidatos);
-      this.usuarios.fetch({
-        reset: true
-      });
     },
 	
     render: function() {
@@ -31,7 +21,7 @@ define(function(require) {
 			url: '/api/propuestas/',
 			contentType: 'application/json',
 			data: JSON.stringify({
-			'id_usuario': view.$('#id_usuario').val(), //El id de usuario lo obtenes en la carga de la pagina principal
+			'id_usuario': view.$('#id_usuario').val(),
 			'titulo': view.$('#titulo').val(),
 			'descripcion': view.$('#descripcion').val()})
 		})
@@ -42,24 +32,6 @@ define(function(require) {
 		.fail(function(jqXHR, textStatus, errorThrown) {
 		  ErrorHelper.showError(jqXHR);
 		});
-	},
-	
-    setCandidatos: function() {
-      console.log(this.usuarios);
-      var usuarios = [];
-      var counter = 0;
-      this.usuarios.each(function(item) {
-        usuarios.push({id: counter, text: item.get('id_usuario')});
-        counter++;
-      }, this);
-	  
-      console.log(this.usuarios);
-
-        this.$('#candidato-select').select2({
-          theme: "bootstrap",
-          data: usuarios
-        });
-    },
-	
+	}
   });
 });

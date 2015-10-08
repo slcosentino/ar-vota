@@ -1,8 +1,8 @@
 define(function(require) {
-  var Candidato = require('frontend/models/Candidato');
+  var Usuario = require('frontend/models/Usuario');;
 
   return Backbone.Collection.extend({
-    model: Candidato,
-    url: '/api/usuarios/candidatos'
+    model: Usuario,
+    url: '/api/usuarios'
   });
 });

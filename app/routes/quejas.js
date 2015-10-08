@@ -3,21 +3,21 @@ var router = express.Router();
 var passport = require('passport');
 
 var authentication = require('../middlewares/authentication');
-var Propuesta = require('../models/PropuestaSchema');
+var Queja = require('../models/QuejaSchema');
 var Comentario = require('../models/ComentarioSchema');
 var Provincia = require('../models/ProvinciaSchema');
 
 router.post('/', function(req, res, next) {
-  var propuesta = new Propuesta();
+  var queja = new Queja();
   var id = req.params.id;
-  propuesta.id_usuario = req.user.id_usuario;
-  propuesta.titulo = req.body.titulo;
-  propuesta.descripcion = req.body.descripcion;
-  // propuesta.imagen = req.body.imagen;
+  queja.id_usuario = req.user.id_usuario;
+  queja.titulo = req.body.titulo;
+  queja.descripcion = req.body.descripcion;
+  // queja.imagen = req.body.imagen;
 
-  propuesta.save(function(err) {
+  queja.save(function(err) {
     if (!err) {
-      res.json({message: 'Propuesta creada con exito'})
+      res.json({message: 'Queja creada con exito'})
     } else {
       res.status(400).json({message: 'Verifique los campos'});
     }
@@ -25,9 +25,9 @@ router.post('/', function(req, res, next) {
 });
 
 router.get('/', /*authentication.isLoggedIn,*/ function(req, res, next) {
-  Propuesta.find(function(err, propuestas) {
+  Queja.find(function(err, quejas) {
     if (!err) {
-      res.json(propuestas);
+      res.json(quejas);
     } else {
       return next(err);
     }
@@ -37,9 +37,9 @@ router.get('/', /*authentication.isLoggedIn,*/ function(req, res, next) {
 router.get('/:id',  function(req, res, next) {
   var id = req.params.id;
  
-	Propuesta.findOne({_id: id}, function(err, propuesta) {
+	Queja.findOne({_id: id}, function(err, queja) {
 		if (!err) {
-		  res.json(propuesta);
+		  res.json(queja);
 		} else {
 		  return next(err);
 		}
@@ -50,14 +50,14 @@ router.post('/comentar/:id', function(req, res, next) {
   var id = req.params.id;
 
   var comentario = new Comentario();
-  var propuesta = Propuesta.findOne({_id: id}, function(err, propuesta) {
+  var queja = Queja.findOne({_id: id}, function(err, queja) {
     if (err) {
       console.log(err);
-      res.status(400).json({message: 'Propuesta no encontrada'})
+      res.status(400).json({message: 'Queja no encontrada'})
     } else {
-      propuesta.toObject();
+      queja.toObject();
 	  comentario.id_usuario = req.user.id_usuario;
-      comentario.id_publicacion = propuesta['_id'];
+      comentario.id_publicacion = queja['_id'];
       comentario.descripcion = req.body.comentario;
 
       comentario.save(function(err) {
@@ -75,9 +75,9 @@ router.post('/comentar/:id', function(req, res, next) {
 router.put('/like/:id', function(req, res, next) {
   var id = req.params.id;
 
-  Propuesta.findOneAndUpdate({_id: id},  {$inc: {cantidad_likes: 1}}, function(err, propuesta) {
+  Queja.findOneAndUpdate({_id: id},  {$inc: {cantidad_likes: 1}}, function(err, queja) {
     if (!err) {
-      res.json(propuesta);
+      res.json(queja);
     } else {
       console.log(err);
       return next(err);
@@ -88,9 +88,9 @@ router.put('/like/:id', function(req, res, next) {
 router.put('/disLike/:id', function(req, res, next) {
   var id = req.params.id;
 		
-  Propuesta.findOneAndUpdate({_id: id},  {$inc: {cantidad_disLikes: 1}}, function(err, propuesta) {
+  Queja.findOneAndUpdate({_id: id},  {$inc: {cantidad_disLikes: 1}}, function(err, queja) {
     if (!err) {
-      res.json(propuesta);
+      res.json(queja);
     } else {
       console.log(err);
       return next(err);

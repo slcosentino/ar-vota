@@ -93,10 +93,10 @@ router.put('/:id_usuario', authentication.isLoggedIn, function(req, res, next) {
   });
 });
 
-router.get('/candidatos', function(req, res, next) {
-  Usuario.find('-_id', function(err, candidatos){
+router.get('/candidatos', authentication.isLoggedIn, function(req, res, next) {
+  Usuario.find({esCiudadano : false}, function(err, usuarios) {
     if (!err) {
-      res.json(candidatos);
+      res.json(usuarios);
     } else {
       return next(err);
     }
