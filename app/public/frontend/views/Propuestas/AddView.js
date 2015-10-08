@@ -21,7 +21,6 @@ define(function(require) {
 			url: '/api/propuestas/',
 			contentType: 'application/json',
 			data: JSON.stringify({
-			'id_usuario': view.$('#id_usuario').val(),
 			'titulo': view.$('#titulo').val(),
 			'descripcion': view.$('#descripcion').val()})
 		})

@@ -11,6 +11,7 @@ router.post('/', function(req, res, next) {
   var queja = new Queja();
   var id = req.params.id;
   queja.id_usuario = req.user.id_usuario;
+  queja.id_candidato = req.body.id_candidato;
   queja.titulo = req.body.titulo;
   queja.descripcion = req.body.descripcion;
   // queja.imagen = req.body.imagen;

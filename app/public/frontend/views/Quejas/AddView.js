@@ -31,8 +31,8 @@ define(function(require) {
 			url: '/api/quejas/',
 			contentType: 'application/json',
 			data: JSON.stringify({
-			'id_usuario': view.$('#id_usuario').val(),
 			'titulo': view.$('#titulo').val(),
+			'id_candidato': view.$('#candidato-select:selected').text(),
 			'descripcion': view.$('#descripcion').val()})
 		})
 		.done(
