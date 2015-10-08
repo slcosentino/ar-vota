@@ -18,7 +18,8 @@ define(function(require) {
     render: function() {
 		this.model = new Propuesta();
 		this.collection = new Comentarios();
-		this.model.urlRoot = '/api/propuestas/' + 'pepe';
+	    this.listenTo(this.collection, 'reset', this.renderCollection);
+		this.model.urlRoot = '/api/propuestas/' + this.id;
 		this.listenTo(this.collection, 'add', this.refresh);
         this.listenTo(this.model, 'change', this.renderModel);
 
@@ -27,8 +28,19 @@ define(function(require) {
             ErrorHelper.showError(xhr);
           }
         });
-		return this;
+        this.collection.fetch({
+		  reset: true,
+		  error: function(collection, xhr, options) {
+		    ErrorHelper.showError(xhr);
+		  }
+	    });
+        return this;
     },
+	
+	refresh: function() {
+		Backbone.history.loadUrl();
+		return false;
+	},
 	
     renderModel: function() {
         this.$el.html(this.template(this.model.attributes));
@@ -44,7 +56,7 @@ define(function(require) {
         data: JSON.stringify({
           'comentario': view.$('#comentario').val()})
       })
-      .done()
+      .done(this.refresh)
         .fail(function(jqXHR, textStatus, errorThrown) {
           ErrorHelper.showError(jqXHR);
         });
@@ -59,22 +71,22 @@ define(function(require) {
         contenttype: 'application/json',
         data: JSON.stringify({})
       })
-      .done()
+      .done(this.refresh)
         .fail(function(jqXHR, textStatus, errorThrown) {
           ErrorHelper.showError(jqXHR);
         });
     },
 
-    disLikePropuesta: function(event) {
+	  disLikePropuesta: function(event) {
       event.preventDefault();
       view = this;
       $.ajax({
-        method: 'POST',
+        method: 'PUT',
         url: '/api/propuestas/disLike/' + this.model.get('id'),
-        contentType: 'application/json',
+        contenttype: 'application/json',
         data: JSON.stringify({})
       })
-      .done()
+      .done(this.refresh)
         .fail(function(jqXHR, textStatus, errorThrown) {
           ErrorHelper.showError(jqXHR);
         });
@@ -93,8 +105,6 @@ define(function(require) {
         model: comentario,
         parent: this
        });
-
-      this.comentarioView.push(preguntaViewcomentarioView);
       this.$('#comentario-container').append(comentarioView.render().$el); 
     }
   });
