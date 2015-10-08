@@ -24,7 +24,7 @@ router.post('/', function(req, res, next) {
   });
 });
 
-router.get('/', authentication.isLoggedIn, function(req, res, next) {
+router.get('/', /*authentication.isLoggedIn,*/ function(req, res, next) {
   Propuesta.find(function(err, propuestas) {
     if (!err) {
       res.json(propuestas);

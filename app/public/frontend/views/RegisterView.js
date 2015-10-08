@@ -12,7 +12,8 @@ define(function(require) {
 	initialize: function() {
 	    this.provincias = new Provincias();
 	    this.listenTo(this.provincias, 'reset', this.setProvincias);
-	
+	    
+	 	
 	    this.provincias.fetch({
 	      reset: true
 	    });
@@ -82,29 +83,70 @@ define(function(require) {
 	register: function(event) {
 		event.preventDefault();
 			view = this;
-			  
-			$.ajax({
-				method: 'POST',
-				url: '/api/usuarios/registro',
-				contentType: 'application/json',
-				data: JSON.stringify({
-				'id_usuario': view.$('#id_usuario').val(),
-				'password': view.$('#password').val(),
-				'nombre': view.$('#nombre').val(),
-				'admin': 0,
-				'email':view.$('#email').val(),
-				'fechaCreacion': '01/01/2000',
-				'esCiudadano': view.$('#tipo_usuario').val(),
-				'apellido': view.$('#apellido').val()})
-			})
-			.done(
-			function(data, textStatus, jqXHR) {
-				window.location.replace('/');
-			})
-			.fail(function(jqXHR, textStatus, errorThrown) {
-			  ErrorHelper.showError(jqXHR);
-			});
+			var error = this.verificar();
 			
+			if (error != '')
+				alert(error);
+			
+			if (error == ''){
+				
+				$.ajax({
+					method: 'POST',
+					url: '/api/usuarios/registro',
+					contentType: 'application/json',
+					data: JSON.stringify({
+					'id_usuario': view.$('#id_usuario').val(),
+					'password': view.$('#password').val(),
+					'nombre': view.$('#nombre').val(),
+					'admin': 0,
+					'email':view.$('#email').val(),
+					'fechaCreacion': '01/01/2000',
+					'esCiudadano': view.$('#tipo_usuario').val(),
+					'apellido': view.$('#apellido').val()})
+				})
+				.done(
+				function(data, textStatus, jqXHR) {
+					window.location.replace('/');
+				})
+				.fail(function(jqXHR, textStatus, errorThrown) {
+				  ErrorHelper.showError(jqXHR);
+				});				
+				
+			}
+			  
+			
+			
+	},
+	
+	verificar: function(){
+		
+		
+		if ($('#nombre').val() == '')
+			return 'Debe ingresar un nombre';
+		
+		if ($('#apellido').val() == '')
+			return 'Debe ingresar un apellido';
+		
+		if ($('#id_usuario').val() == '')
+			return 'Debe ingresar un usuario';
+		
+		if ($('#email').val() == '')
+			return 'Debe ingresar un email';
+		
+		if ($('#provincia-select').val() == '')
+			return 'Debe ingresar una provincia de residencia';
+
+		if ($('#ciudad-select').val() == '')
+			return 'Debe ingresar una ciudad de residencia';
+		
+		if ($('#password').val() == '')
+			return 'Debe ingresar una contrase&ntilde;e';		
+		
+		if ($('#password').val() != $('#password').val())
+			return 'Las contrase&ntilde; ingresadas no coinciden';
+		
+		
+		return '';
 	}
     
   });

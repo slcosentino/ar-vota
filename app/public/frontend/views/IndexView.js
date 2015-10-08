@@ -26,7 +26,7 @@ define(function(require) {
 			
 			//Quejas
 			
-			//Candidatos
+			
 
 			return this;
 
@@ -35,19 +35,10 @@ define(function(require) {
 		renderCollection : function() {
 			var i = 0;
 			this.collection.each(function(item, i) {
-				this.renderItem(item, i);
+				if (i < 4)
+					this.renderItem(item, i);
 			}, this);
-		},
-
-		renderItem : function(item, i) {
-			var propuestaView = new PropuestaView({
-				model : item,
-				id : "article-" + i
-			});
-
-			this.$('#propuestas-container').append(propuestaView.render().el);
-			this.$('#article-' + i).addClass('white-panel');
-
+			
 			$(document).ready(function() {
 				$('#propuestas-container').pinterest_grid({
 					no_columns : 4,
@@ -64,6 +55,55 @@ define(function(require) {
 
 				});
 			});
+			
+			$(document).ready(function() {
+				$('#candidatos-container').pinterest_grid({
+					no_columns : 4,
+					itemSelector : "article",
+					// itemWidth: 50,
+					align : "center",
+					fitWidth : true,
+					autoResize : true,
+
+					padding_x : 10,
+					padding_y : 10,
+					margin_bottom : 10,
+					single_column_breakpoint : 700
+
+				});
+			});
+			
+			$(document).ready(function() {
+				$('#quejas-container').pinterest_grid({
+					no_columns : 4,
+					itemSelector : "article",
+					// itemWidth: 50,
+					align : "center",
+					fitWidth : true,
+					autoResize : true,
+
+					padding_x : 10,
+					padding_y : 10,
+					margin_bottom : 10,
+					single_column_breakpoint : 700
+
+				});
+			});
+			
+			
+		
+		},
+
+		renderItem : function(item, i) {
+			var propuestaView = new PropuestaView({
+				model : item,
+				id : "article-" + i
+			});
+
+			this.$('#propuestas-container').append(propuestaView.render().el);
+			this.$('#article-' + i).addClass('white-panel');
+		
+			
 		}
 
 	});
