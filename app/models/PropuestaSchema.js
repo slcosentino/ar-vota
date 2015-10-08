@@ -2,7 +2,7 @@ var mongoose = require('mongoose'),
 	Schema = mongoose.Schema;
 
 var propuestaSchema = new Schema({
-  //id_usuario: { type: String, required: true },
+    id_usuario: { type: String, required: true },
 	titulo: { type: String, required: true },
 	descripcion: { type: String, required: true },
 	imagen: { type: String },

@@ -3,7 +3,7 @@ var mongoose = require('mongoose'),
 
 var comentarioSchema = new Schema({
     id_propuesta: { type: String, required: true },
-	id_usuario: { type: String},
+	id_usuario: { type: String, required: true },
 	descripcion: { type: String, required: true },
 	cantidad_likes: { type: Number, default: 0 },
 	cantidad_dislikes: { type: Number, default: 0 },

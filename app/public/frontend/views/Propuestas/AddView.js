@@ -52,7 +52,8 @@ define(function(require) {
         usuarios.push({id: counter, text: item.get('id_usuario')});
         counter++;
       }, this);
-
+	  
+      console.log(this.usuarios);
 
         this.$('#candidato-select').select2({
           theme: "bootstrap",

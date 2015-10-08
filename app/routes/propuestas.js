@@ -10,7 +10,7 @@ var Provincia = require('../models/ProvinciaSchema');
 router.post('/', function(req, res, next) {
   var propuesta = new Propuesta();
   var id = req.params.id;
-  //propuesta.id_usuario = req.body.id_usuario;
+  propuesta.id_usuario = req.user.id_usuario;
   propuesta.titulo = req.body.titulo;
   propuesta.descripcion = req.body.descripcion;
   // propuesta.imagen = req.body.imagen;
@@ -55,7 +55,8 @@ router.post('/comentar/:id', function(req, res, next) {
       console.log(err);
       res.status(400).json({message: 'Propuesta no encontrada'})
     } else {
-      propuesta.toObject(); 
+      propuesta.toObject();
+	  comentario.id_usuario = req.user.id_usuario;
       comentario.id_propuesta = propuesta['_id'];
       comentario.descripcion = req.body.comentario;
 
@@ -98,9 +99,9 @@ router.put('/disLike/:id', function(req, res, next) {
 });
 
 router.get('/comentarios', authentication.isLoggedIn, function(req, res, next) {
-  Propuesta.find(function(err, comentarios) {
+  Comentario.find(function(err, comentario) {
     if (!err) {
-      res.json(comentarios);
+      res.json(comentario);
     } else {
       return next(err);
     }
@@ -116,6 +117,5 @@ router.get('/provinciasCiudades', function(req, res, next) {
 	    }
 	});
 });
-
 
 module.exports = router;
