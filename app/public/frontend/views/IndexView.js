@@ -35,8 +35,45 @@ define(function(require) {
 		renderCollection : function() {
 			var i = 0;
 			this.collection.each(function(item, i) {
-				this.renderItem(item, i);
+				if (i < 4)
+					this.renderItem(item, i);
 			}, this);
+			
+			$(document).ready(function() {
+				$('#propuestas-container').pinterest_grid({
+					no_columns : 4,
+					itemSelector : "article",
+					// itemWidth: 50,
+					align : "center",
+					fitWidth : true,
+					autoResize : true,
+
+					padding_x : 10,
+					padding_y : 10,
+					margin_bottom : 10,
+					single_column_breakpoint : 700
+
+				});
+			});
+			
+			$(document).ready(function() {
+				$('#candidatos-container').pinterest_grid({
+					no_columns : 4,
+					itemSelector : "article",
+					// itemWidth: 50,
+					align : "center",
+					fitWidth : true,
+					autoResize : true,
+
+					padding_x : 10,
+					padding_y : 10,
+					margin_bottom : 10,
+					single_column_breakpoint : 700
+
+				});
+			});
+			
+		
 		},
 
 		renderItem : function(item, i) {
@@ -47,57 +84,8 @@ define(function(require) {
 
 			this.$('#propuestas-container').append(propuestaView.render().el);
 			this.$('#article-' + i).addClass('white-panel');
-
-			/*$(document).ready(function() {
-				jQuery('#propuestas-container').pinterest_grid({
-					no_columns : 4,
-					itemSelector : "article",
-					// itemWidth: 50,
-					align : "center",
-					fitWidth : true,
-					autoResize : true,
-
-					padding_x : 10,
-					padding_y : 10,
-					margin_bottom : 10,
-					single_column_breakpoint : 700
-
-				});
-			});*/
 		
-			//Candidatos
-			$(document).ready(function() {
-				
-				jQuery('#propuestas-container').pinterest_grid({
-					no_columns : 4,
-					itemSelector : "article",
-					// itemWidth: 50,
-					align : "center",
-					fitWidth : true,
-					autoResize : true,
-
-					padding_x : 10,
-					padding_y : 10,
-					margin_bottom : 10,
-					single_column_breakpoint : 700
-
-				});
-				
-				jQuery('#candidatos-container').pinterest_grid({
-					no_columns : 4,
-					itemSelector : "article",
-					 itemWidth: 50,
-					align : "center",
-					fitWidth : true,
-					autoResize : true,
-
-					padding_x : 10,
-					padding_y : 10,
-					margin_bottom : 10,
-					single_column_breakpoint : 700
-
-				});
-			});
+			
 		}
 
 	});
