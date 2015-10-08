@@ -71,6 +71,21 @@ router.get('/:id_encuesta', authentication.isLoggedInAdmin, function(req, res, n
 router.put('/:id_encuesta', authentication.isLoggedInAdmin, function(req, res, next) {
   var id_encuesta = req.params.id_encuesta;
 
+  var preguntas = req.body.preguntas;
+  if (preguntas.length <= 0) {
+    res.status(401).json({message: 'Debe agregar al menos una pregunta'});
+    return;
+  }
+
+  for (var i = 0 ; i < preguntas.length ; i++) {
+    if (preguntas[i].respuestas.length <= 1) {
+      res.status(401).json({message: 'Debe agregar al menos dos respuestas'});
+      return;
+    }
+  }
+
+  encuesta.preguntas = preguntas;
+  
   Encuesta.findOneAndUpdate({_id: id_encuesta},  req.body, function(err, encuesta) {
     if (!err) {
       res.json(encuesta);
