@@ -15,7 +15,7 @@
   </head>
   <body>
     <!-- Navbar -->
-    <nav class="navbar navbar-default">
+    <nav class="navbar navbar-default" id="menu-principal">
       <div class="container-fluid">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false">
@@ -34,14 +34,14 @@
              <% if(usuario) { %>
           
 	          	<li id="propuestas-nav-link">
-	          	   <a href="#propuestas"><span class="glyphicon glyphicon-user" style="margin-right:5px"></span>Propuestas</a>
+	          	   <a href="#propuestas"><span class="glyphicon" style="margin-right:5px"></span>Propuestas</a>
 	          	</li>
 	          	
 	      		<li id="quejas-nav-link">
-	          	   <a href="#quejas"><span class="glyphicon glyphicon-user" style="margin-right:5px"></span>Quejas</a>
+	          	   <a href="#quejas"><span class="glyphicon" style="margin-right:5px"></span>Quejas</a>
 	          	</li>
 	          	<li id="candidatos-nav-link">
-	          	   <a href="#candidatos"><span class="glyphicon glyphicon-user" style="margin-right:5px"></span>Candidatos</a>
+	          	   <a href="#candidatos"><span class="glyphicon" style="margin-right:5px"></span>Candidatos</a>
 	          	</li>
 	          	          	
           	<% } %>
@@ -63,7 +63,7 @@
                     </li>
                     <li role="separator" class="divider"></li>
                     <li>
-                      <a href="/api/admin/logout">Logout</a>
+                      <a href="/api/index/logout">Logout</a>
                     </li>
                   </ul>
                 </li>
@@ -88,5 +88,7 @@
     <script src="/javascripts/lib/pinterest_grid.js"></script>
     <!-- Require -->
     <script src="/javascripts/lib/require.js" data-main="/frontend/config/config.js"></script>
+    
+   
   </body>
 </html>
