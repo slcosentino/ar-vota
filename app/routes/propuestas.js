@@ -7,7 +7,7 @@ var Propuesta = require('../models/PropuestaSchema');
 var Comentario = require('../models/ComentarioSchema');
 var Provincia = require('../models/ProvinciaSchema');
 
-router.post('/', function(req, res, next) {
+router.post('/', authentication.isLoggedIn, function(req, res, next) {
   var propuesta = new Propuesta();
   var id = req.params.id;
   propuesta.id_usuario = req.user.id_usuario;
@@ -32,18 +32,6 @@ router.get('/', /*authentication.isLoggedIn,*/ function(req, res, next) {
       return next(err);
     }
   });
-});
-
-router.get('/:id',  function(req, res, next) {
-  var id = req.params.id;
- 
-	Propuesta.findOne({_id: id}, function(err, propuesta) {
-		if (!err) {
-		  res.json(propuesta);
-		} else {
-		  return next(err);
-		}
-	});
 });
 
 router.post('/comentar/:id', function(req, res, next) {
@@ -116,6 +104,19 @@ router.get('/provinciasCiudades', function(req, res, next) {
 	      return next(err);
 	    }
 	});
+});
+
+router.get('/:id',  function(req, res, next) {
+  var id = req.params.id;
+ 
+	Propuesta.findOne({_id: id}, function(err, propuesta) {
+		if (!err) {
+		  res.json(propuesta);
+		} else {
+		  return next(err);
+		}
+	});
+
 });
 
 module.exports = router;
