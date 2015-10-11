@@ -30,7 +30,6 @@ router.post('/registro', function(req, res, next) {
   usuario.email = req.body.email;
   usuario.esCiudadano = req.body.esCiudadano;
   usuario.fechaCreacion = req.body.fechaCreacion;
-  usuario.admin = req.body.admin;
   usuario.imagen_perfil = req.body.imagen_perfil;
 
   usuario.save(function(err) {
