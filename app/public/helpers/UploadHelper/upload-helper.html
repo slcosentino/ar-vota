@@ -1,0 +1,61 @@
+<style>
+.btn-file {
+  position: relative;
+  overflow: hidden;
+}
+.btn-file input[type=file] {
+  position: absolute;
+  top: 0;
+  right: 0;
+  min-width: 100%;
+  min-height: 100%;
+  font-size: 100px;
+  text-align: right;
+  filter: alpha(opacity=0);
+  opacity: 0;
+  outline: none;
+  background: white;
+  cursor: inherit;
+  display: block;
+}
+</style>
+
+<!--div class="row">
+  <div class="col-md-6 col-md-offset-3"-->
+<div class="panel panel-default">
+  <div class="panel-body">
+    <form id="upload-form" role="form" method="POST" enctype="multipart/form-data" action="/api/images">
+      <div class="form-group">
+        <div>
+          <div class="input-group">
+            
+            <span class="input-group-btn">
+              <span class="btn btn-default btn-file">
+                <span class="glyphicon glyphicon-picture"></span>
+                <input id="upload-input"  name="upload" type="file">
+              </span>
+            </span>
+          
+            <input id="file-info" type="text" class="form-control" value="" placeholder="Imagen no seleccionada" disabled>
+            
+            <span class="input-group-btn">
+              <button id="upload-button" type="button" class="btn btn-primary btn-small" disabled="disabled">
+                <span class="glyphicon glyphicon-arrow-up"></span>
+              </button>
+            </span>
+          
+          </div>
+        </div>
+      </div>
+    </form>
+    <span id="status">Al seleccionar una imagen se habilitará el botón para subir</span>
+  </div>
+  <!--/div>
+</div-->
+
+<script>
+  $('#upload-input').change(function () {
+    $('#file-info').val($(this).val().replace('C:\\fakepath\\',''));
+    $('#upload-button').prop('disabled', false);
+  });
+</script>
