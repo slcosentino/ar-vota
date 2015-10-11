@@ -7,8 +7,6 @@
 !*.css
 !*.json
 !*.ejs
-!*.jpg
-!*.png
 !app/bin/www
 
 # Logs
