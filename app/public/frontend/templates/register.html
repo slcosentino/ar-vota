@@ -1,8 +1,12 @@
 <div class="container">
   <div class="row">
-    <div class="col-md-4 col-md-offset-4" style="margin-top:100px">
+    <div class="col-md-6 col-md-offset-3" style="margin-top:20px">
       <div class="panel panel-default">
-        <div class="panel-heading"><h3 class="panel-title"><strong>Registrarse</strong></h3></div>
+        
+        <div class="panel-heading">
+          <h3 class="panel-title"><strong>Registrarse</strong></h3>
+        </div>
+        
         <div class="panel-body">
           <form role="form" id="register-form">
             <div class="form-group">
@@ -40,14 +44,21 @@
             </div>
             <div class="form-group">
               <label for="input-password">Contraseña</a></label>
-            <input type="password" class="form-control" id="password" placeholder="Su Contraseña">
-          </div>
-          <div class="form-group">
-            <label for="input-confirm-password">Confirme Contraseñaa</a></label>
-          <input type="password" class="form-control" id="confirmPassword" placeholder="Confirme Contraseña">
+              <input type="password" class="form-control" id="password" placeholder="Su Contraseña">
+            </div>
+            <div class="form-group">
+              <label for="input-confirm-password">Confirme Contraseñaa</a></label>
+              <input type="password" class="form-control" id="confirmPassword" placeholder="Confirme Contraseña">
+            </div>
+            <div class="form-group">
+              <button id="subir-imagen-button" class="btn btn-sm btn-default">Subir imagen</button>
+            </div>
+            <div id="upload-container">
+            </div>
+          <button id="register-button" type="submit" class="btn btn-sm btn-primary center-block">Registrarse</button>
+          </form>
         </div>
-        <button id="register-button" type="submit" class="btn btn-sm btn-default">Registrarse</button>
-      </form>
+      </div>
     </div>
   </div>
 </div>

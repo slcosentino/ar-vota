@@ -10,7 +10,8 @@ var UsuarioSchema = new mongoose.Schema({
 	  fechaCreacion: { type: String },
 	  email: { type: String, default: 'Sin email' },
 	  esCiudadano:{ type: Boolean, default: true }, 
-    desactivado: {type: Boolean, default: false }
+    desactivado: {type: Boolean, default: false },
+    imagen_perfil: { type: String}
 	});
 
 UsuarioSchema.methods.hashPassword = function(password) {

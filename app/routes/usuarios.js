@@ -31,6 +31,8 @@ router.post('/registro', function(req, res, next) {
   usuario.esCiudadano = req.body.esCiudadano;
   usuario.fechaCreacion = req.body.fechaCreacion;
   usuario.admin = req.body.admin;
+  usuario.imagen_perfil = req.body.imagen_perfil;
+
   usuario.save(function(err) {
     if (!err) {
       req.login(usuario, function(err) {

@@ -1,12 +1,14 @@
 define(function(require) {
   var template = require('text!frontend/templates/register.html'),
-  		Provincias = require('frontend/collections/Provincias')
-  		ErrorHelper = require('frontend/helpers/ErrorHelper');
+      Provincias = require('frontend/collections/Provincias'),
+      ErrorHelper = require('frontend/helpers/ErrorHelper'),
+      UploadHelperView = require('helpers/UploadHelper/UploadHelperView');
 
   return Backbone.View.extend({
     template: _.template(template),
     events: {
-      'click #register-button': 'register'
+      'click #register-button': 'register',
+      'click #subir-imagen-button': 'subirImagen'
     },
     
     initialize: function() {
@@ -65,8 +67,13 @@ define(function(require) {
       if (error != '')
         alert(error);
 
+      if (this.uploadHelperView) {
+        this.imagen_perfil = this.uploadHelperView.getImage();
+      }
+
       if (error == ''){
 
+        var view = this;
         $.ajax({
           method: 'POST',
           url: '/api/usuarios/registro',
@@ -79,7 +86,9 @@ define(function(require) {
           'email':view.$('#email').val(),
           'fechaCreacion': '01/01/2000',
           'esCiudadano': view.$('#tipo_usuario').val(),
-          'apellido': view.$('#apellido').val()})
+          'apellido': view.$('#apellido').val(),
+          'imagen_perfil': view.imagen_perfil
+          })
         })
         .done(
             function(data, textStatus, jqXHR) {
@@ -96,7 +105,6 @@ define(function(require) {
     },
 
     verificar: function(){
-
 
       if ($('#nombre').val() == '')
         return 'Debe ingresar un nombre';
@@ -123,6 +131,12 @@ define(function(require) {
         return 'Las contrase&ntilde; ingresadas no coinciden';
 
       return '';
+    },
+
+    subirImagen: function(event) {
+      event.preventDefault();
+      this.uploadHelperView = new UploadHelperView();
+      this.$('#upload-container').html(this.uploadHelperView.render().$el);
     }
 
   });
