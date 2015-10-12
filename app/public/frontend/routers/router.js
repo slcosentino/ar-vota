@@ -7,10 +7,10 @@ define(function(require) {
 	PropuestasOverView = require('frontend/views/propuestas/OverView'),
 	PropuestasView = require('frontend/views/propuestas/PropuestasView'),
 	PropuestaView = require('frontend/views/propuestas/PropuestaView'),
-	QuejasAddView = require('frontend/views/Quejas/AddView'),
-	QuejasOverView = require('frontend/views/Quejas/OverView'),
-	QuejasView = require('frontend/views/Quejas/QuejasView'),
-	QuejaView = require('frontend/views/Quejas/QuejaView'),
+	QuejasAddView = require('frontend/views/quejas/AddView'),
+	QuejasOverView = require('frontend/views/quejas/OverView'),
+	QuejasView = require('frontend/views/quejas/QuejasView'),
+	QuejaView = require('frontend/views/quejas/QuejaView'),
 	EnConstruccionView = require('frontend/views/EnConstruccionView'),
 	RegisterView = require('frontend/views/RegisterView');
 
