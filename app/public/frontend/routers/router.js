@@ -49,9 +49,9 @@ define(function(require) {
       var propuestasAddView = new PropuestasAddView();
       ViewManager.render(propuestasAddView, $('#main-container'));
     },
-	propuestasOverview: function(id_propuesta) {
+	propuestasOverview: function(id_publicacion) {
       var propuestasOverView = new PropuestasOverView();
-      propuestasOverView.id = id_propuesta;
+      propuestasOverView.id_publicacion = id_publicacion;
       ViewManager.render(propuestasOverView, $('#main-container'));
     },
     propuestas: function() {	

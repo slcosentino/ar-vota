@@ -19,9 +19,10 @@ define(function(require) {
     this.model = new Propuesta();
     this.collection = new Comentarios();
     
+    this.collection.url = '/api/publicaciones/' + this.id_publicacion + '/comentarios';
     this.listenTo(this.collection, 'reset', this.renderCollection);
     
-    this.model.urlRoot = '/api/publicaciones/propuestas/' + this.id;
+    this.model.urlRoot = '/api/publicaciones/' + this.id_publicacion;
     this.listenTo(this.collection, 'add', this.refresh);
         this.listenTo(this.model, 'change', this.renderModel);
 
@@ -53,7 +54,7 @@ define(function(require) {
       view = this;
       $.ajax({
         method: 'POST',
-        url: '/api/propuestas/comentar/' + this.model.get('id'),
+        url: '/api/propuestas/comentar/' + this.model.get('id_publicacion'),
         contentType: 'application/json',
         data: JSON.stringify({
           'comentario': view.$('#comentario').val()})
@@ -69,7 +70,7 @@ define(function(require) {
       view = this;
       $.ajax({
         method: 'PUT',
-        url: '/api/propuestas/like/' + this.model.get('id'),
+        url: '/api/propuestas/like/' + this.model.get('id_publicacion'),
         contenttype: 'application/json',
         data: JSON.stringify({})
       })
@@ -84,7 +85,7 @@ define(function(require) {
       view = this;
       $.ajax({
         method: 'PUT',
-        url: '/api/propuestas/disLike/' + this.model.get('id'),
+        url: '/api/propuestas/disLike/' + this.model.get('id_publicacion'),
         contenttype: 'application/json',
         data: JSON.stringify({})
       })
