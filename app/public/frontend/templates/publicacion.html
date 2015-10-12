@@ -1,0 +1,9 @@
+<img src="/api/images/<%= imagen %>" alt="">
+<% if (propuesta) { %>
+  <h4> Propuesta </h4>
+<% } else { %>
+  <h4> Queja </h4>
+<% } %>
+<h5><a href="/#propuestas/<%= id %>">Ver</a></h5>
+<p> <%= descripcion %> </p>
+
