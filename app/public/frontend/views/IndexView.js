@@ -1,20 +1,17 @@
 define(function(require) {
 	var template = require('text!frontend/templates/index.html'), 
-	Propuestas = require('frontend/collections/Propuestas'), 
-	PropuestaView = require('frontend/views/Propuestas/PropuestaView'), 
-	ErrorHelper = require('frontend/helpers/ErrorHelper');
+	ErrorHelper = require('frontend/helpers/ErrorHelper'),
+  Publicaciones = require('frontend/collections/Publicaciones'),
+	PublicacionView = require('frontend/views/PublicacionView');
 
 	return Backbone.View.extend({
 		template : _.template(template),
 		events : {
-		// 'click #login-button': 'login'
 		},
 
 		render : function() {
 			this.$el.html(this.template);
-
-			//Propuestas
-			this.collection = new Propuestas();
+			this.collection = new Publicaciones();
 			this.listenTo(this.collection, 'reset', this.renderCollection);
 
 			this.collection.fetch({
@@ -23,88 +20,29 @@ define(function(require) {
 					ErrorHelper.showError(xhr);
 				}
 			});
-			
-			//Quejas
-			
-			
-
 			return this;
-
 		},
 
-		renderCollection : function() {
-			var i = 0;
-			this.collection.each(function(item, i) {
-				if (i < 4)
-					this.renderItem(item, i);
-			}, this);
-			
-			$(document).ready(function() {
-				$('#propuestas-container').pinterest_grid({
-					no_columns : 4,
-					itemSelector : "article",
-					// itemWidth: 50,
-					align : "center",
-					fitWidth : true,
-					autoResize : true,
+    renderCollection: function() {
+      this.collection.each(function(item) {
+        this.renderItem(item);
+      }, this);
+      
+     this.$('#publicaciones-container').pinterest_grid({
+        no_columns: 4,
+       padding_x: 10,
+       padding_y: 10,
+       margin_bottom: 50,
+       single_column_breakpoint: 700
+      });
+    },
 
-					padding_x : 10,
-					padding_y : 10,
-					margin_bottom : 10,
-					single_column_breakpoint : 700
+    renderItem: function(item) {
+      var publicacionView = new PublicacionView({
+        model: item
+      });
 
-				});
-			});
-			
-			$(document).ready(function() {
-				$('#candidatos-container').pinterest_grid({
-					no_columns : 4,
-					itemSelector : "article",
-					// itemWidth: 50,
-					align : "center",
-					fitWidth : true,
-					autoResize : true,
-
-					padding_x : 10,
-					padding_y : 10,
-					margin_bottom : 10,
-					single_column_breakpoint : 700
-
-				});
-			});
-			
-			$(document).ready(function() {
-				$('#quejas-container').pinterest_grid({
-					no_columns : 4,
-					itemSelector : "article",
-					// itemWidth: 50,
-					align : "center",
-					fitWidth : true,
-					autoResize : true,
-
-					padding_x : 10,
-					padding_y : 10,
-					margin_bottom : 10,
-					single_column_breakpoint : 700
-
-				});
-			});
-			
-			
-		
-		},
-
-		renderItem : function(item, i) {
-			var propuestaView = new PropuestaView({
-				model : item,
-				id : "article-" + i
-			});
-
-			this.$('#propuestas-container').append(propuestaView.render().el);
-			this.$('#article-' + i).addClass('white-panel');
-		
-			
-		}
-
+      this.$('#publicaciones-container').append(publicacionView.render().el);
+    }
 	});
 });
