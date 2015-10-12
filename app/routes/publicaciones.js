@@ -67,6 +67,32 @@ router.get('/:id_publicacion', function(req, res, next) {
   });
 });
 
+router.put('/:id_publicacion/like', function(req, res, next) {
+  var id_publicacion = req.params.id_publicacion;
+
+  Publicacion.findOneAndUpdate({_id: id_publicacion},  {$inc: {cantidad_likes: 1}}, function(err, publicacion) {
+    if (!err) {
+      res.json(publicacion);
+    } else {
+      console.log(err);
+      return next(err);
+    }   
+  }); 
+});
+
+router.put('/:id_publicacion/disLike', function(req, res, next) {
+  var id_publicacion = req.params.id_publicacion;
+		
+  Publicacion.findOneAndUpdate({_id: id_publicacion},  {$inc: {cantidad_disLikes: 1}}, function(err, publicacion) {
+    if (!err) {
+      res.json(publicacion);
+    } else {
+      console.log(err);
+      return next(err);
+    }   
+  }); 
+});
+
 router.get('/:id_publicacion/comentarios', function(req, res, next) {
   var id_publicacion = req.params.id_publicacion;
 
@@ -78,4 +104,29 @@ router.get('/:id_publicacion/comentarios', function(req, res, next) {
     }
   });
 });
+
+router.post('/:id_publicacion/comentarios', authentication.isLoggedIn, function(req, res, next) {
+  var id_publicacion = req.params.id_publicacion;
+
+  var comentario = new Comentario();
+  var publicacion = Publicacion.findOne({_id: id_publicacion}, function(err, publicacion) {
+    if (err) {
+      res.status(400).json({message: 'Propuesta no encontrada'})
+    } else {
+      publicacion.toObject();
+      comentario.id_usuario = req.user.id_usuario;
+      comentario.id_publicacion = publicacion['_id'];
+      comentario.texto = req.body.texto;
+
+      comentario.save(function(err) {
+        if (!err) {
+          res.json({message: 'Comentario creada con exito'})
+        } else {
+          res.status(400).json({message: 'Verifique los campos'});
+        }
+      });
+    }
+  });
+});
+
 module.exports = router;

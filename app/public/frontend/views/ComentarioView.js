@@ -1,5 +1,5 @@
 define(function(require) {
-  var template = require('text!frontend/templates/propuestas/comentario.html');
+  var template = require('text!frontend/templates/comentario.html');
 
   return Backbone.View.extend({
     template: _.template(template),

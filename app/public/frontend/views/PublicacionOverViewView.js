@@ -1,8 +1,8 @@
 define(function(require) {
   var template = require('text!frontend/templates/publicacion-overview.html'),
-      Propuesta = require('frontend/models/Propuesta'),
+      Publicacion = require('frontend/models/Publicacion'),
       Comentarios = require('frontend/collections/Comentarios'),
-      ComentarioView = require('frontend/views/propuestas/ComentarioView'),
+      ComentarioView = require('frontend/views/ComentarioView'),
       ErrorHelper = require('frontend/helpers/ErrorHelper');
 
 
@@ -16,7 +16,7 @@ define(function(require) {
     },
 
     render: function() {
-    this.model = new Propuesta();
+    this.model = new Publicacion();
     this.collection = new Comentarios();
     
     this.collection.url = '/api/publicaciones/' + this.id_publicacion + '/comentarios';
@@ -54,10 +54,10 @@ define(function(require) {
       view = this;
       $.ajax({
         method: 'POST',
-        url: '/api/propuestas/comentar/' + this.model.get('id_publicacion'),
+        url: '/api/publicaciones/' + this.model.get('id') + '/comentarios',
         contentType: 'application/json',
         data: JSON.stringify({
-          'comentario': view.$('#comentario').val()})
+          'texto': view.$('#comentario').val()})
       })
       .done(this.refresh)
         .fail(function(jqXHR, textStatus, errorThrown) {
@@ -70,7 +70,7 @@ define(function(require) {
       view = this;
       $.ajax({
         method: 'PUT',
-        url: '/api/propuestas/like/' + this.model.get('id_publicacion'),
+        url: '/api/publicaciones/' + this.model.get('id') + '/like',
         contenttype: 'application/json',
         data: JSON.stringify({})
       })
@@ -85,7 +85,7 @@ define(function(require) {
       view = this;
       $.ajax({
         method: 'PUT',
-        url: '/api/propuestas/disLike/' + this.model.get('id_publicacion'),
+        url: '/api/publicaciones/' + this.model.get('id') + '/disLike',
         contenttype: 'application/json',
         data: JSON.stringify({})
       })

@@ -4,14 +4,8 @@ define(function(require) {
 	LoginView = require('frontend/views/LoginView'),
 	RecoverView = require('frontend/views/RecoverView'),
 	AddPublicacionView = require('frontend/views/AddPublicacionView'),
-	PropuestasOverViewView = require('frontend/views/PublicacionOverViewView'),
-	PropuestasView = require('frontend/views/propuestas/PropuestasView'),
+	PublicacionOverViewView = require('frontend/views/PublicacionOverViewView'),
 	PublicacionesView = require('frontend/views/PublicacionesView'),
-	PropuestaView = require('frontend/views/propuestas/PropuestaView'),
-	QuejasAddView = require('frontend/views/quejas/AddView'),
-	QuejasOverView = require('frontend/views/quejas/OverView'),
-	QuejasView = require('frontend/views/quejas/QuejasView'),
-	QuejaView = require('frontend/views/quejas/QuejaView'),
 	EnConstruccionView = require('frontend/views/EnConstruccionView'),
 	RegisterView = require('frontend/views/RegisterView');
 
@@ -52,13 +46,11 @@ define(function(require) {
       ViewManager.render(addPublicacionView, $('#main-container'));
     },
 	propuestasOverview: function(id_publicacion) {
-      var propuestasOverViewView = new PropuestasOverViewView();
-      propuestasOverViewView.id_publicacion = id_publicacion;
-      ViewManager.render(propuestasOverViewView, $('#main-container'));
+      var publicacionOverViewView = new PublicacionOverViewView();
+      publicacionOverViewView.id_publicacion = id_publicacion;
+      ViewManager.render(publicacionOverViewView, $('#main-container'));
     },
     propuestas: function() {	
-    //	var propuestasView = new PropuestasView();
-    //    ViewManager.render(propuestasView, $('#main-container'));
       var publicacionesView = new PublicacionesView();
       publicacionesView.propuestas = true;
       ViewManager.render(publicacionesView, $('#main-container'));
@@ -69,13 +61,11 @@ define(function(require) {
       ViewManager.render(addPublicacionView, $('#main-container'));
     },
 	quejasOverview: function(id_queja) {
-      var quejasOverView = new QuejasOverView();
-      quejasOverView.id = id_queja;
-      ViewManager.render(quejasOverView, $('#main-container'));
+      var publicacionOverViewView = new PublicacionOverViewView();
+      publicacionOverViewView.id_publicacion = id_publicacion;
+      ViewManager.render(publicacionOverViewView, $('#main-container'));
     },
     quejas: function() {	
-    //	var quejasView = new QuejasView();
-     //   ViewManager.render(quejasView, $('#main-container'));
       var publicacionesView = new PublicacionesView();
       publicacionesView.propuestas = false;
       ViewManager.render(publicacionesView, $('#main-container'));
