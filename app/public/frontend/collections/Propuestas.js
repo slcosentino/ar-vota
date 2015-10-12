@@ -3,6 +3,6 @@ define(function(require) {
 
   return Backbone.Collection.extend({
     model: Propuesta,
-    url: '/api/propuestas'
+    url: '/api/publicaciones/propuestas'
   });
 });
