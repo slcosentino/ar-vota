@@ -1,5 +1,5 @@
 define(function(require) {
-  var template = require('text!frontend/templates/Propuestas/propuesta.html');
+  var template = require('text!frontend/templates/propuestas/propuesta.html');
 
   return Backbone.View.extend({
     tagName: 'article',    

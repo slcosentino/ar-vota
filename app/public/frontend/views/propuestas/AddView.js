@@ -1,5 +1,5 @@
 define(function(require) {
-  var template = require('text!frontend/templates/Propuestas/add.html'),
+  var template = require('text!frontend/templates/propuestas/add.html'),
       ErrorHelper = require('frontend/helpers/ErrorHelper'),
       UploadHelperView = require('helpers/UploadHelper/UploadHelperView');
 
