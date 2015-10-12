@@ -1,27 +1,26 @@
 define(function(require) {
-	var template = require('text!frontend/templates/Propuestas/propuestas.html'), 
-  Propuestas = require('frontend/collections/Propuestas'),
-	PublicacionView = require('frontend/views/PublicacionView');
-	ErrorHelper = require('frontend/helpers/ErrorHelper');
+  var template = require('text!frontend/templates/Propuestas/propuestas.html'), 
+      Propuestas = require('frontend/collections/Propuestas'),
+      PublicacionView = require('frontend/views/PublicacionView'),
+      ErrorHelper = require('frontend/helpers/ErrorHelper');
 
-	return Backbone.View.extend({
-		template : _.template(template),
+  return Backbone.View.extend({
+    template : _.template(template),
 
-		render : function() {
-			this.$el.html(this.template());
+    render : function() {
+      this.$el.html(this.template());
 
-			this.collection = new Propuestas();
-			this.listenTo(this.collection, 'reset', this.renderCollection);
+      this.collection = new Propuestas();
+      this.listenTo(this.collection, 'reset', this.renderCollection);
 
-			this.collection.fetch({
-				reset : true,
-				error : function(collection, xhr, options) {
-					ErrorHelper.showError(xhr);
-				}
-			});
-			return this;
-
-		},
+      this.collection.fetch({
+        reset : true,
+        error : function(collection, xhr, options) {
+          ErrorHelper.showError(xhr);
+        }
+      });
+      return this;
+    },
 
     renderCollection: function() {
       this.collection.each(function(item) {
@@ -45,5 +44,5 @@ define(function(require) {
       this.$('#propuestas-container').append(publicacionView.render().el);
     }
 
-	});
+  });
 });
