@@ -1,7 +1,7 @@
 define(function(require) {
   var template = require('text!frontend/templates/Propuestas/overview.html'),
       Propuesta = require('frontend/models/Propuesta'),
-  	  Comentarios = require('frontend/collections/Comentarios'),
+      Comentarios = require('frontend/collections/Comentarios'),
       ComentarioView = require('frontend/views/Propuestas/ComentarioView'),
       ErrorHelper = require('frontend/helpers/ErrorHelper');
 
@@ -16,13 +16,13 @@ define(function(require) {
     },
 
     render: function() {
-		this.model = new Propuesta();
-		this.collection = new Comentarios();
+    this.model = new Propuesta();
+    this.collection = new Comentarios();
     
     this.listenTo(this.collection, 'reset', this.renderCollection);
-		
+    
     this.model.urlRoot = '/api/publicaciones/propuestas/' + this.id;
-		this.listenTo(this.collection, 'add', this.refresh);
+    this.listenTo(this.collection, 'add', this.refresh);
         this.listenTo(this.model, 'change', this.renderModel);
 
         this.model.fetch({
@@ -31,24 +31,24 @@ define(function(require) {
           }
         });
         this.collection.fetch({
-		  reset: true,
-		  error: function(collection, xhr, options) {
-		    ErrorHelper.showError(xhr);
-		  }
-	    });
+      reset: true,
+      error: function(collection, xhr, options) {
+        ErrorHelper.showError(xhr);
+      }
+      });
         return this;
     },
-	
-	refresh: function() {
-		Backbone.history.loadUrl();
-		return false;
-	},
-	
+  
+  refresh: function() {
+    Backbone.history.loadUrl();
+    return false;
+  },
+  
     renderModel: function() {
         this.$el.html(this.template(this.model.attributes));
     },
-	  
-	  comentar: function(event) {
+    
+    comentar: function(event) {
       event.preventDefault();
       view = this;
       $.ajax({
@@ -64,7 +64,7 @@ define(function(require) {
         });
     },
 
-	  likePropuesta: function(event) {
+    likePropuesta: function(event) {
       event.preventDefault();
       view = this;
       $.ajax({
@@ -79,7 +79,7 @@ define(function(require) {
         });
     },
 
-	  disLikePropuesta: function(event) {
+    disLikePropuesta: function(event) {
       event.preventDefault();
       view = this;
       $.ajax({
