@@ -4,7 +4,7 @@ define(function(require) {
 	LoginView = require('frontend/views/LoginView'),
 	RecoverView = require('frontend/views/RecoverView'),
 	PropuestasAddView = require('frontend/views/propuestas/AddView'),
-	PropuestasOverView = require('frontend/views/propuestas/OverView'),
+	PropuestasOverView = require('frontend/views/propuestas/OverViewView'),
 	PropuestasView = require('frontend/views/propuestas/PropuestasView'),
 	PropuestaView = require('frontend/views/propuestas/PropuestaView'),
 	QuejasAddView = require('frontend/views/quejas/AddView'),
