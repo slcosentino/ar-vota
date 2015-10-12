@@ -7,4 +7,5 @@ module.exports = function(app) {
   app.use('/api/propuestas', require('../routes/propuestas'));
   app.use('/api/quejas', require('../routes/quejas'));
   app.use('/api/images', require('../routes/images'));
+  app.use('/api/publicaciones', require('../routes/publicaciones'));
 }
