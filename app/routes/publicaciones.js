@@ -13,7 +13,7 @@ router.post('/', authentication.isLoggedIn, function(req, res, next) {
   publicacion.id_usuario = req.user.id_usuario;
   publicacion.titulo = req.body.titulo;
   publicacion.descripcion = req.body.descripcion;
-  publicacion.propuesta = true;
+  publicacion.propuesta = req.body.propuesta;
   publicacion.imagen = req.body.imagen;
 
   publicacion.save(function(err) {
@@ -37,6 +37,16 @@ router.get('/', function(req, res, next) {
 
 router.get('/propuestas', function(req, res, next) {
   Publicacion.find( {propuesta: true}, function(err, publicaciones) {
+    if (!err) {
+      res.json(publicaciones);
+    } else {
+      return next(err);
+    }
+  });
+});
+
+router.get('/quejas', function(req, res, next) {
+  Publicacion.find( {propuesta: false}, function(err, publicaciones) {
     if (!err) {
       res.json(publicaciones);
     } else {

@@ -3,9 +3,10 @@ define(function(require) {
 	IndexView = require('frontend/views/IndexView'),
 	LoginView = require('frontend/views/LoginView'),
 	RecoverView = require('frontend/views/RecoverView'),
-	PropuestasAddView = require('frontend/views/AddPublicacionView'),
+	AddPublicacionView = require('frontend/views/AddPublicacionView'),
 	PropuestasOverViewView = require('frontend/views/PublicacionOverViewView'),
 	PropuestasView = require('frontend/views/propuestas/PropuestasView'),
+	PublicacionesView = require('frontend/views/PublicacionesView'),
 	PropuestaView = require('frontend/views/propuestas/PropuestaView'),
 	QuejasAddView = require('frontend/views/quejas/AddView'),
 	QuejasOverView = require('frontend/views/quejas/OverView'),
@@ -46,8 +47,9 @@ define(function(require) {
       ViewManager.render(recoverView, $('#main-container'));
     },
 	propuestasAdd: function() {
-      var propuestasAddView = new PropuestasAddView();
-      ViewManager.render(propuestasAddView, $('#main-container'));
+      var addPublicacionView = new AddPublicacionView();
+      addPublicacionView.propuesta = true;
+      ViewManager.render(addPublicacionView, $('#main-container'));
     },
 	propuestasOverview: function(id_publicacion) {
       var propuestasOverViewView = new PropuestasOverViewView();
@@ -55,12 +57,16 @@ define(function(require) {
       ViewManager.render(propuestasOverViewView, $('#main-container'));
     },
     propuestas: function() {	
-    	var propuestasView = new PropuestasView();
-        ViewManager.render(propuestasView, $('#main-container'));
+    //	var propuestasView = new PropuestasView();
+    //    ViewManager.render(propuestasView, $('#main-container'));
+      var publicacionesView = new PublicacionesView();
+      publicacionesView.propuestas = true;
+      ViewManager.render(publicacionesView, $('#main-container'));
     },
 	quejasAdd: function() {
-      var quejasAddView = new QuejasAddView();
-      ViewManager.render(quejasAddView, $('#main-container'));
+      var addPublicacionView = new AddPublicacionView();
+      addPublicacionView.propuesta = false;
+      ViewManager.render(addPublicacionView, $('#main-container'));
     },
 	quejasOverview: function(id_queja) {
       var quejasOverView = new QuejasOverView();
@@ -68,8 +74,11 @@ define(function(require) {
       ViewManager.render(quejasOverView, $('#main-container'));
     },
     quejas: function() {	
-    	var quejasView = new QuejasView();
-        ViewManager.render(quejasView, $('#main-container'));
+    //	var quejasView = new QuejasView();
+     //   ViewManager.render(quejasView, $('#main-container'));
+      var publicacionesView = new PublicacionesView();
+      publicacionesView.propuestas = false;
+      ViewManager.render(publicacionesView, $('#main-container'));
     },
     enConstruccion: function() {	
     	var enConstruccionView = new EnConstruccionView();

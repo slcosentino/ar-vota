@@ -30,7 +30,7 @@ define(function(require) {
         data: JSON.stringify({
           'titulo': view.$('#titulo').val(),
         'descripcion': view.$('#descripcion').val(),
-        'propuesta': true,
+        'propuesta': view.propuesta,
         'imagen': view.imagen 
         })
       })

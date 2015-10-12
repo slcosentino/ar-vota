@@ -3,6 +3,6 @@ define(function(require) {
 
   return Backbone.Collection.extend({
     model: Queja,
-    url: '/api/quejas'
+    url: '/api/publicaciones/quejas'
   });
 });
