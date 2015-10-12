@@ -3,8 +3,8 @@ define(function(require) {
 	IndexView = require('frontend/views/IndexView'),
 	LoginView = require('frontend/views/LoginView'),
 	RecoverView = require('frontend/views/RecoverView'),
-	PropuestasAddView = require('frontend/views/propuestas/AddView'),
-	PropuestasOverView = require('frontend/views/propuestas/OverViewView'),
+	PropuestasAddView = require('frontend/views/AddPublicacionView'),
+	PropuestasOverViewView = require('frontend/views/PublicacionOverViewView'),
 	PropuestasView = require('frontend/views/propuestas/PropuestasView'),
 	PropuestaView = require('frontend/views/propuestas/PropuestaView'),
 	QuejasAddView = require('frontend/views/quejas/AddView'),
@@ -50,9 +50,9 @@ define(function(require) {
       ViewManager.render(propuestasAddView, $('#main-container'));
     },
 	propuestasOverview: function(id_publicacion) {
-      var propuestasOverView = new PropuestasOverView();
-      propuestasOverView.id_publicacion = id_publicacion;
-      ViewManager.render(propuestasOverView, $('#main-container'));
+      var propuestasOverViewView = new PropuestasOverViewView();
+      propuestasOverViewView.id_publicacion = id_publicacion;
+      ViewManager.render(propuestasOverViewView, $('#main-container'));
     },
     propuestas: function() {	
     	var propuestasView = new PropuestasView();

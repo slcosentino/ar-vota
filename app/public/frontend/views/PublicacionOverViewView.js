@@ -1,5 +1,5 @@
 define(function(require) {
-  var template = require('text!frontend/templates/propuestas/overview.html'),
+  var template = require('text!frontend/templates/publicacion-overview.html'),
       Propuesta = require('frontend/models/Propuesta'),
       Comentarios = require('frontend/collections/Comentarios'),
       ComentarioView = require('frontend/views/propuestas/ComentarioView'),
