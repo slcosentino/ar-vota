@@ -1,5 +1,5 @@
 define(function(require) {
-  var template = require('text!frontend/templates/Quejas/add.html'),
+  var template = require('text!frontend/templates/quejas/add.html'),
       ErrorHelper = require('frontend/helpers/ErrorHelper');
       Candidatos = require('frontend/collections/Candidatos');
       Usuarios = require('frontend/collections/Usuarios');

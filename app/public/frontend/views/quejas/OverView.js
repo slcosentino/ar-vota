@@ -1,8 +1,8 @@
 define(function(require) {
-  var template = require('text!frontend/templates/Quejas/overview.html'),
+  var template = require('text!frontend/templates/quejas/overview.html'),
       Queja = require('frontend/models/Queja'),
 	  Comentarios = require('frontend/collections/Comentarios'),
-      ComentarioView = require('frontend/views/Quejas/ComentarioView'),
+      ComentarioView = require('frontend/views/quejas/ComentarioView'),
       ErrorHelper = require('frontend/helpers/ErrorHelper');
 
 

@@ -1,7 +1,7 @@
 define(function(require) {
-	var template = require('text!frontend/templates/Quejas/quejas.html'), 
+	var template = require('text!frontend/templates/quejas/quejas.html'), 
 	Quejas = require('frontend/collections/Quejas'), 
-	QuejaView = require('frontend/views/Quejas/QuejaView'), 
+	QuejaView = require('frontend/views/quejas/QuejaView'), 
 	ErrorHelper = require('frontend/helpers/ErrorHelper');
 
 	return Backbone.View.extend({
