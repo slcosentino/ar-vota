@@ -34,7 +34,8 @@ margin-top: -5px;
 -o-transition: all 0.3s ease-in-out;
 transition: all 0.3s ease-in-out;
 }
-/* End Pinterest grid */
+
+/* Menu principal */
 
 #menu-principal.navbar-default .navbar-brand {
   color: rgba(255, 255, 255, 1);
@@ -73,4 +74,26 @@ transition: all 0.3s ease-in-out;
 #menu-principal.navbar-default .navbar-toggle:hover .icon-bar,
 #menu-principal.navbar-default .navbar-toggle:focus .icon-bar {
   background-color: #5c6bdb;
+}
+
+/* UploadHelper */
+
+.btn-file {
+  position: relative;
+  overflow: hidden;
+}
+.btn-file input[type=file] {
+  position: absolute;
+  top: 0;
+  right: 0;
+  min-width: 100%;
+  min-height: 100%;
+  font-size: 100px;
+  text-align: right;
+  filter: alpha(opacity=0);
+  opacity: 0;
+  outline: none;
+  background: white;
+  cursor: inherit;
+  display: block;
 }
