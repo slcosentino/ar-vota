@@ -59,6 +59,11 @@ router.get('/', authentication.isLoggedInAdmin, function(req, res, next) {
   });
 });
 
+router.get('/logout', function(req, res, next){
+  req.logout();
+  res.redirect('/');
+});
+
 router.get('/:id_usuario', authentication.isLoggedIn, function(req, res, next) {
   var id_usuario = req.params.id_usuario;
  
