@@ -77,7 +77,7 @@ transition: all 0.3s ease-in-out;
 }
 
 @media (max-width: 767px) {
-  .navbar-default .navbar-nav .open .dropdown-menu > li > a {
+  #menu-principal.navbar-default .navbar-nav .open .dropdown-menu > li > a {
     color: #ffffff;
   }
 }
