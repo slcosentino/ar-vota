@@ -54,7 +54,7 @@ router.get('/', authentication.isLoggedInAdmin, function(req, res, next) {
     if (!err) {
       res.json(usuarios);
     } else {
-      return next(err);
+      res.status(403).json({message: 'No esta logueado'});
     }
   });
 });
