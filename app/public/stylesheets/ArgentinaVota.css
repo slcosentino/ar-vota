@@ -1,0 +1,76 @@
+/* Pinterest grid */ 
+.grid {
+	position: relative;
+	max-width: 100%;
+	width: 100%;
+}
+
+.white-panel img {
+width: 100%;
+max-width: 100%;
+height: auto;
+}
+
+.white-panel {
+position: absolute;
+background: white;
+box-shadow: 0px 1px 2px rgba(0,0,0,0.3);
+padding: 10px;
+}
+
+.white-panel h1 {
+font-size: 1em;
+}
+
+.white-panel h1 a {
+color: #A92733;
+}
+
+.white-panel:hover {
+box-shadow: 1px 1px 10px rgba(0,0,0,0.5);
+margin-top: -5px;
+-webkit-transition: all 0.3s ease-in-out;
+-moz-transition: all 0.3s ease-in-out;
+-o-transition: all 0.3s ease-in-out;
+transition: all 0.3s ease-in-out;
+}
+/* End Pinterest grid */
+
+#menu-principal.navbar-default .navbar-brand {
+  color: rgba(255, 255, 255, 1);
+}
+#menu-principal.navbar-default {
+  font-size: 14px;
+  background-color: rgba(92, 107, 219, 1);
+  border-width: 2px;
+  border-radius: 0px;
+}
+#menu-principal.navbar-default .navbar-nav>li>a {
+  color: rgba(255, 255, 255, 1);
+  background-color: rgba(248, 248, 248, 0);
+}
+#menu-principal.navbar-default .navbar-nav>li>a:hover,
+#menu-principal.navbar-default .navbar-nav>li>a:focus {
+  color: rgba(51, 51, 51, 1);
+  background-color: rgba(248, 248, 248, 0);
+}
+#menu-principal.navbar-default .navbar-nav>.active>a,
+#menu-principal.navbar-default .navbar-nav>.active>a:hover,
+#menu-principal.navbar-default .navbar-nav>.active>a:focus {
+  color: rgba(85, 85, 85, 1);
+  background-color: rgba(255, 255, 255, 1);
+}
+#menu-principal.navbar-default .navbar-toggle {
+  border-color: #ffffff;
+}
+#menu-principal.navbar-default .navbar-toggle:hover,
+#menu-principal.navbar-default .navbar-toggle:focus {
+  background-color: #ffffff;
+}
+#menu-principal.navbar-default .navbar-toggle .icon-bar {
+  background-color: #ffffff;
+}
+#menu-principal.navbar-default .navbar-toggle:hover .icon-bar,
+#menu-principal.navbar-default .navbar-toggle:focus .icon-bar {
+  background-color: #5c6bdb;
+}
