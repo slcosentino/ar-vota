@@ -97,3 +97,10 @@ transition: all 0.3s ease-in-out;
   cursor: inherit;
   display: block;
 }
+
+/* Panel */
+.panel-default > .panel-heading {
+  background-image: none;
+  background-color: rgba(92, 107, 219, 1);;
+  color: white;
+}
