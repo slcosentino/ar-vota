@@ -98,9 +98,48 @@ transition: all 0.3s ease-in-out;
   display: block;
 }
 
+
 /* Panel */
 .panel-default > .panel-heading {
   background-image: none;
   background-color: rgba(92, 107, 219, 1);
   color: white;
+}
+
+/* profile */
+.profile-well {
+  margin-top:-20px;
+  background-color:rgba(92, 107, 219, 1);
+  border:2px solid #FFFFFF;
+  text-align:center;
+  cursor:pointer;
+  padding: 10px;
+  border-radius: 0px !important;
+  color: rgba(255, 255, 255, 1);
+}
+
+.profile-well:hover {
+  margin-top:-20px;
+  background-color:rgba(92, 107, 219, 1);
+  border:2px solid #FFFFFF;
+  text-align:center;
+  cursor:pointer;
+  padding: 10px;
+  border-radius: 0px !important;
+  color: rgba(85, 85, 85, 1);
+}
+
+.header{
+  color : #808080;
+  margin-left:10%;
+}
+
+.picture{
+  height:300px;
+  width:300px;
+}
+
+.picture_mob{
+  height:200px;
+  width:200px;
 }
