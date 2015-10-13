@@ -76,6 +76,11 @@ transition: all 0.3s ease-in-out;
   background-color: #5c6bdb;
 }
 
+@media (max-width: 767px) {
+  .navbar-default .navbar-nav .open .dropdown-menu > li > a {
+    color: #ffffff;
+  }
+}
 /* UploadHelper */
 
 .btn-file {
