@@ -1,49 +1,37 @@
 <div class="overviewContainer">
   <div class="panel panel-danger">
-    <div class="panel-heading">
-    </div>
     <div class="panel-body">
       <div class="row">
-        <div class="box">
-          <div class="info">
-            <div class="box-icon">
-              <span class="fa fa-4x fa-html5">
-                <div class="col-md-3 col-lg-3 ">
-                  <h2><%= id_usuario %></h2>
-                </div>
-              </span>            
-            </div>
-            <div>
-              <h1><%= titulo %></h1>
-              <img src="api/images/<%= imagen %>" height="400" width="500">
-            </div>          
-            <div>
-              <p><%= descripcion %></p>
-            </div>
-            <span>
-              <button id="likePropuesta-button" type="button" class="btn btn-default tip fav ladda-button" title="" data-style="expand-right" data-spinner-color="#428bca" data-original-title="like">
-                <span class="glyphicon glyphicon-thumbs-up"><%= cantidad_likes %></span>
-              </button>
-            </span>
-            <span>
-              <button id="disLikePropuesta-button" class="btn btn-default tip fav ladda-button" title="" data-style="expand-right" data-spinner-color="#428bca" data-original-title="dislike">
-                <span class="glyphicon glyphicon-thumbs-down"><%= cantidad_disLikes %></span>
-              </button>
-            </span>
-            <div class="required-field-block">
-              <textarea id="comentario" rows="3" class="form-control" placeholder="Deje un comentario"></textarea>
-              <button id="guardar-comentario-button" type="button" class="btn btn-primary">
-                <span class="glyphicon glyphicon-ok"></span> Guardar
-              </button>
+        <h2><%= id_usuario %></h2>
+        <div>
+          <h1><%= titulo %></h1>
+          <img src="api/images/<%= imagen %>" height="400" width="500">
+        </div>          
+        <div>
+          <p><%= descripcion %></p>
+        </div>
+        <span>
+          <button id="likePropuesta-button" type="button" class="btn btn-default tip fav ladda-button" title="" data-style="expand-right" data-spinner-color="#428bca" data-original-title="like">
+            <span class="glyphicon glyphicon-thumbs-up"><%= cantidad_likes %></span>
+          </button>
+        </span>
+        <span>
+          <button id="disLikePropuesta-button" class="btn btn-default tip fav ladda-button" title="" data-style="expand-right" data-spinner-color="#428bca" data-original-title="dislike">
+            <span class="glyphicon glyphicon-thumbs-down"><%= cantidad_disLikes %></span>
+          </button>
+        </span>
+        <div class="required-field-block">
+          <textarea id="comentario" rows="3" class="form-control" placeholder="Deje un comentario"></textarea>
+          <button id="guardar-comentario-button" type="button" class="btn btn-primary">
+            <span class="glyphicon glyphicon-ok"></span> Guardar
+          </button>
 
-              <button id="cancelar-comentario-button" type="button" class="btn btn-default">
-                <span class="glyphicon glyphicon-remove"></span> Cancelar
-              </button>
-            </div>
-            <div style="margin-top:200px">
-              <div id="comentarios-container"></div>
-            </div>
-          </div>
+          <button id="cancelar-comentario-button" type="button" class="btn btn-default">
+            <span class="glyphicon glyphicon-remove"></span> Cancelar
+          </button>
+        </div>
+        <div style="margin-top:200px">
+          <div id="comentarios-container"></div>
         </div>
       </div>
     </div>
