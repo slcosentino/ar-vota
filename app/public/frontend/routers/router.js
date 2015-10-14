@@ -24,7 +24,7 @@ define(function(require) {
       'quejas/:id_queja': 'quejasOverview',
       'quejas': 'quejas',
       'enConstruccion': 'enConstruccion',
-      'usuarios/:id_usuario/perfil': 'perfil'
+      'usuarios/:id_usuario': 'perfil'
     },
     index: function() {
         var indexView = new IndexView();
