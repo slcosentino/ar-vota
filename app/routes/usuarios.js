@@ -45,7 +45,7 @@ router.post('/registro', function(req, res, next) {
   });
 });
 
-router.get('/perfil', authentication.isLoggedIn, function(req, res, next) {
+router.get('/me', authentication.isLoggedIn, function(req, res, next) {
   res.json(req.user);
 });
 
@@ -67,11 +67,17 @@ router.get('/logout', function(req, res, next){
 router.get('/:id_usuario', authentication.isLoggedIn, function(req, res, next) {
   var id_usuario = req.params.id_usuario;
  
-  Usuario.findOne({id_usuario: id_usuario},'-password -__v', function(err, usuario) {
+  if (req.user.admin) {
+    var filter = '-password -__v'
+  } else {
+    var filter = '-password -__v -email'
+  }
+
+  Usuario.findOne({id_usuario: id_usuario}, filter, function(err, usuario) {
     if (!err) {
       res.json(usuario);
     } else {
-      return next(err);
+      res.status(401).json({message: 'Usuario no encontrado'});
     }
   });
 });

@@ -44,7 +44,7 @@ router.post('/debug', function(req, res, next) {
   });
 });
 
-router.get('/perfil', authentication.isLoggedIn, function(req, res, next) {
+router.get('/me', authentication.isLoggedIn, function(req, res, next) {
   res.json(req.user);
 });
 
