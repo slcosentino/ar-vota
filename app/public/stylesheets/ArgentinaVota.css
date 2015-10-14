@@ -140,11 +140,11 @@ transition: all 0.3s ease-in-out;
 }
 
 .picture{
-  height:300px;
-  width:300px;
+  max-height:300px;
+  max-width:300px;
 }
 
 .picture_mob{
-  height:200px;
-  width:200px;
+  max-height:200px;
+  max-width:200px;
 }
