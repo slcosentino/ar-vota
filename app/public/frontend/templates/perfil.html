@@ -6,26 +6,38 @@
       </div>
       <img src="/api/images/<%= imagen_perfil %>" class="img-thumbnail picture_mob center-block visible-xs">
       <div class="header">
-        <h2>Nombre y apellido:</h2>
+        <h3>Nombre y apellido</h3>
         <h4><%= nombre %> <%= apellido %></h4>
-        <h2>Otros datos:</h2>
-        <h4>TODO</h4>
+        <h3>Tipo de usuario</h3>
+        <% if (esCiudadano) {%>
+          <h4> Ciudadano </h4>
+        <% } else { %>
+          <h4> Candidato </h4>
+        <% } %>
       </div>
     </div>   
 
     <div class="row nav">    
       <div class="col-md-4"></div>
       <div class="col-md-8 col-xs-12" style="margin: 0px;padding: 0px;">
-        <div class="col-md-4 col-xs-4 profile-well"><i class="fa fa-weixin"></i> 16</div>
-        <div class="col-md-4 col-xs-4 profile-well"><i class="fa fa-heart-o"></i> 14</div>
-        <div class="col-md-4 col-xs-4 profile-well"><i class="fa fa-thumbs-o-up"></i> 26</div>
+        <% if (esCiudadano) {%>
+          <div class="col-md-4 col-xs-4 profile-well"><i class="fa fa-university"></i> Propuestas publicadas: 14</div>
+          <div class="col-md-4 col-xs-4 profile-well"><i class="fa fa-bullhorn"></i> Quejas publicadas: 2</div>
+          <div class="col-md-4 col-xs-4 profile-well"><i class="fa fa-thumbs-o-up"></i> Votos totales: 26</div>
+        <% } else { %>
+          <div class="col-md-4 col-xs-4 profile-well"><i class="fa fa-university"></i> Propuestas completadas: 14</div>
+          <div class="col-md-4 col-xs-4 profile-well"><i class="fa fa-bullhorn"></i> Quejas completadas: 2</div>
+          <div class="col-md-4 col-xs-4 profile-well"><i class="fa fa-heart-o"></i> Seguidores: 26</div>
+        <% } %>
       </div>
     </div>
   </div>
 
   <br>
-  <div>
-    Otros datos...
+  <div class="row">
+    <h4>Publicaciones más recientes de <%= nombre %> <%= apellido %></h4>
+    <hr>
+    <section id="publicaciones-container" class="grid"></section>
   </div>
 </div>
 

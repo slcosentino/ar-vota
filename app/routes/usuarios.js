@@ -4,6 +4,7 @@ var passport = require('passport');
 
 var authentication = require('../middlewares/authentication');
 var Usuario = require('../models/UsuarioSchema');
+var Publicacion = require('../models/PublicacionSchema');
 
 router.post('/login', function(req, res, next) {
   passport.authenticate('local', function(err, usuario, info) {
@@ -64,10 +65,22 @@ router.get('/logout', function(req, res, next){
   res.redirect('/');
 });
 
-router.get('/:id_usuario', authentication.isLoggedIn, function(req, res, next) {
+router.get('/:id_usuario/publicaciones', function(req, res, next) {
+  var id_usuario = req.params.id_usuario;
+  
+  Publicacion.find({id_usuario: id_usuario}, function(err, publicaciones) {
+    if (!err) {
+      res.json(publicaciones);
+    } else {
+      return next(err);
+    }
+  });
+});
+
+router.get('/:id_usuario', function(req, res, next) {
   var id_usuario = req.params.id_usuario;
  
-  if (req.user.admin) {
+  if (req.user && req.user.admin) {
     var filter = '-password -__v'
   } else {
     var filter = '-password -__v -email'
