@@ -11,7 +11,13 @@ define(function(require) {
     },
 
     render: function() {
-      this.$el.html(this.template);
+      if(this.propuesta) {
+        this.tipo_publicacion = 'Propuesta';
+      } else {
+        this.tipo_publicacion = 'Queja';
+      }
+
+      this.$el.html(this.template(this.tipo_publicacion));
       return this;
     },
 
