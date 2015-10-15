@@ -6,10 +6,12 @@
     <div class="panel-body">
 
       <div class="row">
-        <div class="col-md-3" align="center"> <img src="https://placehold.it/255x255" height="255px" width="255px"> </div>
-        <br>
-        <div class="col-md-9">
-          <span><h3>Datos generales del usuario</h3></span>
+        <div class="col-md-4" align="center">
+          <img src="/api/images/<%= imagen_perfil %>" style="max-height:250px; max-width:250px" class="img-thumbnail">
+        </div>
+        <div class="col-md-8">
+          <h3 class="text-center">Datos generales del usuario</h3>
+          <hr>
           <form class="form-horizontal">
             <div class="form-group">
               <label class="col-md-2 control-label">Nombre</label>
@@ -41,31 +43,27 @@
               </div>
             </div>
             <div class="form-group">
-              <div class="col-md-offset-1"><h4>Estado del usuario</h4></div>
+              <label class="col-md-2 control-label">Estado</label>
               <% if (desactivado) { %>
-              <div class="radio col-md-offset-1">
+              <div class="radio col-md-1">
+                <label>
+                  <input type="radio" name="estadoRadios" value="activo">
+                  Activo
+                </label>
                 <label>
                   <input type="radio" name="estadoRadios" value="desactivado" checked>
                   Desactivado
                 </label>
               </div>
-              <div class="radio col-md-offset-1">
-                <label>
-                  <input type="radio" name="estadoRadios" value="activo">
-                  Activo
-                </label>
-              </div>
               <% } else { %>
-              <div class="radio col-md-offset-1">
-                <label>
-                  <input type="radio" name="estadoRadios" value="desactivado">
-                  Desactivado
-                </label>
-              </div>
-              <div class="radio col-md-offset-1">
+              <div class="radio col-xs-1">
                 <label>
                   <input type="radio" name="estadoRadios" value="activo" checked>
                   Activo
+                </label>
+                <label>
+                  <input type="radio" name="estadoRadios" value="desactivado">
+                  Desactivado
                 </label>
               </div>
               <% }%>
