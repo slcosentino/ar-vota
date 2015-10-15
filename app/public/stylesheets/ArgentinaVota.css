@@ -42,7 +42,7 @@ transition: all 0.3s ease-in-out;
 }
 #menu-principal.navbar-default {
   font-size: 14px;
-  background-color: rgba(92, 107, 219, 1);
+  background-color: #0269c2;
   border-width: 2px;
   border-radius: 0px;
 }
@@ -107,14 +107,14 @@ transition: all 0.3s ease-in-out;
 /* Panel */
 .panel-default > .panel-heading {
   background-image: none;
-  background-color: rgba(92, 107, 219, 1);
+  background-color: #0269c2;
   color: white;
 }
 
 /* profile */
 .profile-well {
   margin-top:-20px;
-  background-color:rgba(92, 107, 219, 1);
+  background-color:#0269c2;
   border:2px solid #FFFFFF;
   text-align:center;
   cursor:pointer;
@@ -125,7 +125,7 @@ transition: all 0.3s ease-in-out;
 
 .profile-well:hover {
   margin-top:-20px;
-  background-color:rgba(92, 107, 219, 1);
+  background-color:#0269c2;
   border:2px solid #FFFFFF;
   text-align:center;
   cursor:pointer;
