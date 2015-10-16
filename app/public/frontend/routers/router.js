@@ -7,7 +7,8 @@ define(function(require) {
 	PublicacionOverViewView = require('frontend/views/PublicacionOverViewView'),
 	PublicacionesView = require('frontend/views/PublicacionesView'),
 	RegisterView = require('frontend/views/RegisterView'),
-  PerfilView = require('frontend/views/PerfilView');
+  PerfilView = require('frontend/views/PerfilView'),
+  EncuestasView = require('frontend/views/EncuestasView');
 
   return Backbone.Router.extend({
     routes: {
@@ -22,7 +23,8 @@ define(function(require) {
       'quejas/nueva': 'quejasAdd',
       'quejas/:id_queja': 'quejasOverview',
       'quejas': 'quejas',
-      'usuarios/:id_usuario': 'perfil'
+      'usuarios/:id_usuario': 'perfil',
+      'usuarios/:id_usuario/encuestas': 'verEncuestas'
     },
     index: function() {
         var indexView = new IndexView();
@@ -74,6 +76,12 @@ define(function(require) {
       var perfilView = new PerfilView();
       perfilView.id_usuario = id_usuario;
       ViewManager.render(perfilView, $('#main-container'));
+    },
+    verEncuestas: function(id_usuario) {
+      var encuestasView = new EncuestasView({
+        id_usuario: id_usuario
+      });
+      ViewManager.render(encuestasView, $('#main-container'));
     }
 
   });

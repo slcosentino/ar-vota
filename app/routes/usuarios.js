@@ -5,6 +5,7 @@ var passport = require('passport');
 var authentication = require('../middlewares/authentication');
 var Usuario = require('../models/UsuarioSchema');
 var Publicacion = require('../models/PublicacionSchema');
+var Encuesta = require('../models/EncuestaSchema');
 
 router.post('/login', function(req, res, next) {
   passport.authenticate('local', function(err, usuario, info) {
@@ -71,6 +72,19 @@ router.get('/:id_usuario/publicaciones', function(req, res, next) {
   Publicacion.find({id_usuario: id_usuario}, function(err, publicaciones) {
     if (!err) {
       res.json(publicaciones);
+    } else {
+      return next(err);
+    }
+  });
+});
+
+router.get('/:id_usuario/encuestas', function(req, res, next) {
+  var id_usuario = req.params.id_usuario;
+  
+  Usuario.findOne({id_usuario: id_usuario}, function(err, usuario) {
+    if (!err) {
+      var usuario = usuario.toObject();
+      res.json(usuario['encuestas']);
     } else {
       return next(err);
     }
