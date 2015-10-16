@@ -61,21 +61,27 @@ router.post('/envioMasivo', authentication.isLoggedInAdmin, function(req, res, n
     if (err) {
       res.status(400).json({message: 'No se encuentra la encuesta'});
     }
-  });
 
-  var bulk = Usuario.collection.initializeOrderedBulkOp();
-  bulk.find({}).update({
-    $addToSet: {
-      encuestas: {
-        id_encuesta: id_encuesta,
-        respondida: false
+    var encuesta = encuesta.toObject();
+    var titulo = encuesta['titulo'];
+    var topico = encuesta['topico'];
+
+    var bulk = Usuario.collection.initializeOrderedBulkOp();
+    bulk.find({}).update({
+      $addToSet: {
+        encuestas: {
+          id_encuesta: id_encuesta,
+          titulo: titulo,
+          topico: topico
+        }
       }
-    }
+    });
+
+    bulk.execute();
+
+    res.json({message: 'Encuesta enviada con exito'})
   });
 
-  bulk.execute();
-
-  res.json({message: 'Encuesta enviada con exito'})
 });
 
 module.exports = router;
