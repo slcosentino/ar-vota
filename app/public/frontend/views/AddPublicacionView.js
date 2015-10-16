@@ -35,9 +35,9 @@ define(function(require) {
         contentType: 'application/json',
         data: JSON.stringify({
           'titulo': view.$('#titulo').val(),
-        'descripcion': view.$('#descripcion').val(),
-        'propuesta': view.propuesta,
-        'imagen': view.imagen 
+          'descripcion': view.$('#descripcion').val(),
+          'propuesta': view.propuesta,
+          'imagen': view.imagen 
         })
       })
       .done(
