@@ -4,6 +4,7 @@ var passport = require('passport');
 
 var authentication = require('../middlewares/authentication');
 var Usuario = require('../models/UsuarioSchema');
+var Encuesta = require('../models/EncuestaSchema');
 
 router.post('/login', function(req, res, next) {
   passport.authenticate('local', function(err, usuario, info) {
@@ -51,6 +52,30 @@ router.get('/me', authentication.isLoggedIn, function(req, res, next) {
 router.get('/logout', function(req, res, next){
   req.logout();
   res.redirect('/admin');
+});
+
+router.post('/envioMasivo', authentication.isLoggedInAdmin, function(req, res, next) {
+  var id_encuesta = req.body.id_encuesta;
+
+  Encuesta.findOne({_id: id_encuesta}, function(err, encuesta) {
+    if (err) {
+      res.status(400).json({message: 'No se encuentra la encuesta'});
+    }
+  });
+
+  var bulk = Usuario.collection.initializeOrderedBulkOp();
+  bulk.find({}).update({
+    $addToSet: {
+      encuestas: {
+        id_encuesta: id_encuesta,
+        respondida: false
+      }
+    }
+  });
+
+  bulk.execute();
+
+  res.json({message: 'Encuesta enviada con exito'})
 });
 
 module.exports = router;

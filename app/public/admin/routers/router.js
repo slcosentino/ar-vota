@@ -8,7 +8,8 @@ define(function(require) {
       EditarPerfilView = require('admin/views/EditarPerfilView'),
       CrearEncuestaView = require('admin/views/CrearEncuestaView'),
       VerEncuestasView = require('admin/views/VerEncuestasView'),
-      PreviewEncuestaView = require('admin/views/PreviewEncuestaView');
+      PreviewEncuestaView = require('admin/views/PreviewEncuestaView'),
+      EnvioEncuestaView = require('admin/views/EnvioEncuestaView');
 
 
   return Backbone.Router.extend({
@@ -22,7 +23,8 @@ define(function(require) {
       'encuestas/creacion': 'crearEncuesta',
       'encuestas': 'verEncuestas',
       'encuestas/:id_encuesta/preview': 'previewEncuesta',
-      'encuestas/:id_encuesta/editar': 'editarEncuesta'
+      'encuestas/:id_encuesta/editar': 'editarEncuesta',
+      'encuestas/:id_encuesta/enviar': 'enviarEncuesta'
     },
 
     bienvenida: function() {
@@ -82,6 +84,13 @@ define(function(require) {
       });
      // editarEncuestaView.id_encuesta = id_encuesta;
       ViewManager.render(editarEncuestaView, $('#main-container'));
+    },
+
+    enviarEncuesta: function(id_encuesta) {
+      var envioEncuestaView = new EnvioEncuestaView({
+        id_encuesta: id_encuesta
+      });
+      ViewManager.render(envioEncuestaView, $('#main-container'));
     }
 
   });

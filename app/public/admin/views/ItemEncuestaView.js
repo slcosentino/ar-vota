@@ -6,7 +6,8 @@ define(function(require) {
     template: _.template(template),
     events: {
       'click #preview-button': 'previewEncuesta',
-      'click #editar-button': 'editarEncuesta'
+      'click #editar-button': 'editarEncuesta',
+      'click #enviar-button': 'enviarEncuesta'
     },
 
     render: function() {
@@ -27,7 +28,11 @@ define(function(require) {
       url = '#encuestas/' + this.model.get('id') + '/editar';
       Backbone.history.navigate(url, true);
 
-    }
+    },
 
+    enviarEncuesta: function() {
+      url = '#encuestas/' + this.model.get('id') + '/enviar';
+      Backbone.history.navigate(url, true);
+    }
   });
 });
