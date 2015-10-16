@@ -1,14 +1,22 @@
 <div class="container" style="margin-top: 20px; margin-bottom: 20px;">
   <div>
     <div class="row panel">
-      <div class="col-md-4 hidden-xs">
-        <img src="/api/images/<%= imagen_perfil %>" class="img-thumbnail picture hidden-xs"/>
+      <div class="col-md-4 text-center">
+        <img src="/api/images/<%= imagen_perfil %>" class="img-thumbnail picture"/>
       </div>
-      <img src="/api/images/<%= imagen_perfil %>" class="img-thumbnail picture_mob center-block visible-xs">
-      <div class="header">
+
+      <div class="header hidden-sm hidden-xs">
         <h3>Nombre y apellido</h3>
         <h4><%= nombre %> <%= apellido %></h4>
         <h3>Tipo de usuario</h3>
+        <% if (esCiudadano) {%>
+          <h4> Ciudadano </h4>
+        <% } else { %>
+          <h4> Candidato </h4>
+        <% } %>
+      </div>
+      <div class="header text-center visible-sm visible-xs">
+        <h4><%= nombre %> <%= apellido %></h4>
         <% if (esCiudadano) {%>
           <h4> Ciudadano </h4>
         <% } else { %>
@@ -21,23 +29,23 @@
       <div class="col-md-4"></div>
       <div class="col-md-8 col-xs-12" style="margin: 0px;padding: 0px;">
         <% if (esCiudadano) {%>
-          <div class="col-md-4 col-xs-4 profile-well"><i class="fa fa-university"></i> &nbsp Propuestas publicadas: 14</div>
-          <div class="col-md-4 col-xs-4 profile-well"><i class="fa fa-bullhorn"></i> &nbsp Quejas publicadas: 2</div>
-          <div class="col-md-4 col-xs-4 profile-well"><i class="fa fa-thumbs-o-up"></i> &nbsp Votos totales: 26</div>
+          <div class="col-md-4 col-xs-4 profile-well"><i class="fa fa-university"></i> &nbsp 14</div>
+          <div class="col-md-4 col-xs-4 profile-well"><i class="fa fa-bullhorn"></i> &nbsp 2</div>
+          <div class="col-md-4 col-xs-4 profile-well"><i class="fa fa-thumbs-o-up"></i> &nbsp 26</div>
         <% } else { %>
-          <div class="col-md-4 col-xs-4 profile-well"><i class="fa fa-university"></i> &nbsp Propuestas completadas: 14</div>
-          <div class="col-md-4 col-xs-4 profile-well"><i class="fa fa-bullhorn"></i> &nbsp Quejas completadas: 2</div>
-          <div class="col-md-4 col-xs-4 profile-well"><i class="fa fa-heart-o"></i> &nbsp Seguidores: 26</div>
+          <div class="col-md-4 col-xs-4 profile-well"><i class="fa fa-university"></i> &nbsp 14</div>
+          <div class="col-md-4 col-xs-4 profile-well"><i class="fa fa-bullhorn"></i> &nbsp 2</div>
+          <div class="col-md-4 col-xs-4 profile-well"><i class="fa fa-heart-o"></i> &nbsp 26</div>
         <% } %>
       </div>
     </div>
   </div>
 
   <br>
+
   <div class="row">
-    <h4>Publicaciones más recientes de <%= nombre %> <%= apellido %></h4>
+    <h4>Publicaciones más recientes de <%= nombre %></h4>
     <hr>
     <section id="publicaciones-container" class="grid"></section>
   </div>
 </div>
-

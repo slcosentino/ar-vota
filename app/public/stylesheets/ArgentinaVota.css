@@ -136,15 +136,9 @@ transition: all 0.3s ease-in-out;
 
 .header{
   color : #808080;
-  margin-left:10%;
 }
 
 .picture{
   max-height:300px;
   max-width:300px;
-}
-
-.picture_mob{
-  max-height:200px;
-  max-width:200px;
 }
