@@ -6,7 +6,6 @@ define(function(require) {
 	AddPublicacionView = require('frontend/views/AddPublicacionView'),
 	PublicacionOverViewView = require('frontend/views/PublicacionOverViewView'),
 	PublicacionesView = require('frontend/views/PublicacionesView'),
-	EnConstruccionView = require('frontend/views/EnConstruccionView'),
 	RegisterView = require('frontend/views/RegisterView'),
   PerfilView = require('frontend/views/PerfilView');
 
@@ -23,7 +22,6 @@ define(function(require) {
       'quejas/nueva': 'quejasAdd',
       'quejas/:id_queja': 'quejasOverview',
       'quejas': 'quejas',
-      'enConstruccion': 'enConstruccion',
       'usuarios/:id_usuario': 'perfil'
     },
     index: function() {
@@ -72,14 +70,11 @@ define(function(require) {
       publicacionesView.propuestas = false;
       ViewManager.render(publicacionesView, $('#main-container'));
     },
-    enConstruccion: function() {	
-    	var enConstruccionView = new EnConstruccionView();
-        ViewManager.render(enConstruccionView, $('#main-container'));
-    },
     perfil: function(id_usuario) {
       var perfilView = new PerfilView();
       perfilView.id_usuario = id_usuario;
       ViewManager.render(perfilView, $('#main-container'));
-    },
+    }
+
   });
 });
