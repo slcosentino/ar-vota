@@ -54,34 +54,4 @@ router.get('/logout', function(req, res, next){
   res.redirect('/admin');
 });
 
-router.post('/envioMasivo', authentication.isLoggedInAdmin, function(req, res, next) {
-  var id_encuesta = req.body.id_encuesta;
-
-  Encuesta.findOne({_id: id_encuesta}, function(err, encuesta) {
-    if (err) {
-      res.status(400).json({message: 'No se encuentra la encuesta'});
-    }
-
-    var encuesta = encuesta.toObject();
-    var titulo = encuesta['titulo'];
-    var topico = encuesta['topico'];
-
-    var bulk = Usuario.collection.initializeOrderedBulkOp();
-    bulk.find({}).update({
-      $addToSet: {
-        encuestas: {
-          id_encuesta: id_encuesta,
-          titulo: titulo,
-          topico: topico
-        }
-      }
-    });
-
-    bulk.execute();
-
-    res.json({message: 'Encuesta enviada con exito'})
-  });
-
-});
-
 module.exports = router;

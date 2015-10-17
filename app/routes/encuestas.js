@@ -5,6 +5,7 @@ var passport = require('passport');
 var authentication = require('../middlewares/authentication');
 var Encuesta = require('../models/EncuestaSchema');
 var Topico = require('../models/TopicoSchema');
+var Anuncio = require('../models/AnuncioSchema');
 
 router.get('/', authentication.isLoggedInAdmin, function(req, res, next) {
   Encuesta.find(function(err, encuestas){
@@ -54,6 +55,34 @@ router.get('/topicos', authentication.isLoggedInAdmin, function(req, res, next) 
       return next(err);
     }
   });
+});
+
+router.post('/anuncios', authentication.isLoggedInAdmin, function(req, res, next) {
+  var id_encuesta = req.body.id_encuesta;
+
+  Encuesta.findOne({_id: id_encuesta}, function(err, encuesta) {
+    if (err) {
+      res.status(400).json({message: 'No se encuentra la encuesta'});
+    }
+
+    var encuesta = encuesta.toObject();
+    var titulo = encuesta['titulo'];
+    var topico = encuesta['topico'];
+
+    anuncio = new Anuncio();
+    anuncio.id_encuesta = id_encuesta;
+    anuncio.titulo = titulo;
+    anuncio.topico = topico;
+
+    anuncio.save(function(err) {
+      if (!err) {
+        res.json({message: 'Encuesta anunciada con exito'});
+      } else {
+        res.status(500).json({message: 'Error al crear anuncio'});
+      }
+    });
+  });
+
 });
 
 router.get('/:id_encuesta', authentication.isLoggedInAdmin, function(req, res, next) {

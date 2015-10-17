@@ -25,7 +25,7 @@ define(function(require) {
       view = this;
       $.ajax({
         method: 'POST',
-        url: '/api/admin/envioMasivo',
+        url: '/api/encuestas/anuncios',
         contentType: 'application/json',
         data: JSON.stringify({
           'id_encuesta': this.id_encuesta
