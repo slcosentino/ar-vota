@@ -8,7 +8,8 @@ define(function(require) {
   PublicacionesView = require('frontend/views/PublicacionesView'),
   RegisterView = require('frontend/views/RegisterView'),
   PerfilView = require('frontend/views/PerfilView'),
-  EncuestasView = require('frontend/views/EncuestasView');
+  EncuestasView = require('frontend/views/EncuestasView'),
+  EncuestasDisponiblesView = require('frontend/views/EncuestasDisponiblesView');
 
   return Backbone.Router.extend({
     routes: {
@@ -24,7 +25,8 @@ define(function(require) {
       'quejas/:id_queja': 'quejasOverview',
       'quejas': 'quejas',
       'usuarios/:id_usuario': 'perfil',
-      'usuarios/:id_usuario/encuestas': 'verEncuestas'
+      'usuarios/:id_usuario/encuestas': 'verEncuestas',
+      'usuarios/:id_usuario/encuestas/disponibles': 'verEncuestasDisponibles'
     },
     index: function() {
         var indexView = new IndexView();
@@ -82,6 +84,13 @@ define(function(require) {
         id_usuario: id_usuario
       });
       ViewManager.render(encuestasView, $('#main-container'));
+    },
+
+    verEncuestasDisponibles: function(id_usuario) {
+      var encuestasDisponiblesView = new EncuestasDisponiblesView({
+        id_usuario: id_usuario
+      });
+      ViewManager.render(encuestasDisponiblesView, $('#main-container'));
     }
 
   });

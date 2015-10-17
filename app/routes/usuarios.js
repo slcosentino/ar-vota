@@ -6,6 +6,8 @@ var authentication = require('../middlewares/authentication');
 var Usuario = require('../models/UsuarioSchema');
 var Publicacion = require('../models/PublicacionSchema');
 var Encuesta = require('../models/EncuestaSchema');
+var UsuarioEncuesta = require('../models/UsuarioEncuestaSchema');
+var Anuncio = require('../models/AnuncioSchema');
 
 router.post('/login', function(req, res, next) {
   passport.authenticate('local', function(err, usuario, info) {
@@ -78,15 +80,41 @@ router.get('/:id_usuario/publicaciones', function(req, res, next) {
   });
 });
 
-router.get('/:id_usuario/encuestas', function(req, res, next) {
+router.get('/:id_usuario/encuestas', authentication.isLoggedIn, function(req, res, next) {
   var id_usuario = req.params.id_usuario;
-  
-  Usuario.findOne({id_usuario: id_usuario}, function(err, usuario) {
+
+  UsuarioEncuesta.findOne({id_usuario: id_usuario}, function(err, usuarioEncuesta) {
     if (!err) {
-      var usuario = usuario.toObject();
-      res.json(usuario['encuestas']);
+      if (usuarioEncuesta) {
+        var usuarioEncuesta = usuarioEncuesta.toObject();
+        res.json(usuarioEncuesta['encuestas']);
+      } else {
+        res.status(404).json({message: 'No hay encuestas completadas'});
+      }
     } else {
       return next(err);
+    }
+  });
+});
+
+router.get('/:id_usuario/encuestas/disponibles', authentication.isLoggedIn, function(req, res, next) {
+  var id_usuario = req.params.id_usuario;
+
+  UsuarioEncuesta.findOne({id_usuario: id_usuario}, function(err, usuarioEncuestas) {
+    if (!err) {
+      if (usuarioEncuestas) {
+        var usuarioEncuestas = usuarioEncuestas.toObject();
+        var encuestasCompletadas = usuarioEncuestas['id_encuestas'];
+      } else {
+        var encuestasCompletadas = [];
+      }
+      Anuncio.find({
+        id_encuesta: { $not: {$in: encuestasCompletadas } }
+      }, function(err, encuestas) {
+        res.json(encuestas);
+      });
+    } else {
+        res.status(500).json({message: 'Error interno, intente de nuevo'});
     }
   });
 });

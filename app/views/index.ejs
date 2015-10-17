@@ -127,9 +127,15 @@
                 </a>
                 <ul class="dropdown-menu">
                   <li>
+                    <a href="#usuarios/<%= usuario.id_usuario %>/encuestas/disponibles">
+                      <i class="fa fa-list"></i>
+                      &nbsp Disponibles
+                    </a>
+                  </li>
+                  <li>
                     <a href="#usuarios/<%= usuario.id_usuario %>/encuestas">
                       <i class="fa fa-list"></i>
-                      &nbsp Mis encuestas
+                      &nbsp Completadas
                     </a>
                   </li>
                 </ul>
@@ -143,6 +149,20 @@
     <!-- Main container -->
     <div id="main-container"></div>
 
+    <!-- Error modal -->
+    <div class="modal fade" id="error-modal" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title"><p class="text-danger">Se ha producido un error</p></h4>
+          </div>
+          <div class="modal-body">
+            <div id="mensaje"></div>
+          </div>
+        </div>
+      </div>
+    </div>
     <!-- Libraries -->
     <script src="/javascripts/lib/jquery-1.11.3.js"></script>
     <script src="/javascripts/lib/bootstrap.js"></script>
