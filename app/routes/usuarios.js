@@ -8,6 +8,7 @@ var Publicacion = require('../models/PublicacionSchema');
 var Encuesta = require('../models/EncuestaSchema');
 var UsuarioEncuesta = require('../models/UsuarioEncuestaSchema');
 var Anuncio = require('../models/AnuncioSchema');
+var EncuestasCounter = require('../modules/EncuestasCounter');
 
 router.post('/login', function(req, res, next) {
   passport.authenticate('local', function(err, usuario, info) {
@@ -117,6 +118,23 @@ router.get('/:id_usuario/encuestas/disponibles', authentication.isLoggedIn, func
         res.status(500).json({message: 'Error interno, intente de nuevo'});
     }
   });
+});
+
+router.get('/:id_usuario/encuestas/conteo', authentication.isLoggedIn, function(req, res, next) {
+  EncuestasCounter.count(req, res, next);
+});
+
+router.get('/:id_usuario/encuestas/conteo/delayed', authentication.isLoggedIn, function(req, res, next) {
+  var timeObject = {
+    times: 0,
+    max: 1 
+  }
+
+  var intervalObject = {}
+
+  intervalObject.interval = setInterval(function() {
+    EncuestasCounter.countDelayed(req, res, next, timeObject, intervalObject);
+  }, 15000);
 });
 
 router.get('/:id_usuario', function(req, res, next) {
