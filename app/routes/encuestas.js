@@ -5,7 +5,7 @@ var passport = require('passport');
 var authentication = require('../middlewares/authentication');
 var Encuesta = require('../models/EncuestaSchema');
 var Topico = require('../models/TopicoSchema');
-var Anuncio = require('../models/AnuncioSchema');
+var EncuestaNueva = require('../models/EncuestaNuevaSchema');
 
 router.get('/', authentication.isLoggedInAdmin, function(req, res, next) {
   Encuesta.find(function(err, encuestas){
@@ -57,7 +57,7 @@ router.get('/topicos', authentication.isLoggedInAdmin, function(req, res, next) 
   });
 });
 
-router.post('/anuncios', authentication.isLoggedInAdmin, function(req, res, next) {
+router.post('/nuevas', authentication.isLoggedInAdmin, function(req, res, next) {
   var id_encuesta = req.body.id_encuesta;
 
   Encuesta.findOne({_id: id_encuesta}, function(err, encuesta) {
@@ -69,16 +69,16 @@ router.post('/anuncios', authentication.isLoggedInAdmin, function(req, res, next
     var titulo = encuesta['titulo'];
     var topico = encuesta['topico'];
 
-    anuncio = new Anuncio();
-    anuncio.id_encuesta = id_encuesta;
-    anuncio.titulo = titulo;
-    anuncio.topico = topico;
+    encuestaNueva = new EncuestaNueva();
+    encuestaNueva.id_encuesta = id_encuesta;
+    encuestaNueva.titulo = titulo;
+    encuestaNueva.topico = topico;
 
-    anuncio.save(function(err) {
+    encuestaNueva.save(function(err) {
       if (!err) {
         res.json({message: 'Encuesta anunciada con exito'});
       } else {
-        res.status(500).json({message: 'Error al crear anuncio'});
+        res.status(500).json({message: 'Error al crear encuestaNueva'});
       }
     });
   });

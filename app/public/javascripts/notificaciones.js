@@ -1,48 +1,50 @@
 /* notificaciones */
+app = {};
 
-function consultaDelayed(id_usuario) {
-    $.ajax({
-      method: 'GET',
-      url: '/api/usuarios/'+ id_usuario + '/encuestas/conteo/delayed',
-      contentType: 'application/json',
-    })
-    .done(
-      function(data, textStatus, jqXHR) {
-        if (data > 0) {
-          notificar(data);
-        }
-        consultaDelayed(id_usuario);
-        return;
-    })
-    .fail(function(xhr, textStatus, errorThrown) {
-      $('#error-modal').find('#mensaje').html('Error interno. Intente de nuevo en unos minutos');
-      $('#error-modal').modal('show');
-    });
-}
+$(document).ready(function() {
+  consultar();
+});
 
-function consulta(id_usuario) {
+function consultar() {
   $.ajax({
     method: 'GET',
-    url: '/api/usuarios/'+ id_usuario + '/encuestas/conteo',
+    url: '/api/notificaciones/',
     contentType: 'application/json',
   })
-  .done(
-    function(data, textStatus, jqXHR) {
-      if (data > 0) {
-       notificar(data);
-      } else {
-        $('#notificaciones').html('');
+  .done(function(data, textStatus, jqXHR) {
+    if (data.notificaciones == true) {
+      if (data.encuestasNuevas) {
+        app.encuestasNuevas = data.encuestasNuevas;
+        notificar();
       }
+    }
+    if (data.notificaciones == false) {
+      limpiarNotificaciones();
+    }
+
+    setTimeout(function() {
+      consultar();
+    }, 15000);
   })
   .fail(function(xhr, textStatus, errorThrown) {
-    $('#error-modal').find('#mensaje').html('Error interno. Intente de nuevo en unos minutos');
-    $('#error-modal').modal('show');
+    setTimeout(function() {
+      consultar();
+    }, 15000);
   });
-
-  consultaDelayed(id_usuario);
 }
 
 function notificar(data) {
   $('#notificaciones').addClass('badge badge-encuestas');
-  $('#notificaciones').html(data);
+  $('#notificaciones').html(app.encuestasNuevas);
+
+  $('#notificacion-encuesta').addClass('badge');
+  $('#notificacion-encuesta').html(app.encuestasNuevas);
+}
+
+function limpiarNotificaciones() {
+  $('#notificacion').removeClass('badge badge-encuestas');
+  $('#notificacion').html('');
+
+  $('#notificacion-encuesta').removeClass('badge');
+  $('#notificacion-encuesta').html('');
 }
