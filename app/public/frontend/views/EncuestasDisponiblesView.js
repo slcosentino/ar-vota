@@ -2,6 +2,7 @@ define(function(require) {
 var template = require('text!frontend/templates/encuestas.html'), 
     ErrorHelper = require('frontend/helpers/ErrorHelper'),
     EncuestasDisponibles = require('frontend/collections/EncuestasDisponibles'),
+    EncuestasNuevas = require('frontend/collections/EncuestasNuevas'),
     ItemEncuestaView = require('frontend/views/ItemEncuestaView');
 
   return Backbone.View.extend({
@@ -10,16 +11,25 @@ var template = require('text!frontend/templates/encuestas.html'),
     },
 
     initialize : function(options) {
-      this.titulo_vista = 'Encuestas disponibles';
+      this.nuevas = options.nuevas;
       this.id_usuario = options.id_usuario;
 
-      this.encuestasDisponibles = new EncuestasDisponibles(null, {
+      if (this.nuevas == true) {
+        this.titulo_vista = 'Encuestas nuevas';
+        this.encuestas = new EncuestasNuevas(null, {
         id_usuario: this.id_usuario
       });
+      } else {
+        this.titulo_vista = 'Encuestas disponibles';
+        this.encuestas = new EncuestasDisponibles(null, {
+        id_usuario: this.id_usuario
+      });
+      }
 
-      this.listenTo(this.encuestasDisponibles, 'reset', this.renderEncuestas);
 
-      this.encuestasDisponibles.fetch({
+      this.listenTo(this.encuestas, 'reset', this.renderEncuestas);
+
+      this.encuestas.fetch({
         reset: true,
         error: function(collection, xhr, options) {
           var status = $.parseJSON(xhr.status);
@@ -39,7 +49,7 @@ var template = require('text!frontend/templates/encuestas.html'),
     },
 
     renderEncuestas: function() {
-      this.encuestasDisponibles.each(function(item) {
+      this.encuestas.each(function(item) {
         this.renderItem(item);
       }, this);
     },

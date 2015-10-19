@@ -26,7 +26,8 @@ define(function(require) {
       'quejas': 'quejas',
       'usuarios/:id_usuario': 'perfil',
       'usuarios/:id_usuario/encuestas': 'verEncuestas',
-      'usuarios/:id_usuario/encuestas/disponibles': 'verEncuestasDisponibles'
+      'usuarios/:id_usuario/encuestas/disponibles': 'verEncuestasDisponibles',
+      'usuarios/:id_usuario/encuestas/nuevas': 'verEncuestasNuevas'
     },
     index: function() {
         var indexView = new IndexView();
@@ -88,10 +89,18 @@ define(function(require) {
 
     verEncuestasDisponibles: function(id_usuario) {
       var encuestasDisponiblesView = new EncuestasDisponiblesView({
-        id_usuario: id_usuario
+        id_usuario: id_usuario,
+        nuevas: false
+      });
+      ViewManager.render(encuestasDisponiblesView, $('#main-container'));
+    },
+
+    verEncuestasNuevas: function(id_usuario) {
+      var encuestasDisponiblesView = new EncuestasDisponiblesView({
+        id_usuario: id_usuario,
+        nuevas: true
       });
       ViewManager.render(encuestasDisponiblesView, $('#main-container'));
     }
-
   });
 });

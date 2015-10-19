@@ -7,8 +7,7 @@ var Usuario = require('../models/UsuarioSchema');
 var Publicacion = require('../models/PublicacionSchema');
 var Encuesta = require('../models/EncuestaSchema');
 var UsuarioEncuesta = require('../models/UsuarioEncuestaSchema');
-var Anuncio = require('../models/AnuncioSchema');
-var EncuestasCounter = require('../modules/EncuestasCounter');
+var EncuestaNueva = require('../models/EncuestaNuevaSchema');
 
 router.post('/login', function(req, res, next) {
   passport.authenticate('local', function(err, usuario, info) {
@@ -105,14 +104,46 @@ router.get('/:id_usuario/encuestas/disponibles', authentication.isLoggedIn, func
     if (!err) {
       if (usuarioEncuestas) {
         var usuarioEncuestas = usuarioEncuestas.toObject();
-        var encuestasCompletadas = usuarioEncuestas['id_encuestas'];
+        var encuestasCompletadas = usuarioEncuestas['id_encuestas_completadas'];
       } else {
         var encuestasCompletadas = [];
       }
-      Anuncio.find({
+
+      EncuestaNueva.find({
         id_encuesta: { $not: {$in: encuestasCompletadas } }
       }, function(err, encuestas) {
-        res.json(encuestas);
+        if (encuestas.length < 1) {
+          res.status(404).json({message: 'No hay encuestas disponibles'});
+        } else {
+          res.json(encuestas);
+        }
+      });
+    } else {
+        res.status(500).json({message: 'Error interno, intente de nuevo'});
+    }
+  });
+});
+
+router.get('/:id_usuario/encuestas/nuevas', authentication.isLoggedIn, function(req, res, next) {
+  var id_usuario = req.params.id_usuario;
+
+  UsuarioEncuesta.findOne({id_usuario: id_usuario}, function(err, usuarioEncuestas) {
+    if (!err) {
+      if (usuarioEncuestas) {
+        var usuarioEncuestas = usuarioEncuestas.toObject();
+        var encuestasVistas = usuarioEncuestas['id_encuestas_vistas'];
+      } else {
+        var encuestasVistas = [];
+      }
+
+      EncuestaNueva.find({
+        id_encuesta: { $not: {$in: encuestasVistas } }
+      }, function(err, encuestas) {
+        if (encuestas.length < 1) {
+          res.status(404).json({message: 'No hay encuestas nuevas'});
+        } else {
+          res.json(encuestas);
+        }
       });
     } else {
         res.status(500).json({message: 'Error interno, intente de nuevo'});
