@@ -116,7 +116,7 @@ router.post('/:id_publicacion/comentarios', authentication.isLoggedIn, function(
       publicacion.toObject();
       comentario.id_usuario = req.user.id_usuario;
       comentario.id_publicacion = publicacion['_id'];
-      comentario.texto = req.body.texto;
+      comentario.descripcion = req.body.descripcion;
 
       comentario.save(function(err) {
         if (!err) {

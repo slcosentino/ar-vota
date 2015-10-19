@@ -57,7 +57,7 @@ define(function(require) {
         url: '/api/publicaciones/' + this.model.get('id') + '/comentarios',
         contentType: 'application/json',
         data: JSON.stringify({
-          'texto': view.$('#comentario').val()})
+          'descripcion': view.$('#comentarioDescripcion').val()})
       })
       .done(this.refresh)
         .fail(function(jqXHR, textStatus, errorThrown) {
@@ -96,7 +96,7 @@ define(function(require) {
     },
 
     renderCollection: function() { 
-      this.collection.sort();
+      //this.collection.sort();
 
       this.collection.each(function(item) {
         this.renderItem(item);
@@ -108,7 +108,7 @@ define(function(require) {
         model: comentario,
         parent: this
        });
-      this.$('#comentario-container').append(comentarioView.render().$el); 
+      this.$('#comentarios-container').append(comentarioView.render().$el); 
     }
   });
 });

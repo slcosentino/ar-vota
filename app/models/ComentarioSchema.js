@@ -4,9 +4,9 @@ var mongoose = require('mongoose'),
 var comentarioSchema = new Schema({
   id_publicacion: { type: String, required: true },
   id_usuario: { type: String, required: true },
-  texto: { type: String, required: true },
+  descripcion: { type: String, required: true },
   cantidad_likes: { type: Number, default: 0 },
-  cantidad_dislikes: { type: Number, default: 0 },
+  cantidad_disLikes: { type: Number, default: 0 },
   fechaCreacion: { type: Date, default: Date.now },
   fechaModificacion: { type: String }
 });
