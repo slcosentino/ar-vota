@@ -2,11 +2,8 @@ define(function(require) {
   var Encuesta = require('frontend/models/Encuesta');
 
   return Backbone.Collection.extend({
-    initialize: function(models, options) {
-      this.options = options;
-    },
     url: function() {
-      return 'api/usuarios/' + this.options.id_usuario + '/encuestas/disponibles';
+      return 'api/usuarios/encuestas/disponibles';
     },
     model: Encuesta,
     comparator: function(item) {

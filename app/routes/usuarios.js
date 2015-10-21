@@ -68,37 +68,8 @@ router.get('/logout', function(req, res, next){
   res.redirect('/');
 });
 
-router.get('/:id_usuario/publicaciones', function(req, res, next) {
-  var id_usuario = req.params.id_usuario;
-  
-  Publicacion.find({id_usuario: id_usuario}, function(err, publicaciones) {
-    if (!err) {
-      res.json(publicaciones);
-    } else {
-      return next(err);
-    }
-  });
-});
-
-router.get('/:id_usuario/encuestas', authentication.isLoggedIn, function(req, res, next) {
-  var id_usuario = req.params.id_usuario;
-
-  UsuarioEncuesta.findOne({id_usuario: id_usuario}, function(err, usuarioEncuesta) {
-    if (!err) {
-      if (usuarioEncuesta) {
-        var usuarioEncuesta = usuarioEncuesta.toObject();
-        res.json(usuarioEncuesta['encuestas']);
-      } else {
-        res.status(404).json({message: 'No hay encuestas completadas'});
-      }
-    } else {
-      return next(err);
-    }
-  });
-});
-
-router.get('/:id_usuario/encuestas/disponibles', authentication.isLoggedIn, function(req, res, next) {
-  var id_usuario = req.params.id_usuario;
+router.get('/encuestas/disponibles', authentication.isLoggedIn, function(req, res, next) {
+  var id_usuario = req.user.id_usuario;
 
   UsuarioEncuesta.findOne({id_usuario: id_usuario}, function(err, usuarioEncuestas) {
     if (!err) {
@@ -113,7 +84,7 @@ router.get('/:id_usuario/encuestas/disponibles', authentication.isLoggedIn, func
         id_encuesta: { $not: {$in: encuestasCompletadas } }
       }, function(err, encuestas) {
         if (encuestas.length < 1) {
-          res.status(404).json({message: 'No hay encuestas disponibles'});
+          res.status(204).send();
         } else {
           res.json(encuestas);
         }
@@ -124,8 +95,8 @@ router.get('/:id_usuario/encuestas/disponibles', authentication.isLoggedIn, func
   });
 });
 
-router.get('/:id_usuario/encuestas/nuevas', authentication.isLoggedIn, function(req, res, next) {
-  var id_usuario = req.params.id_usuario;
+router.get('/encuestas/nuevas', authentication.isLoggedIn, function(req, res, next) {
+  var id_usuario = req.user.id_usuario;
 
   UsuarioEncuesta.findOne({id_usuario: id_usuario}, function(err, usuarioEncuestas) {
     if (!err) {
@@ -140,7 +111,7 @@ router.get('/:id_usuario/encuestas/nuevas', authentication.isLoggedIn, function(
         id_encuesta: { $not: {$in: encuestasVistas } }
       }, function(err, encuestas) {
         if (encuestas.length < 1) {
-          res.status(404).json({message: 'No hay encuestas nuevas'});
+          res.status(204).send();
         } else {
           res.json(encuestas);
         }
@@ -151,21 +122,16 @@ router.get('/:id_usuario/encuestas/nuevas', authentication.isLoggedIn, function(
   });
 });
 
-router.get('/:id_usuario/encuestas/conteo', authentication.isLoggedIn, function(req, res, next) {
-  EncuestasCounter.count(req, res, next);
-});
-
-router.get('/:id_usuario/encuestas/conteo/delayed', authentication.isLoggedIn, function(req, res, next) {
-  var timeObject = {
-    times: 0,
-    max: 1 
-  }
-
-  var intervalObject = {}
-
-  intervalObject.interval = setInterval(function() {
-    EncuestasCounter.countDelayed(req, res, next, timeObject, intervalObject);
-  }, 15000);
+router.get('/encuestas/:id_encuesta', authentication.isLoggedIn, function(req, res, next) {
+  var id_encuesta = req.params.id_encuesta;
+ 
+  Encuesta.findOne({_id: id_encuesta},'-__v', function(err, encuesta) {
+    if (!err) {
+      res.json(encuesta);
+    } else {
+      res.status(400).json({message: 'No se encuentra la encuesta'});
+    }
+  });
 });
 
 router.get('/:id_usuario', function(req, res, next) {
@@ -210,10 +176,12 @@ router.put('/:id_usuario', authentication.isLoggedIn, function(req, res, next) {
   });
 });
 
-router.get('/candidatos', authentication.isLoggedIn, function(req, res, next) {
-  Usuario.find({esCiudadano : false}, function(err, usuarios) {
+router.get('/:id_usuario/publicaciones', function(req, res, next) {
+  var id_usuario = req.params.id_usuario;
+  
+  Publicacion.find({id_usuario: id_usuario}, function(err, publicaciones) {
     if (!err) {
-      res.json(usuarios);
+      res.json(publicaciones);
     } else {
       return next(err);
     }

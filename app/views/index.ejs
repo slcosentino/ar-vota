@@ -84,12 +84,14 @@
                       &nbsp Ver propuestas
                     </a>
                 </li>
-                <li>
-                  <a href="/#propuestas/nueva">
-                    <i class="fa fa-pencil"></i>
-                    &nbsp Nueva propuesta
-                  </a>
-                </li>
+                <% if (!usuario.esCiudadano) { %>
+                  <li>
+                    <a href="/#propuestas/nueva">
+                      <i class="fa fa-pencil"></i>
+                      &nbsp Nueva propuesta
+                    </a>
+                  </li>
+                <% } %>
               </ul>
               </li>
             <% } %>
@@ -108,12 +110,14 @@
                       &nbsp Ver quejas
                     </a>
                   </li>
-                  <li>
-                    <a href="#/quejas/nueva">
-                      <i class="fa fa-pencil"></i>
-                      &nbsp Nueva queja
-                    </a>
-                  </li>
+                  <% if (usuario.esCiudadano) { %>
+                    <li>
+                      <a href="#/quejas/nueva">
+                        <i class="fa fa-pencil"></i>
+                        &nbsp Nueva queja
+                      </a>
+                    </li>
+                  <% } %>
                 </ul>
               </li>
             <% } %>
@@ -127,7 +131,7 @@
                 </a>
                 <ul class="dropdown-menu">
                   <li>
-                    <a href="#usuarios/<%= usuario.id_usuario %>/encuestas/disponibles">
+                    <a href="#encuestas/disponibles">
                       <i class="fa fa-clone"></i>
                       &nbsp Disponibles
                     </a>
@@ -145,7 +149,7 @@
                 </a>
                 <ul class="dropdown-menu">
                   <li>
-                    <a href="#usuarios/<%= usuario.id_usuario %>/encuestas/nuevas">
+                    <a href="#encuestas/nuevas">
                       <span class="glyphicon glyphicon-list" style="margin-right:5px"></span>
                       &nbsp Encuestas Nuevas &nbsp <span id="notificacion-encuesta"></span>
                     </a>

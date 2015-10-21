@@ -12,32 +12,26 @@ var template = require('text!frontend/templates/encuestas.html'),
 
     initialize : function(options) {
       this.nuevas = options.nuevas;
-      this.id_usuario = options.id_usuario;
 
       if (this.nuevas == true) {
         this.titulo_vista = 'Encuestas nuevas';
-        this.encuestas = new EncuestasNuevas(null, {
-        id_usuario: this.id_usuario
-      });
+        this.encuestas = new EncuestasNuevas();
       } else {
         this.titulo_vista = 'Encuestas disponibles';
-        this.encuestas = new EncuestasDisponibles(null, {
-        id_usuario: this.id_usuario
-      });
+        this.encuestas = new EncuestasDisponibles();
       }
 
 
-      this.listenTo(this.encuestas, 'reset', this.renderEncuestas);
+      this.listenTo(this.encuestas, 'doRender', this.renderEncuestas);
 
+      view = this;
       this.encuestas.fetch({
         reset: true,
-        error: function(collection, xhr, options) {
-          var status = $.parseJSON(xhr.status);
-          var message = $.parseJSON(xhr.responseText).message;
-          if (status == 404) {
-            this.$('#status-container').html(message);
+        success: function(collection, response ,options) {
+          if (options.xhr.status == 204) {
+            view.$('#status-container').html('No hay encuestas para mostrar');
           } else {
-            ErrorHelper.showError(xhr);
+            view.encuestas.trigger('doRender');
           }
         }
       });

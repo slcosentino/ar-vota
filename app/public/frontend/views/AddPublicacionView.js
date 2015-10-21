@@ -13,8 +13,10 @@ define(function(require) {
     render: function() {
       if(this.propuesta) {
         this.tipo_publicacion = 'Propuesta';
+        this.url = '/api/publicaciones/propuestas';
       } else {
         this.tipo_publicacion = 'Queja';
+        this.url = '/api/publicaciones/quejas';
       }
 
       this.$el.html(this.template(this.tipo_publicacion));
@@ -31,7 +33,7 @@ define(function(require) {
       view = this;
       $.ajax({
         method: 'POST',
-        url: '/api/publicaciones/',
+        url: view.url,
         contentType: 'application/json',
         data: JSON.stringify({
           'titulo': view.$('#titulo').val(),

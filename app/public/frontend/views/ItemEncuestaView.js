@@ -2,11 +2,9 @@ define(function(require) {
   var template = require('text!frontend/templates/item-encuesta.html');
 
   return Backbone.View.extend({
-   // tagName: 'tr',
     template: _.template(template),
     events: {
-      'click #preview-button': 'previewEncuesta',
-      'click #editar-button': 'editarEncuesta'
+      'click': 'completarEncuesta',
     },
 
     render: function() {
@@ -18,16 +16,10 @@ define(function(require) {
       
     },
     
-    previewEncuesta: function() {
-      url = '#encuestas/' + this.model.get('id') + '/preview';
+    completarEncuesta: function() {
+      url = '#encuestas/' + this.model.get('id_encuesta') + '/completar';
       Backbone.history.navigate(url, true);
     },
-
-    editarEncuesta: function() {
-      url = '#encuestas/' + this.model.get('id') + '/editar';
-      Backbone.history.navigate(url, true);
-
-    }
 
   });
 });

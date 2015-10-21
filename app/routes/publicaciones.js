@@ -5,24 +5,15 @@ var passport = require('passport');
 var authentication = require('../middlewares/authentication');
 var Publicacion = require('../models/PublicacionSchema');
 var Comentario = require('../models/ComentarioSchema');
+var Publicator = require('../modules/Publicator');
 
-router.post('/', authentication.isLoggedIn, function(req, res, next) {
-  var publicacion = new Publicacion();
-  var id = req.params.id;
+router.post('/propuestas', authentication.isCandidato, function(req, res, next) {
+  Publicator.propuesta(req, res, next);
+});
 
-  publicacion.id_usuario = req.user.id_usuario;
-  publicacion.titulo = req.body.titulo;
-  publicacion.descripcion = req.body.descripcion;
-  publicacion.propuesta = req.body.propuesta;
-  publicacion.imagen = req.body.imagen;
 
-  publicacion.save(function(err) {
-    if (!err) {
-      res.json({message: 'Publicacion creada con exito'})
-    } else {
-      res.status(400).json({message: 'Verifique los campos'});
-    }
-  });
+router.post('/quejas', authentication.isCiudadano, function(req, res, next) {
+  Publicator.queja(req, res, next);
 });
 
 router.get('/', function(req, res, next) {
