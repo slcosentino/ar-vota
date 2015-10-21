@@ -113,7 +113,7 @@ router.get('/:id_usuario/encuestas/disponibles', authentication.isLoggedIn, func
         id_encuesta: { $not: {$in: encuestasCompletadas } }
       }, function(err, encuestas) {
         if (encuestas.length < 1) {
-          res.status(404).json({message: 'No hay encuestas disponibles'});
+          res.status(204).send();
         } else {
           res.json(encuestas);
         }
@@ -140,7 +140,7 @@ router.get('/:id_usuario/encuestas/nuevas', authentication.isLoggedIn, function(
         id_encuesta: { $not: {$in: encuestasVistas } }
       }, function(err, encuestas) {
         if (encuestas.length < 1) {
-          res.status(404).json({message: 'No hay encuestas nuevas'});
+          res.status(204).send();
         } else {
           res.json(encuestas);
         }
