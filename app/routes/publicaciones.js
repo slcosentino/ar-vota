@@ -129,4 +129,30 @@ router.post('/:id_publicacion/comentarios', authentication.isLoggedIn, function(
   });
 });
 
+router.put('/likeComentario/:id_comentario', function(req, res, next) {
+  var id_comentario = req.params.id_comentario;
+
+  Comentario.findOneAndUpdate({_id: id_comentario},  {$inc: {cantidad_likes: 1}}, function(err, comentario) {
+    if (!err) {
+      res.json(comentario);
+    } else {
+      console.log(err);
+      return next(err);
+    }   
+  }); 
+});
+
+router.put('/disLikeComentario/:id_comentario/', function(req, res, next) {
+  var id_comentario = req.params.id_comentario;
+		
+  Comentario.findOneAndUpdate({_id: id_comentario},  {$inc: {cantidad_disLikes: 1}}, function(err, comentario) {
+    if (!err) {
+      res.json(comentario);
+    } else {
+      console.log(err);
+      return next(err);
+    }   
+  }); 
+});
+
 module.exports = router;

@@ -11,8 +11,8 @@ define(function(require) {
     events: {
       'click #guardar-comentario-button': 'comentar',
       'click #cancelar-comentario-button': 'limpiarComentario',
-      'click #likePropuesta-button': 'likePropuesta',
-      'click #disLikePropuesta-button': 'disLikePropuesta'
+      'click #likePublicacion-button': 'likePropuesta',
+      'click #disLikePublicacion-button': 'disLikePropuesta'
     },
 
     render: function() {
@@ -21,7 +21,7 @@ define(function(require) {
     
     this.collection.url = '/api/publicaciones/' + this.id_publicacion + '/comentarios';
     this.listenTo(this.collection, 'reset', this.renderCollection);
-    
+      
     this.model.urlRoot = '/api/publicaciones/' + this.id_publicacion;
     this.listenTo(this.collection, 'add', this.refresh);
         this.listenTo(this.model, 'change', this.renderModel);
@@ -40,11 +40,15 @@ define(function(require) {
         return this;
     },
   
-  refresh: function() {
-    Backbone.history.loadUrl();
-    return false;
-  },
+    refresh: function() {
+		Backbone.history.loadUrl();
+		return false;
+	},
   
+	limpiarComentario: function() {
+		$("#comentarioDescripcion").val("");
+	},
+	
     renderModel: function() {
         this.$el.html(this.template(this.model.attributes));
     },
@@ -74,8 +78,10 @@ define(function(require) {
         contenttype: 'application/json',
         data: JSON.stringify({})
       })
-      .done(this.refresh)
-        .fail(function(jqXHR, textStatus, errorThrown) {
+      .done( function(data){
+		  	  $("#likePublicacion").html(data.cantidad_likes + 1);
+		})
+	  .fail(function(jqXHR, textStatus, errorThrown) {
           ErrorHelper.showError(jqXHR);
         });
     },
@@ -95,12 +101,14 @@ define(function(require) {
         });
     },
 
-    renderCollection: function() { 
-      //this.collection.sort();
+    renderCollection: function() {
+	  //this.collection.sort();
 
       this.collection.each(function(item) {
         this.renderItem(item);
       }, this);
+	  
+	  this.formatDate();
     },
 
     renderItem: function(comentario) {
@@ -109,6 +117,12 @@ define(function(require) {
         parent: this
        });
       this.$('#comentarios-container').append(comentarioView.render().$el); 
-    }
+    },
+	
+	formatDate: function() {
+	  $(".fecha").each(function( index, value ) {
+		$(value).html( $.format.date ( new Date ($(value).html()), 'dd-MMM-yyyy hh:mm'))
+	  });
+	}
   });
 });

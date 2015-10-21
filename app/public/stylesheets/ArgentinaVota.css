@@ -196,3 +196,14 @@ transition: all 0.3s ease-in-out;
   background-color: #ffff66;
   color: #000000;
 }
+
+/* publicaciones */
+.textarea-publicaciones {
+   width: 50%;
+   margin: auto;
+}
+
+.textarea-comentarios {
+   width: 50%;
+   margin: auto;
+}

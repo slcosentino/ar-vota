@@ -1,27 +1,29 @@
 <div class="overviewContainer">
   <div class="panel panel-danger">
     <div class="panel-body">
-      <div class="row">
+      <div class="row" align="center">
         <h2><%= id_usuario %></h2>
         <div>
           <h1><%= titulo %></h1>
           <img src="api/images/<%= imagen %>" height="400" width="500">
         </div>          
-        <div>
-          <p><%= descripcion %></p>
+        <div style="margin-top:25px">
+		  <textarea disabled id="publicacionDescripcion" rows="3" class="form-control textarea-publicaciones"><%= descripcion %></textarea>
         </div>
-        <span>
-          <button id="likePropuesta-button" type="button" class="btn btn-default tip fav ladda-button" title="" data-style="expand-right" data-spinner-color="#428bca" data-original-title="like">
-            <span class="glyphicon glyphicon-thumbs-up"><%= cantidad_likes %></span>
-          </button>
-        </span>
-        <span>
-          <button id="disLikePropuesta-button" class="btn btn-default tip fav ladda-button" title="" data-style="expand-right" data-spinner-color="#428bca" data-original-title="dislike">
-            <span class="glyphicon glyphicon-thumbs-down"><%= cantidad_disLikes %></span>
-          </button>
-        </span>
+		<div>
+          <span>
+            <button id="likePublicacion-button" type="button" class="btn btn-default tip fav ladda-button" title="" data-style="expand-right" data-spinner-color="#428bca" data-original-title="like">
+              <span id="likePublicacion" class="glyphicon glyphicon-thumbs-up"><%= cantidad_likes %></span>
+            </button>
+          </span>
+          <span>
+           <button id="disLikePublicacion-button" class="btn btn-default tip fav ladda-button" title="" data-style="expand-right" data-spinner-color="#428bca" data-original-title="dislike">
+            <span id="disLikePubliacion" class="glyphicon glyphicon-thumbs-down"><%= cantidad_disLikes %></span>
+            </button>
+          </span>
+		</div>
         <div class="required-field-block">
-          <textarea id="comentarioDescripcion" rows="3" class="form-control" placeholder="Deje un comentario"></textarea>
+          <textarea id="comentarioDescripcion" rows="3" class="form-control textarea-comentarios" placeholder="Deje un comentario"></textarea>
           <button id="guardar-comentario-button" type="button" class="btn btn-primary">
             <span class="glyphicon glyphicon-ok"></span> Guardar
           </button>
@@ -30,9 +32,9 @@
             <span class="glyphicon glyphicon-remove"></span> Cancelar
           </button>
         </div>
-        <div style="margin-top:25px">
-          <div id="comentarios-container"></div>
-        </div>
+	  </div>
+      <div style="margin-top:25px">
+        <div id="comentarios-container"></div>
       </div>
     </div>
   </div>
