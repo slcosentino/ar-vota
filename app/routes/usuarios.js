@@ -68,6 +68,18 @@ router.get('/logout', function(req, res, next){
   res.redirect('/');
 });
 
+router.get('/encuestas/:id_encuesta', authentication.isLoggedIn, function(req, res, next) {
+  var id_encuesta = req.params.id_encuesta;
+ 
+  Encuesta.findOne({_id: id_encuesta},'-__v', function(err, encuesta) {
+    if (!err) {
+      res.json(encuesta);
+    } else {
+      res.status(400).json({message: 'No se encuentra la encuesta'});
+    }
+  });
+});
+
 router.get('/:id_usuario/publicaciones', function(req, res, next) {
   var id_usuario = req.params.id_usuario;
   
