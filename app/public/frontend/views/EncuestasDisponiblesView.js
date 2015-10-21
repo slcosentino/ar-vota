@@ -12,18 +12,13 @@ var template = require('text!frontend/templates/encuestas.html'),
 
     initialize : function(options) {
       this.nuevas = options.nuevas;
-      this.id_usuario = options.id_usuario;
 
       if (this.nuevas == true) {
         this.titulo_vista = 'Encuestas nuevas';
-        this.encuestas = new EncuestasNuevas(null, {
-        id_usuario: this.id_usuario
-      });
+        this.encuestas = new EncuestasNuevas();
       } else {
         this.titulo_vista = 'Encuestas disponibles';
-        this.encuestas = new EncuestasDisponibles(null, {
-        id_usuario: this.id_usuario
-      });
+        this.encuestas = new EncuestasDisponibles();
       }
 
 

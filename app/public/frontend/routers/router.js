@@ -8,7 +8,6 @@ define(function(require) {
   PublicacionesView = require('frontend/views/PublicacionesView'),
   RegisterView = require('frontend/views/RegisterView'),
   PerfilView = require('frontend/views/PerfilView'),
-  EncuestasView = require('frontend/views/EncuestasView'),
   EncuestasDisponiblesView = require('frontend/views/EncuestasDisponiblesView'),
   CompletarEncuestaView = require('frontend/views/CompletarEncuestaView');
 
@@ -26,9 +25,8 @@ define(function(require) {
       'quejas/:id_queja': 'quejasOverview',
       'quejas': 'quejas',
       'usuarios/:id_usuario': 'perfil',
-      'usuarios/:id_usuario/encuestas': 'verEncuestas',
-      'usuarios/:id_usuario/encuestas/disponibles': 'verEncuestasDisponibles',
-      'usuarios/:id_usuario/encuestas/nuevas': 'verEncuestasNuevas',
+      'encuestas/disponibles': 'verEncuestasDisponibles',
+      'encuestas/nuevas': 'verEncuestasNuevas',
       'encuestas/:id_encuesta/completar': 'completarEncuesta'
     },
     index: function() {
@@ -82,29 +80,18 @@ define(function(require) {
       perfilView.id_usuario = id_usuario;
       ViewManager.render(perfilView, $('#main-container'));
     },
-    verEncuestas: function(id_usuario) {
-      var encuestasView = new EncuestasView({
-        id_usuario: id_usuario
-      });
-      ViewManager.render(encuestasView, $('#main-container'));
-    },
-
-    verEncuestasDisponibles: function(id_usuario) {
+    verEncuestasDisponibles: function() {
       var encuestasDisponiblesView = new EncuestasDisponiblesView({
-        id_usuario: id_usuario,
         nuevas: false
       });
       ViewManager.render(encuestasDisponiblesView, $('#main-container'));
     },
-
-    verEncuestasNuevas: function(id_usuario) {
+    verEncuestasNuevas: function() {
       var encuestasDisponiblesView = new EncuestasDisponiblesView({
-        id_usuario: id_usuario,
         nuevas: true
       });
       ViewManager.render(encuestasDisponiblesView, $('#main-container'));
     },
-
     completarEncuesta: function(id_encuesta) {
       var completarEncuestaView = new CompletarEncuestaView({
         id_encuesta: id_encuesta
