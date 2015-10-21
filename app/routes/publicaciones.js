@@ -5,6 +5,7 @@ var passport = require('passport');
 var authentication = require('../middlewares/authentication');
 var Publicacion = require('../models/PublicacionSchema');
 var Comentario = require('../models/ComentarioSchema');
+var Publicator = require('../modules/Publicator');
 
 router.post('/', authentication.isLoggedIn, function(req, res, next) {
   var publicacion = new Publicacion();
@@ -23,6 +24,15 @@ router.post('/', authentication.isLoggedIn, function(req, res, next) {
       res.status(400).json({message: 'Verifique los campos'});
     }
   });
+});
+
+router.post('/propuestas', authentication.isCandidato, function(req, res, next) {
+  Publicator.propuesta(req, res, next);
+});
+
+
+router.post('/quejas', authentication.isCiudadano, function(req, res, next) {
+  Publicator.queja(req, res, next);
 });
 
 router.get('/', function(req, res, next) {

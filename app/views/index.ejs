@@ -84,12 +84,14 @@
                       &nbsp Ver propuestas
                     </a>
                 </li>
-                <li>
-                  <a href="/#propuestas/nueva">
-                    <i class="fa fa-pencil"></i>
-                    &nbsp Nueva propuesta
-                  </a>
-                </li>
+                <% if (!usuario.esCiudadano) { %>
+                  <li>
+                    <a href="/#propuestas/nueva">
+                      <i class="fa fa-pencil"></i>
+                      &nbsp Nueva propuesta
+                    </a>
+                  </li>
+                <% } %>
               </ul>
               </li>
             <% } %>
@@ -108,12 +110,14 @@
                       &nbsp Ver quejas
                     </a>
                   </li>
-                  <li>
-                    <a href="#/quejas/nueva">
-                      <i class="fa fa-pencil"></i>
-                      &nbsp Nueva queja
-                    </a>
-                  </li>
+                  <% if (usuario.esCiudadano) { %>
+                    <li>
+                      <a href="#/quejas/nueva">
+                        <i class="fa fa-pencil"></i>
+                        &nbsp Nueva queja
+                      </a>
+                    </li>
+                  <% } %>
                 </ul>
               </li>
             <% } %>
