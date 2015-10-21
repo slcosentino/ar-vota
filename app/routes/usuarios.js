@@ -151,23 +151,6 @@ router.get('/:id_usuario/encuestas/nuevas', authentication.isLoggedIn, function(
   });
 });
 
-router.get('/:id_usuario/encuestas/conteo', authentication.isLoggedIn, function(req, res, next) {
-  EncuestasCounter.count(req, res, next);
-});
-
-router.get('/:id_usuario/encuestas/conteo/delayed', authentication.isLoggedIn, function(req, res, next) {
-  var timeObject = {
-    times: 0,
-    max: 1 
-  }
-
-  var intervalObject = {}
-
-  intervalObject.interval = setInterval(function() {
-    EncuestasCounter.countDelayed(req, res, next, timeObject, intervalObject);
-  }, 15000);
-});
-
 router.get('/:id_usuario', function(req, res, next) {
   var id_usuario = req.params.id_usuario;
  
