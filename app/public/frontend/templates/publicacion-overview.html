@@ -7,8 +7,8 @@
           <h1><%= titulo %></h1>
           <img src="api/images/<%= imagen %>" height="400" width="500">
         </div>          
-        <div style="margin-top:25px">
-		  <textarea disabled id="publicacionDescripcion" rows="3" class="form-control textarea-publicaciones"><%= descripcion %></textarea>
+        <div class="formateado" style="margin-top:25px">
+		  <p><%= descripcion %></p>
         </div>
 		<div>
           <span>
@@ -18,7 +18,7 @@
           </span>
           <span>
            <button id="disLikePublicacion-button" class="btn btn-default tip fav ladda-button" title="" data-style="expand-right" data-spinner-color="#428bca" data-original-title="dislike">
-            <span id="disLikePubliacion" class="glyphicon glyphicon-thumbs-down"><%= cantidad_disLikes %></span>
+            <span id="disLikePublicacion" class="glyphicon glyphicon-thumbs-down"><%= cantidad_disLikes %></span>
             </button>
           </span>
 		</div>

@@ -95,7 +95,9 @@ define(function(require) {
         contenttype: 'application/json',
         data: JSON.stringify({})
       })
-      .done(this.refresh)
+      .done( function(data){
+		  	  $("#disLikePublicacion").html(data.cantidad_disLikes + 1);
+		})
         .fail(function(jqXHR, textStatus, errorThrown) {
           ErrorHelper.showError(jqXHR);
         });
