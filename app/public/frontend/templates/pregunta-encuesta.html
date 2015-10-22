@@ -1,0 +1,15 @@
+<div>
+  <div id="panel-pregunta" class="panel panel-default">
+    <div class="panel-heading"> <i class="fa fa-arrow-circle-o-right fa-lg"></i> &nbsp <%= texto %> </div>
+    <div class="panel-body">
+      <% _.each(respuestas, function(respuesta){ %>
+      <div class="radio">
+        <label>
+          <input type="radio" name="pregunta-<%= nro_pregunta %>" value="<%= respuesta.nro_respuesta %>">
+          <%= respuesta.texto %>
+        </label>
+      </div> 
+      <% }) %>
+    </div>
+  </div>
+</div>

@@ -4,8 +4,6 @@ var Encuesta = require('../models/EncuestaSchema');
 
 var UsuarioEncuestaSchema = new mongoose.Schema({
   id_usuario: {type: String, required: true},
-  topico: { type: String, required: true},
-  titulo: { type: String, required: true},
   id_encuestas_vistas: [{
     type: String
   }],

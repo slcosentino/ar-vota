@@ -21,7 +21,8 @@ define(function(require) {
       this.close();
     },
 
-    updateModel: function() {
+    updateModel: function(nroRespuesta) {
+      this.model.set('nro_respuesta', nroRespuesta + 1);
       this.model.set('texto', this.$('#respuesta-input').val());
       return this.model; 
     }
