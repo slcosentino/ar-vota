@@ -207,3 +207,8 @@ transition: all 0.3s ease-in-out;
    width: 50%;
    margin: auto;
 }
+
+/* line breaks */
+.formateado {
+white-space: pre-wrap;
+}
