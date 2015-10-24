@@ -41,7 +41,7 @@ router.post('/registro', function(req, res, next) {
     if (!err) {
       
       /* creando la coleccion usuarioencuestas*/
-      var usuarioAccion = new UsuarioEncuesta();
+      var usuarioAccion = new UsuarioAccion();
       usuarioAccion.id_usuario = req.body.id_usuario;
       usuarioAccion.save(function(err) {
         if (err) {
