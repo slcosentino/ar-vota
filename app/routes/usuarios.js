@@ -6,9 +6,9 @@ var authentication = require('../middlewares/authentication');
 var Usuario = require('../models/UsuarioSchema');
 var Publicacion = require('../models/PublicacionSchema');
 var Encuesta = require('../models/EncuestaSchema');
-var UsuarioEncuesta = require('../models/UsuarioEncuestaSchema');
+var UsuarioAccion = require('../models/UsuarioAccionSchema');
 var EncuestaNueva = require('../models/EncuestaNuevaSchema');
-var EncuestaUsuario = require('../models/EncuestaUsuarioSchema');
+var UsuarioEncuesta = require('../models/UsuarioEncuestaSchema');
 
 router.post('/login', function(req, res, next) {
   passport.authenticate('local', function(err, usuario, info) {
@@ -41,9 +41,9 @@ router.post('/registro', function(req, res, next) {
     if (!err) {
       
       /* creando la coleccion usuarioencuestas*/
-      var usuarioEncuesta = new UsuarioEncuesta();
-      usuarioEncuesta.id_usuario = req.body.id_usuario;
-      usuarioEncuesta.save(function(err) {
+      var usuarioAccion = new UsuarioEncuesta();
+      usuarioAccion.id_usuario = req.body.id_usuario;
+      usuarioAccion.save(function(err) {
         if (err) {
           res.status(500).json({message: 'Error interno, intente de nuevo'});
         }
@@ -97,13 +97,14 @@ router.post('/encuestas', authentication.isLoggedIn, function(req, res, next) {
       });
     });
       
-    encuestaUsuario = new EncuestaUsuario();
-    encuestaUsuario.id_encuesta = encuesta._id;
-    encuestaUsuario.titulo = encuesta.titulo;
-    encuestaUsuario.topico = encuesta.topico;
-    encuestaUsuario.preguntas = encuesta.preguntas;
+    usuarioEncuesta = new UsuarioEncuesta();
+    usuarioEncuesta.id_usuario = id_usuario;
+    usuarioEncuesta.id_encuesta = encuesta._id;
+    usuarioEncuesta.titulo = encuesta.titulo;
+    usuarioEncuesta.topico = encuesta.topico;
+    usuarioEncuesta.preguntas = encuesta.preguntas;
     
-    encuestaUsuario.save(function(err) {
+    usuarioEncuesta.save(function(err) {
       if (!err) {
         res.status(200).json({message: 'Listo'});
       } else {
@@ -117,11 +118,11 @@ router.post('/encuestas', authentication.isLoggedIn, function(req, res, next) {
 router.get('/encuestas/disponibles', authentication.isLoggedIn, function(req, res, next) {
   var id_usuario = req.user.id_usuario;
 
-  UsuarioEncuesta.findOne({id_usuario: id_usuario}, function(err, usuarioEncuestas) {
+  UsuarioAccion.findOne({id_usuario: id_usuario}, function(err, usuarioAcciones) {
     if (!err) {
-      if (usuarioEncuestas) {
-        var usuarioEncuestas = usuarioEncuestas.toObject();
-        var encuestasCompletadas = usuarioEncuestas['id_encuestas_completadas'];
+      if (usuarioAcciones) {
+        var usuarioAcciones = usuarioAcciones.toObject();
+        var encuestasCompletadas = usuarioAcciones['id_encuestas_completadas'];
       } else {
         var encuestasCompletadas = [];
       }
@@ -144,11 +145,11 @@ router.get('/encuestas/disponibles', authentication.isLoggedIn, function(req, re
 router.get('/encuestas/nuevas', authentication.isLoggedIn, function(req, res, next) {
   var id_usuario = req.user.id_usuario;
 
-  UsuarioEncuesta.findOne({id_usuario: id_usuario}, function(err, usuarioEncuestas) {
+  UsuarioAccion.findOne({id_usuario: id_usuario}, function(err, usuarioAcciones) {
     if (!err) {
-      if (usuarioEncuestas) {
-        var usuarioEncuestas = usuarioEncuestas.toObject();
-        var encuestasVistas = usuarioEncuestas['id_encuestas_vistas'];
+      if (usuarioAcciones) {
+        var usuarioAcciones = usuarioAcciones.toObject();
+        var encuestasVistas = usuarioAcciones['id_encuestas_vistas'];
       } else {
         var encuestasVistas = [];
       }
@@ -173,10 +174,10 @@ router.get('/encuestas/:id_encuesta', authentication.isLoggedIn, function(req, r
  
   Encuesta.findOne({_id: id_encuesta},'-__v', function(err, encuesta) {
     if (!err) {
-      UsuarioEncuesta.findOneAndUpdate(
+      UsuarioAccion.findOneAndUpdate(
         {id_usuario: req.user.id_usuario},
         {$push: {id_encuestas_vistas: id_encuesta}},
-        function(err, usuarioEncuestas) {
+        function(err, usuarioAcciones) {
           if (!err) {
             res.json(encuesta);
           }
