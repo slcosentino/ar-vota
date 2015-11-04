@@ -5,25 +5,13 @@
 		<p><%= descripcion %></p>
 	</div>
 </td>
-  <button id="crear-respuesta-button" type="button" class="btn btn-primary">
-	<span class="glyphicon glyphicon-ok"></span> Responder
-  </button>
-<div id="crearRespuesta" class="required-field-block" hidden>
-  <textarea id="respuestaDescripcion" rows="3" class="form-control textarea-respuestas" placeholder="Respoder"></textarea>
-  <button id="guardar-respuesta-button" type="button" class="btn btn-primary">
-	<span class="glyphicon glyphicon-ok"></span> Guardar
-  </button>
-
-  <button id="cancelar-respuesta-button" type="button" class="btn btn-default">
-	<span class="glyphicon glyphicon-remove"></span> Cancelar
-  </button>
-</div>
 <td><span>
 	<button id="likeComentario-button" type="button" class="btn btn-default tip fav ladda-button" title="" data-style="expand-right" data-spinner-color="#428bca" data-original-title="like">
 		<span data-id="likeComentario-<%=id%>" class="glyphicon glyphicon-thumbs-up"><%=cantidad_likes%></span>
 	</button>
 </span></td>
 <td><span>
+
 	<button id="disLikeComentario-button" class="btn btn-default tip fav ladda-button" title="" data-style="expand-right" data-spinner-color="#428bca" data-original-title="dislike">
 		<span data-id="disLikeComentario-<%=id%>" class="glyphicon glyphicon-thumbs-down"><%=cantidad_disLikes%></span>
 	</button>

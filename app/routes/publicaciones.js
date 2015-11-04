@@ -5,6 +5,7 @@ var passport = require('passport');
 var authentication = require('../middlewares/authentication');
 var Publicacion = require('../models/PublicacionSchema');
 var Comentario = require('../models/ComentarioSchema');
+var Respuesta = require('../models/RespuestaSchema');
 var Publicator = require('../modules/Publicator');
 
 router.post('/propuestas', authentication.isCandidato, function(req, res, next) {
@@ -102,7 +103,7 @@ router.post('/:id_publicacion/comentarios', authentication.isLoggedIn, function(
   var comentario = new Comentario();
   var publicacion = Publicacion.findOne({_id: id_publicacion}, function(err, publicacion) {
     if (err) {
-      res.status(400).json({message: 'Propuesta no encontrada'})
+      res.status(400).json({message: 'Publicacion no encontrada'})
     } else {
       publicacion.toObject();
       comentario.id_usuario = req.user.id_usuario;
@@ -139,6 +140,68 @@ router.put('/disLikeComentario/:id_comentario/', function(req, res, next) {
   Comentario.findOneAndUpdate({_id: id_comentario},  {$inc: {cantidad_disLikes: 1}}, function(err, comentario) {
     if (!err) {
       res.json(comentario);
+    } else {
+      console.log(err);
+      return next(err);
+    }   
+  }); 
+});
+
+router.get('/:id_comentario/respuestas', function(req, res, next) {
+  var id_comentario = req.params.id_comentario;
+
+  Respuesta.find({id_comentario: id_comentario}, function(err, respuesta) {
+    if (!err) {
+      res.json(respuesta);
+    } else {
+      return next(err);
+    }
+  });
+});
+
+router.post('/:id_comentario/respuestas', authentication.isLoggedIn, function(req, res, next) {
+  var id_comentario = req.params.id_comentario;
+
+  var respuesta = new Respuesta();
+  var comentario = Comentario.findOne({_id: id_comentario}, function(err, comentario) {
+    if (err) {
+      res.status(400).json({message: 'Comentario no encontrado'})
+    } else {
+      comentario.toObject();
+      respuesta.id_usuario = req.user.id_usuario;
+      respuesta.id_comentario = comentario['_id'];
+      respuesta.descripcion = req.body.descripcion;
+
+      respuesta.save(function(err) {
+        if (!err) {
+          res.json({message: 'Respuesta creada con exito'})
+        } else {
+          res.status(400).json({message: 'Verifique los campos'});
+        }
+      });
+    }
+  });
+});
+
+router.put('/likeRespuesta/:id_respuesta', function(req, res, next) {
+  var id_respuesta = req.params.id_respuesta;
+
+  Respuesta.findOneAndUpdate({_id: id_respuesta},  {$inc: {cantidad_likes: 1}}, function(err, respuesta) {
+    if (!err) {
+      res.json(respuesta);
+    } else {
+      console.log(err);
+      return next(err);
+    }   
+  }); 
+});
+
+router.put('/disLikeRespuesta/:id_respuesta/', function(req, res, next) {
+  var id_respuesta = req.params.id_respuesta;
+		
+  Respuesta.findOneAndUpdate({_id: id_respuesta},  {$inc: {cantidad_disLikes: 1}}, function(err, respuesta) {
+    if (!err) {
+      res.json(respuesta);
     } else {
       console.log(err);
       return next(err);

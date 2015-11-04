@@ -4,6 +4,9 @@ define(function(require) {
   return Backbone.View.extend({
     template: _.template(template),
     events: {
+      'click #crear-respuesta-button': 'crearRespuesta',
+      'click #guardar-respuesta-button': 'guardarRespuesta',
+      'click #cancelar-respuesta-button': 'limpiarRespuesta',
 	  'click #likeComentario-button': 'likeComentario',
       'click #disLikeComentario-button': 'disLikeComentario'
     },
@@ -12,6 +15,36 @@ define(function(require) {
       this.$el.html(this.template(this.model.attributes));
       return this;
     },
+	
+	crearRespuesta: function() {
+		$("#crearRespuesta").show();
+		$("#crear-respuesta-button").hide();
+	},
+	
+	guardarRespuesta: function(event) {
+      event.preventDefault();
+      view = this;
+      $.ajax({
+        method: 'POST',
+        url: '/api/publicaciones/' + this.model.get('id') + '/respuestas',
+        contentType: 'application/json',
+        data: JSON.stringify({
+          'descripcion': view.$('#respuestaDescripcion').val()})
+      })
+      .done(this.refresh)
+	  .fail(function(jqXHR, textStatus, errorThrown) {
+          ErrorHelper.showError(jqXHR);
+      });
+    },
+	
+	refresh: function() {
+		Backbone.history.loadUrl();
+		return false;
+	},
+  
+	limpiarRespuesta: function() {
+		$("#respuestaDescripcion").val("");
+	},
 	
 	likeComentario: function(event) {
       event.preventDefault();
