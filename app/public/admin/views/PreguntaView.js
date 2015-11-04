@@ -70,7 +70,7 @@ define(function(require) {
       this.model.set('texto',this.$('#pregunta-input').val());
 
       for (var i = 0 ; i < this.respuestaViews.length ; i++) {
-        this.respuestas.add(this.respuestaViews[i].updateModel(), {merge: true});
+        this.respuestas.add(this.respuestaViews[i].updateModel(i), {merge: true});
       }
       this.model.set('respuestas', this.respuestas);
     },

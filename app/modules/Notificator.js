@@ -1,4 +1,4 @@
-var UsuarioEncuesta = require('../models/UsuarioEncuestaSchema');
+var UsuarioAccion = require('../models/UsuarioAccionSchema');
 var EncuestaNueva = require('../models/EncuestaNuevaSchema');
 
 module.exports = {
@@ -20,11 +20,11 @@ module.exports = {
     var id_usuario = req.user.id_usuario;
     var that = this;
 
-    UsuarioEncuesta.findOne({id_usuario: id_usuario}, function(err, usuarioEncuestas) {
+    UsuarioAccion.findOne({id_usuario: id_usuario}, function(err, usuarioAcciones) {
       if (!err) {
-        if (usuarioEncuestas) {
-          var usuarioEncuestasObject = usuarioEncuestas.toObject();
-          var encuestasVistas = usuarioEncuestasObject['id_encuestas_vistas']
+        if (usuarioAcciones) {
+          var usuarioAccionesObject = usuarioAcciones.toObject();
+          var encuestasVistas = usuarioAccionesObject['id_encuestas_vistas']
         } else {
           var encuestasVistas = [];
         }
