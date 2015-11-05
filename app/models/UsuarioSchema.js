@@ -2,12 +2,13 @@ var mongoose = require('mongoose');
 var crypto = require('crypto');
 
 var UsuarioSchema = new mongoose.Schema({
-	  id_usuario: { type: String, required: '{PATH} es un campo requerido' },
+    id_usuario: { type: String, required: '{PATH} es un campo requerido', unique: true},
 	  password: { type: String, required: '{PATH} es un campo requerido' },
 	  admin: { type: Boolean, default: false },
 	  nombre: { type: String, required: '{PATH} es un campo requerido' },
 	  apellido: { type: String, required: '{PATH} es un campo requerido' },
-	  fechaCreacion: { type: String },
+    ano_nacimiento: { type: Number, max: 2015, required: true },
+	  fechaCreacion: { type: String, default: Date.now },
 	  email: { type: String, default: 'Sin email' },
 	  esCiudadano:{ type: Boolean, default: true }, 
     desactivado: {type: Boolean, default: false },

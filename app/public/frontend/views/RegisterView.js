@@ -79,20 +79,19 @@ define(function(require) {
           url: '/api/usuarios/registro',
           contentType: 'application/json',
           data: JSON.stringify({
-            'id_usuario': view.$('#id_usuario').val(),
-          'password': view.$('#password').val(),
           'nombre': view.$('#nombre').val(),
-          'admin': 0,
-          'email':view.$('#email').val(),
-          'fechaCreacion': '01/01/2000',
-          'esCiudadano': view.$('#tipo_usuario').val(),
           'apellido': view.$('#apellido').val(),
+          'ano_nacimiento': view.$('#ano_nacimiento').val(),
+          'id_usuario': view.$('#id_usuario').val(),
+          'password': view.$('#password').val(),
+          'email':view.$('#email').val(),
+          'esCiudadano': view.$('#tipo_usuario').val(),
           'imagen_perfil': view.imagen_perfil
           })
         })
         .done(
             function(data, textStatus, jqXHR) {
-              window.location.replace('/');
+             // window.location.replace('/');
             })
         .fail(function(jqXHR, textStatus, errorThrown) {
           ErrorHelper.showError(jqXHR);

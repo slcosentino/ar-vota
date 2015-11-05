@@ -32,6 +32,7 @@ router.post('/registro', function(req, res, next) {
   }
   usuario.nombre = req.body.nombre;
   usuario.apellido = req.body.apellido;
+  usuario.ano_nacimiento = req.body.ano_nacimiento;
   usuario.email = req.body.email;
   usuario.esCiudadano = req.body.esCiudadano;
   usuario.fechaCreacion = req.body.fechaCreacion;
@@ -41,7 +42,7 @@ router.post('/registro', function(req, res, next) {
     if (!err) {
       
       /* creando la coleccion usuarioencuestas*/
-      var usuarioAccion = new UsuarioEncuesta();
+      var usuarioAccion = new UsuarioAccion();
       usuarioAccion.id_usuario = req.body.id_usuario;
       usuarioAccion.save(function(err) {
         if (err) {
@@ -56,7 +57,11 @@ router.post('/registro', function(req, res, next) {
         }
       });
     } else {
-      res.status(400).json({message: 'Verifique los campos'});
+      if (err.code == 11000) {
+        res.status(400).json({message: 'El id de usuario ya existe'});
+      } else {
+        res.status(400).json({message: 'Verifique los campos'});
+      }
     }
   });
 });
