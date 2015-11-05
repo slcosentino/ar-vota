@@ -88,10 +88,18 @@ router.get('/logout', function(req, res, next){
 router.post('/encuestas', authentication.isLoggedIn, function(req, res, next) {
   var id_encuesta = req.body.id_encuesta;
   var id_usuario = req.user.id_usuario;
-  
+
   Encuesta.findOne({_id: id_encuesta}, function(err, encuesta) {
     if (err) {
       res.status(400).json({message: 'No se encuentra la encuesta'});
+    }
+
+    var cantidadPreguntas = encuesta.preguntas.length;
+    var cantidadPreguntasRespondidas = req.body.resultado.length;
+
+    if (cantidadPreguntas != cantidadPreguntasRespondidas) {
+      res.status(400).json({message: 'Hay preguntas sin responder'});
+      return;
     }
 
     encuesta.preguntas.forEach(function(pregunta, indexPregunta){

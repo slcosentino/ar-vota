@@ -15,6 +15,7 @@ define(function(require) {
     initialize : function(options) {
       this.id_encuesta = options.id_encuesta;
       this.preguntaEncuestaViews = [];
+      this.incompleta = false;
 
       this.model = new Encuesta();
       this.model.url = this.model.url + '/' + this.id_encuesta;
@@ -76,7 +77,8 @@ define(function(require) {
           view.$('#status')
             .html('Debe completar las preguntas en rojo')
             .addClass('text-danger');
-        return;
+          view.incompleta = true;
+          return;
         }
         var selectionObject = {};
         selectionObject.nro_pregunta = index + 1;
@@ -88,7 +90,11 @@ define(function(require) {
     },
 
     guardar: function(selectionArray) {
-      
+      console.log(selectionArray);
+      if (this.incompleta) {
+        return;
+      }
+
       view = this;
       $.ajax({
         method: 'POST',
