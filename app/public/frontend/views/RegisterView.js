@@ -91,7 +91,7 @@ define(function(require) {
         })
         .done(
             function(data, textStatus, jqXHR) {
-             // window.location.replace('/');
+              window.location.replace('/');
             })
         .fail(function(jqXHR, textStatus, errorThrown) {
           ErrorHelper.showError(jqXHR);
