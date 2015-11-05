@@ -33,8 +33,6 @@ define(function(require) {
     },
 
     renderModel: function() {
-      this.updateNotificaciones();
-
       this.$el.html(this.template(this.model.attributes));
 
       this.preguntas = this.model.attributes.preguntas;
@@ -108,10 +106,7 @@ define(function(require) {
       .fail(function(jqXHR, textStatus, errorThrown) {
         ErrorHelper.showError(jqXHR);
       });
-    },
-
-    updateNotificaciones() {
-      consultar();
     }
+
   });
 });
