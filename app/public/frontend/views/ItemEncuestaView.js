@@ -13,12 +13,13 @@ define(function(require) {
     },
 
     initialize: function() {
-      
     },
     
     completarEncuesta: function() {
+      notificaciones.actualizarLocal();
       url = '#encuestas/' + this.model.get('id_encuesta') + '/completar';
       Backbone.history.navigate(url, true);
+      
     },
 
   });

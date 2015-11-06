@@ -1,11 +1,11 @@
 /* notificaciones */
-app = {};
+notificaciones = {};
 
 $(document).ready(function() {
-  consultar();
+  notificaciones.consultar();
 });
 
-function consultar() {
+notificaciones.consultar = function() {
   $.ajax({
     method: 'GET',
     url: '/api/notificaciones/',
@@ -14,36 +14,48 @@ function consultar() {
   .done(function(data, textStatus, jqXHR) {
     if (data.notificaciones == true) {
       if (data.encuestasNuevas) {
-        app.encuestasNuevas = data.encuestasNuevas;
-        notificar();
+        notificaciones.encuestasNuevas = data.encuestasNuevas;
+        notificaciones.notificar();
       }
     }
     if (data.notificaciones == false) {
-      limpiarNotificaciones();
+      notificaciones.limpiarNotificaciones();
     }
 
     setTimeout(function() {
-      consultar();
+      notificaciones.consultar();
     }, 15000);
   })
   .fail(function(xhr, textStatus, errorThrown) {
     setTimeout(function() {
-      consultar();
+      notificaciones.consultar();
     }, 15000);
   });
 }
 
-function notificar(data) {
+notificaciones.notificar = function(data) {
   $('#notificaciones').addClass('badge badge-encuestas');
-  $('#notificaciones').html(app.encuestasNuevas);
+  $('#notificaciones').html(notificaciones.encuestasNuevas);
 
   $('#notificacion-encuesta').addClass('badge');
-  $('#notificacion-encuesta').html(app.encuestasNuevas);
+  $('#notificacion-encuesta').html(notificaciones.encuestasNuevas);
 }
 
-function limpiarNotificaciones() {
-  $('#notificacion').removeClass('badge badge-encuestas');
-  $('#notificacion').html('');
+notificaciones.actualizarLocal = function() {
+  notificaciones.encuestasNuevas = notificaciones.encuestasNuevas -1;
+  console.log('actualizarLocal');
+  if (notificaciones.encuestasNuevas == 0) {
+  console.log('hay 0');
+    notificaciones.limpiarNotificaciones();
+  } else {
+  console.log('hay n');
+    notificaciones.notificar();
+  }
+}
+
+notificaciones.limpiarNotificaciones = function() {
+  $('#notificaciones').removeClass('badge badge-encuestas');
+  $('#notificaciones').html('');
 
   $('#notificacion-encuesta').removeClass('badge');
   $('#notificacion-encuesta').html('');
