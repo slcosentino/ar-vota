@@ -1,9 +1,10 @@
-<img src="/api/images/<%= imagen %>" alt="">
+<img class="white-panel-imagen" src="/api/images/<%= imagen %>" alt="">
 <% if (propuesta) { %>
-  <h4> Propuesta &nbsp<i class="fa fa-university" style="color:darkblue"></i></h4>
+  <h5> Propuesta &nbsp<i class="fa fa-university" style="color:darkblue"></i></h4>
 <% } else { %>
-  <h4> Queja &nbsp<i class="fa fa-bullhorn" style="color:darkred"></i></h4>
+  <h5> Queja &nbsp<i class="fa fa-bullhorn" style="color:darkred"></i></h4>
 <% } %>
-<h5><a href="/#propuestas/<%= id %>">Ver</a></h5>
+<h4><a href="/#propuestas/<%= id %>"><%= titulo %></a></h5>
 <p> <%= descripcion %> </p>
+<h5><img class="avatarMenu" src="api/images/<%= imagen_perfil %>"><a href="#"><%= id_usuario %></a></h5>
 

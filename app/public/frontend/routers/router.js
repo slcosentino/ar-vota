@@ -50,9 +50,9 @@ define(function(require) {
       addPublicacionView.propuesta = true;
       ViewManager.render(addPublicacionView, $('#main-container'));
     },
-    propuestasOverview: function(id_publicacion) {
+    propuestasOverview: function(id_propuesta) {
       var publicacionOverViewView = new PublicacionOverViewView();
-      publicacionOverViewView.id_publicacion = id_publicacion;
+      publicacionOverViewView.id_publicacion = id_propuesta;
       ViewManager.render(publicacionOverViewView, $('#main-container'));
     },
     propuestas: function() {  
@@ -67,7 +67,7 @@ define(function(require) {
     },
     quejasOverview: function(id_queja) {
       var publicacionOverViewView = new PublicacionOverViewView();
-      publicacionOverViewView.id_publicacion = id_publicacion;
+      publicacionOverViewView.id_publicacion = id_queja;
       ViewManager.render(publicacionOverViewView, $('#main-container'));
     },
     quejas: function() {  

@@ -8,7 +8,8 @@ var comentarioSchema = new Schema({
   cantidad_likes: { type: Number, default: 0 },
   cantidad_disLikes: { type: Number, default: 0 },
   fechaCreacion: { type: Date, default: Date.now },
-  fechaModificacion: { type: String }
+  fechaModificacion: { type: String },
+  imagen_perfil: { type: String}
 });
 
 module.exports = mongoose.model('Comentario', comentarioSchema);

@@ -1,5 +1,8 @@
 define(function(require) {
   var template = require('text!frontend/templates/comentario.html');
+      Comentario = require('frontend/models/Comentario'),
+      Respuestas = require('frontend/collections/Respuestas'),
+      RespuestaView = require('frontend/views/RespuestaView');
 
   return Backbone.View.extend({
     template: _.template(template),
@@ -12,13 +15,37 @@ define(function(require) {
     },
 
     render: function() {
+	  this.$el.html(this.template(this.model.attributes));
+      // this.collection = new Respuestas();
+	  
+	  // this.collection.url = '/api/publicaciones/' + this.model.id + '/respuestas';
+	  // this.listenTo(this.collection, 'reset', this.renderCollection);
+	  
+	  // this.model.urlRoot = '/api/publicaciones/comentarios/';
+	  // this.listenTo(this.collection, 'add', this.refresh);
+	  // this.listenTo(this.model, 'change', this.renderModel);
+
+	  // this.model.fetch({
+	    // error: function(collection, xhr, options) {
+		  // ErrorHelper.showError(xhr);
+	    // }});
+	
+	  // this.collection.fetch({
+	    // reset: true,
+	    // error: function(collection, xhr, options) {
+	    // ErrorHelper.showError(xhr);
+	    // }});
+	  
+	  return this;
+    },
+	
+	renderModel: function() {
       this.$el.html(this.template(this.model.attributes));
-      return this;
     },
 	
 	crearRespuesta: function() {
-		$("#crearRespuesta").show();
-		$("#crear-respuesta-button").hide();
+	  $("#crearRespuesta").show();
+	  $("#crear-respuesta-button").hide();
 	},
 	
 	guardarRespuesta: function(event) {
@@ -38,12 +65,14 @@ define(function(require) {
     },
 	
 	refresh: function() {
-		Backbone.history.loadUrl();
-		return false;
+	  Backbone.history.loadUrl();
+	  return false;
 	},
   
 	limpiarRespuesta: function() {
-		$("#respuestaDescripcion").val("");
+	  $("#respuestaDescripcion").val("");
+	  $("#crearRespuesta").hide();
+	  $("#crear-respuesta-button").show();
 	},
 	
 	likeComentario: function(event) {
@@ -57,6 +86,8 @@ define(function(require) {
       })
       .done( function(data){
 		  	  $("[data-id=likeComentario-" + data._id + "]").html(data.cantidad_likes + 1);
+			  $("#likeComentario").disable();
+			  $("#disLikeComentario").disable();
 		})
       .fail(function(jqXHR, textStatus, errorThrown) {
 		  ErrorHelper.showError(jqXHR);
@@ -74,10 +105,36 @@ define(function(require) {
       })
       .done( function(data){
 		  	  $("[data-id=disLikeComentario-" + data._id + "]").html(data.cantidad_disLikes + 1);
+			  $("#likeComentario").disable();
+			  $("#disLikeComentario").disable();
 		})
       .fail(function(jqXHR, textStatus, errorThrown) {
           ErrorHelper.showError(jqXHR);
         });
-    }
+    },
+	
+	renderCollection: function() {
+	  //this.collection.sort();
+
+      this.collection.each(function(item) {
+        this.renderItem(item);
+      }, this);
+	  
+	  this.formatDate();
+    },
+
+    renderItem: function(respuesta) {
+      var respuestaView = new RespuestaView({
+        model: respuesta,
+        parent: this
+       });
+      this.$('#respuestas-container').append(respuestasView.render().$el); 
+    },
+	
+	formatDate: function() {
+	  $(".fecha").each(function( index, value ) {
+		$(value).html( $.format.date ( new Date ($(value).html()), 'dd-MMM-yyyy hh:mm'))
+	  });
+	}
   });
 });

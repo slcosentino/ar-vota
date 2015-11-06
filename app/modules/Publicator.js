@@ -18,6 +18,7 @@ module.exports = {
     publicacion.descripcion = req.body.descripcion;
     publicacion.propuesta = propuesta;
     publicacion.imagen = req.body.imagen;
+    publicacion.imagen_perfil = req.user.imagen_perfil;
 
     publicacion.save(function(err) {
       if (!err) {

@@ -85,6 +85,18 @@ router.put('/:id_publicacion/disLike', function(req, res, next) {
   }); 
 });
 
+router.get('comentarios/:id_comentario', function(req, res, next) {
+  var id_comentario = req.params.id_comentario;
+ 
+  Comentario.findOne({_id: id_comentario},'-__v', function(err, comentario) {
+    if (!err) {
+      res.json(comentario);
+    } else {
+      return next(err);
+    }
+  });
+});
+
 router.get('/:id_publicacion/comentarios', function(req, res, next) {
   var id_publicacion = req.params.id_publicacion;
 
@@ -107,6 +119,7 @@ router.post('/:id_publicacion/comentarios', authentication.isLoggedIn, function(
     } else {
       publicacion.toObject();
       comentario.id_usuario = req.user.id_usuario;
+      comentario.imagen_perfil = req.user.imagen_perfil;
       comentario.id_publicacion = publicacion['_id'];
       comentario.descripcion = req.body.descripcion;
 
