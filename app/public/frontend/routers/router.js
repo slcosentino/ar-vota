@@ -9,7 +9,8 @@ define(function(require) {
   RegisterView = require('frontend/views/RegisterView'),
   PerfilView = require('frontend/views/PerfilView'),
   EncuestasDisponiblesView = require('frontend/views/EncuestasDisponiblesView'),
-  CompletarEncuestaView = require('frontend/views/CompletarEncuestaView');
+  CompletarEncuestaView = require('frontend/views/CompletarEncuestaView'),
+  PropuestasNuevasView = require('frontend/views/PropuestasNuevasView');
 
   return Backbone.Router.extend({
     routes: {

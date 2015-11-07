@@ -7,6 +7,8 @@ var Publicacion = require('../models/PublicacionSchema');
 var Comentario = require('../models/ComentarioSchema');
 var Respuesta = require('../models/RespuestaSchema');
 var Publicator = require('../modules/Publicator');
+var UsuarioAccion = require('../models/UsuarioAccionSchema');
+var UsuarioNotificacion = require('../models/UsuarioNotificacionSchema');
 
 router.post('/propuestas', authentication.isCandidato, function(req, res, next) {
   Publicator.propuesta(req, res, next);

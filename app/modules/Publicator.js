@@ -21,34 +21,37 @@ module.exports = {
     publicacion.descripcion = req.body.descripcion;
     publicacion.propuesta = propuesta;
     publicacion.imagen = req.body.imagen;
+    publicacion.imagen_perfil = req.user.imagen_perfil;
 
     publicacion.save(function(err, publicacion) {
       if (!err) {
         /* crear notificacion para cada seguidor */
-        UsuarioSeguidor.findOne({id_usuario: id_usuario}, function(err, usuarioSeguidor) {
-          if (err) {
-            res.status(500).json({message: 'Intente de nuevo'});
-            return;
-          }
-          usuarioSeguidor.id_seguidores.forEach(function(id_seguidor, index){
-            UsuarioNotificacion.findOneAndUpdate(
-              {id_usuario: id_seguidor},
-              {
-                $addToSet: {
-                  notificacion_publicaciones: {
-                    id_candidato: id_usuario,
-                    id_objeto: publicacion._id,
-                    titulo: publicacion.titulo
+        if (propuesta == true) {
+          UsuarioSeguidor.findOne({id_usuario: id_usuario}, function(err, usuarioSeguidor) {
+            if (err) {
+              res.status(500).json({message: 'Intente de nuevo'});
+              return;
+            }
+            usuarioSeguidor.id_seguidores.forEach(function(id_seguidor, index){
+              UsuarioNotificacion.findOneAndUpdate(
+                {id_usuario: id_seguidor},
+                {
+                  $addToSet: {
+                    notificacion_publicaciones: {
+                      id_candidato: id_usuario,
+                      id_objeto: publicacion._id,
+                      titulo: publicacion.titulo
+                    }
                   }
-                }
-              },
-              function(err, usuarioNotificacion) {
-                if (err) {
-                  res.status(500).json({message: 'Intente de nuevo'});
-                }
-              });
+                },
+                function(err, usuarioNotificacion) {
+                  if (err) {
+                    res.status(500).json({message: 'Intente de nuevo'});
+                  }
+                });
+            });
           });
-        });
+        }
         res.json({message: 'Publicacion creada con exito'});
       } else {
         res.status(400).json({message: 'Verifique los campos'});
