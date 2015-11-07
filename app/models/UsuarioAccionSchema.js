@@ -9,6 +9,12 @@ var UsuarioAccionSchema = new mongoose.Schema({
   }],
   id_encuestas_completadas: [{
     type: String
+  }],
+  id_candidatos_seguidos: [{
+    type: String
+  }],
+  id_propuestas_vistas: [{
+    type: String
   }]
 }, {collection: 'usuarioacciones'});
 

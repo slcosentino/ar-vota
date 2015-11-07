@@ -6,6 +6,11 @@
       </div>
 
       <div class="header hidden-sm hidden-xs">
+        <% if (!esCiudadano) {%>
+          <button id="seguir-button" class="btn btn-lg btn-primary pull-right">
+            <i class="fa fa-heart"></i>&nbsp Seguir
+          </button>
+        <% } %>
         <h3>Nombre y apellido</h3>
         <h4><%= nombre %> <%= apellido %></h4>
         <h3>Tipo de usuario</h3>
@@ -20,7 +25,11 @@
         <% if (esCiudadano) {%>
           <h4> Ciudadano </h4>
         <% } else { %>
-          <h4> Candidato </h4>
+        <h4> Candidato </h4>
+          <button id="seguir-button" class="btn btn-lg btn-primary">
+            <i class="fa fa-heart"></i>&nbsp Seguir
+          </button>
+          <hr>
         <% } %>
       </div>
     </div>   

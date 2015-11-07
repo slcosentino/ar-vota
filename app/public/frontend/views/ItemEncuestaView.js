@@ -16,7 +16,7 @@ define(function(require) {
     },
     
     completarEncuesta: function() {
-      notificaciones.actualizarLocal();
+      notificaciones.actualizarEncuestaLocal();
       url = '#encuestas/' + this.model.get('id_encuesta') + '/completar';
       Backbone.history.navigate(url, true);
       

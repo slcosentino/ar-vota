@@ -9,6 +9,8 @@ var Encuesta = require('../models/EncuestaSchema');
 var UsuarioAccion = require('../models/UsuarioAccionSchema');
 var EncuestaNueva = require('../models/EncuestaNuevaSchema');
 var UsuarioEncuesta = require('../models/UsuarioEncuestaSchema');
+var UsuarioSeguidor = require('../models/UsuarioSeguidorSchema');
+var UsuarioNotificacion = require('../models/UsuarioNotificacionSchema');
 
 router.post('/login', function(req, res, next) {
   passport.authenticate('local', function(err, usuario, info) {
@@ -47,6 +49,31 @@ router.post('/registro', function(req, res, next) {
       usuarioAccion.save(function(err) {
         if (err) {
           res.status(500).json({message: 'Error interno, intente de nuevo'});
+          return;
+        }
+      });
+      /* fin */
+
+      /* creando la coleccion usuarioseguidores*/
+      if (req.body.esCiudadano == false) {
+        var usuarioSeguidor = new UsuarioSeguidor();
+        usuarioSeguidor.id_usuario = req.body.id_usuario;
+        usuarioSeguidor.save(function(err) {
+          if (err) {
+            res.status(500).json({message: 'Error interno, intente de nuevo'});
+            return;
+          }
+        });
+      }
+      /* fin */
+
+      /* creando la coleccion usuarionotificaciones*/
+      var usuarioNotificacion = new UsuarioNotificacion();
+      usuarioNotificacion.id_usuario = req.body.id_usuario;
+      usuarioNotificacion.save(function(err) {
+        if (err) {
+          res.status(500).json({message: 'Error interno, intente de nuevo'});
+          return;
         }
       });
       /* fin */
@@ -119,7 +146,14 @@ router.post('/encuestas', authentication.isLoggedIn, function(req, res, next) {
     
     usuarioEncuesta.save(function(err) {
       if (!err) {
-        res.status(200).json({message: 'Listo'});
+        UsuarioAccion.findOneAndUpdate(
+          {id_usuario: req.user.id_usuario},
+          {$push: {id_encuestas_completadas: id_encuesta}},
+          function(err, usuarioAcciones) {
+            if (!err) {
+              res.status(200).json({message: 'Listo'});
+            }
+          });
       } else {
         res.status(400).json({message: 'Verifique los campos'});
       }
@@ -197,6 +231,47 @@ router.get('/encuestas/:id_encuesta', authentication.isLoggedIn, function(req, r
         });
     } else {
       res.status(400).json({message: 'No se encuentra la encuesta'});
+    }
+  });
+});
+
+router.post('/seguimientos', authentication.isLoggedIn, function(req, res, next) {
+  var id_candidato = req.body.id_candidato;
+  var id_usuario = req.user.id_usuario;
+
+  UsuarioSeguidor.findOneAndUpdate(
+    {id_usuario: id_candidato},
+    {$addToSet: {id_seguidores: id_usuario}},
+    function(err, usuarioSeguidor) {
+      if (err) {
+        res.status(500).json({message: 'Intente de nuevo'});
+        return;
+      }
+
+      UsuarioAccion.findOneAndUpdate(
+        {id_usuario: req.user.id_usuario},
+        {$addToSet: {id_candidatos_seguidos: id_candidato}},
+        function(err, usuarioAccion) {
+          if (err) {
+            res.status(500).json({message: 'Intente de nuevo'});
+          } else {
+            res.json({id_candidato: id_candidato});
+          }
+      });
+  });
+});
+
+router.get('/seguimientos/publicaciones', authentication.isLoggedIn, function(req, res, next) {
+  var id_usuario = req.user.id_usuario;
+ 
+  UsuarioNotificacion.findOne({id_usuario: id_usuario}, function(err, usuarioNotificacion) {
+    if (!err) {
+      var usuarioNotificacion = usuarioNotificacion.toObject();
+      var notificacionPublicaciones = usuarioNotificacion['notificacion_publicaciones'];
+
+      res.json(notificacionPublicaciones);
+    } else {
+      res.status(500).json({message: 'Intente de nuevo'});
     }
   });
 });

@@ -8,9 +8,7 @@ define(function(require) {
   return Backbone.View.extend({
     template: _.template(template),
     events: {
-      'click #editar-button': 'editar',
-      'click #cancelar-button': 'cancelar',
-      'click #guardar-button': 'guardar'  
+      'click #seguir-button': 'seguir'
     },
 
     render: function() {
@@ -63,6 +61,24 @@ define(function(require) {
       });
 
       this.$('#publicaciones-container').append(publicacionView.render().el);
+    },
+    seguir: function() {
+      view = this;
+      $.ajax({
+        method: 'POST',
+        url: '/api/usuarios/seguimientos',
+        contentType: 'application/json',
+        data: JSON.stringify({
+          'id_candidato': view.id_usuario
+        })
+      })
+      .done(
+        function(data, textStatus, jqXHR) {
+          console.log('listo');
+      })
+      .fail(function(jqXHR, textStatus, errorThrown) {
+        ErrorHelper.showError(jqXHR);
+      });
     }
   });
 });

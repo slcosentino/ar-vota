@@ -64,7 +64,32 @@ router.get('/:id_publicacion', function(req, res, next) {
  
   Publicacion.findOne({_id: id_publicacion},'-__v', function(err, publicacion) {
     if (!err) {
-      res.json(publicacion);
+      if (req.user){
+        UsuarioAccion.findOneAndUpdate(
+            {id_usuario: req.user.id_usuario},
+            {$addToSet: {id_propuestas_vistas: id_publicacion}},
+            function(err, usuarioAccion) {
+              if (err) {
+                res.status(500).json({message: 'Intente de nuevo'});
+                return;
+              } else {
+                UsuarioNotificacion.findOneAndUpdate(
+                    {id_usuario: req.user.id_usuario},
+                    {$pull: {notificacion_publicaciones: {id_objeto: id_publicacion}}},
+                    function(err, usuarioNotificacion) {
+                      if (err) {
+                        res.status(500).json({message: 'Intente de nuevo'});
+                        return;
+                      } else {
+                        res.json(publicacion);
+                      }
+                    });
+              }
+            });
+      } else {
+        res.json(publicacion);
+      }
+
     } else {
       return next(err);
     }
