@@ -10,31 +10,31 @@ define(function(require) {
       'click #crear-respuesta-button': 'crearRespuesta',
       'click #guardar-respuesta-button': 'guardarRespuesta',
       'click #cancelar-respuesta-button': 'limpiarRespuesta',
-	  'click #likeComentario-button': 'likeComentario',
+      'click #likeComentario-button': 'likeComentario',
       'click #disLikeComentario-button': 'disLikeComentario'
     },
 
     render: function() {
 	  this.$el.html(this.template(this.model.attributes));
-      // this.collection = new Respuestas();
-	  
-	  // this.collection.url = '/api/publicaciones/' + this.model.id + '/respuestas';
-	  // this.listenTo(this.collection, 'reset', this.renderCollection);
-	  
-	  // this.model.urlRoot = '/api/publicaciones/comentarios/';
-	  // this.listenTo(this.collection, 'add', this.refresh);
-	  // this.listenTo(this.model, 'change', this.renderModel);
+    
+    this.collection = new Respuestas();
+	  this.collection.url = '/api/publicaciones/' + this.model.id + '/respuestas';
+	  this.listenTo(this.collection, 'reset', this.renderCollection);
 
-	  // this.model.fetch({
-	    // error: function(collection, xhr, options) {
-		  // ErrorHelper.showError(xhr);
-	    // }});
+	  this.model.urlRoot = '/api/publicaciones/comentarios/';
+	  this.listenTo(this.collection, 'add', this.refresh);
+	  this.listenTo(this.model, 'change', this.renderModel);
+
+	  this.model.fetch({
+	    error: function(collection, xhr, options) {
+        ErrorHelper.showError(xhr);
+	  }});
 	
-	  // this.collection.fetch({
-	    // reset: true,
-	    // error: function(collection, xhr, options) {
-	    // ErrorHelper.showError(xhr);
-	    // }});
+	  this.collection.fetch({
+      reset: true,
+      error: function(collection, xhr, options) {
+        ErrorHelper.showError(xhr);
+      }});
 	  
 	  return this;
     },
@@ -128,7 +128,7 @@ define(function(require) {
         model: respuesta,
         parent: this
        });
-      this.$('#respuestas-container').append(respuestasView.render().$el); 
+      this.$('#respuestas-container').append(respuestaView.render().$el); 
     },
 	
 	formatDate: function() {
