@@ -62,10 +62,9 @@ define(function(require) {
     register: function(event) {
       event.preventDefault();
       view = this;
-      var error = this.verificar();
+     var error = this.verificar();
 
-      if (error != '')
-        alert(error);
+      if (error != '') alert(error);
 
       if (this.uploadHelperView) {
         this.imagen_perfil = this.uploadHelperView.getImage();
@@ -86,7 +85,8 @@ define(function(require) {
           'password': view.$('#password').val(),
           'email':view.$('#email').val(),
           'esCiudadano': view.$('#tipo_usuario').val(),
-          'imagen_perfil': view.imagen_perfil
+          'imagen_perfil': view.imagen_perfil,
+          'zona': view.$('#ciudad-select').val()
           })
         })
         .done(

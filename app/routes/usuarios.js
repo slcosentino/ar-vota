@@ -39,6 +39,7 @@ router.post('/registro', function(req, res, next) {
   usuario.esCiudadano = req.body.esCiudadano;
   usuario.fechaCreacion = req.body.fechaCreacion;
   usuario.imagen_perfil = req.body.imagen_perfil;
+  usuario.zona = req.body.zona;
 
   usuario.save(function(err) {
     if (!err) {
@@ -115,6 +116,8 @@ router.get('/logout', function(req, res, next){
 router.post('/encuestas', authentication.isLoggedIn, function(req, res, next) {
   var id_encuesta = req.body.id_encuesta;
   var id_usuario = req.user.id_usuario;
+  var ano_nacimiento = req.user.ano_nacimiento;
+  var zona = req.user.zona;
 
   Encuesta.findOne({_id: id_encuesta}, function(err, encuesta) {
     if (err) {
@@ -139,6 +142,8 @@ router.post('/encuestas', authentication.isLoggedIn, function(req, res, next) {
       
     usuarioEncuesta = new UsuarioEncuesta();
     usuarioEncuesta.id_usuario = id_usuario;
+    usuarioEncuesta.ano_nacimiento = ano_nacimiento;
+    usuarioEncuesta.zona = zona;
     usuarioEncuesta.id_encuesta = encuesta._id;
     usuarioEncuesta.titulo = encuesta.titulo;
     usuarioEncuesta.topico = encuesta.topico;
