@@ -8,4 +8,5 @@ module.exports = function(app) {
   app.use('/api/publicaciones', require('../routes/publicaciones'));
   app.use('/api/notificaciones', require('../routes/notificaciones'));
   app.use('/api/provincias', require('../routes/provincias'));
+  app.use('/api/estadisticas', require('../routes/estadisticas'));
 }
