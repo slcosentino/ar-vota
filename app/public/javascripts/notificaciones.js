@@ -1,5 +1,8 @@
 /* notificaciones */
-notificaciones = {};
+notificaciones = {
+  encuestasNuevas: 0,
+  publicacionesNuevas: 0
+};
 
 $(document).ready(function() {
   notificaciones.consultar();
@@ -17,9 +20,14 @@ notificaciones.consultar = function() {
         notificaciones.encuestasNuevas = data.encuestasNuevas;
         notificaciones.notificar();
       }
+
+      if (data.publicacionesNuevas) {
+        notificaciones.publicacionesNuevas = data.publicacionesNuevas;
+        notificaciones.notificar();
+      }
     }
     if (data.notificaciones == false) {
-      notificaciones.limpiarNotificaciones();
+      notificaciones.actualizarUI();
     }
 
     setTimeout(function() {
@@ -34,29 +42,47 @@ notificaciones.consultar = function() {
 }
 
 notificaciones.notificar = function(data) {
+  var total = notificaciones.encuestasNuevas + notificaciones.publicacionesNuevas;
+
   $('#notificaciones').addClass('badge badge-encuestas');
-  $('#notificaciones').html(notificaciones.encuestasNuevas);
+  $('#notificaciones').html(total);
 
-  $('#notificacion-encuesta').addClass('badge');
-  $('#notificacion-encuesta').html(notificaciones.encuestasNuevas);
-}
+  if (notificaciones.encuestasNuevas) {
+    $('#notificacion-encuesta').addClass('badge');
+    $('#notificacion-encuesta').html(notificaciones.encuestasNuevas);
+  }
 
-notificaciones.actualizarLocal = function() {
-  notificaciones.encuestasNuevas = notificaciones.encuestasNuevas -1;
-  console.log('actualizarLocal');
-  if (notificaciones.encuestasNuevas == 0) {
-  console.log('hay 0');
-    notificaciones.limpiarNotificaciones();
-  } else {
-  console.log('hay n');
-    notificaciones.notificar();
+  if (notificaciones.publicacionesNuevas) {
+    $('#notificacion-publicacion').addClass('badge');
+    $('#notificacion-publicacion').html(notificaciones.publicacionesNuevas);
   }
 }
 
-notificaciones.limpiarNotificaciones = function() {
-  $('#notificaciones').removeClass('badge badge-encuestas');
-  $('#notificaciones').html('');
+notificaciones.actualizarEncuestaLocal = function() {
+  notificaciones.encuestasNuevas = notificaciones.encuestasNuevas -1;
+  notificaciones.actualizarUI();
+}
 
-  $('#notificacion-encuesta').removeClass('badge');
-  $('#notificacion-encuesta').html('');
+notificaciones.actualizarPropuestaLocal = function() {
+  notificaciones.publicacionesNuevas = notificaciones.publicacionesNuevas -1;
+  notificaciones.actualizarUI();
+}
+
+notificaciones.actualizarUI = function() {
+  var total = notificaciones.encuestasNuevas + notificaciones.publicacionesNuevas;
+
+  if (total == 0) {
+    $('#notificaciones').removeClass('badge badge-encuestas');
+    $('#notificaciones').html('');
+  } else {
+    $('#notificaciones').html(total);
+  }
+
+  if (notificaciones.encuestasNuevas) {
+    $('#notificacion-encuesta').html(notificaciones.encuestasNuevas);
+  }
+
+  if (notificaciones.publicacionesNuevas) {
+    $('#notificacion-publicacion').html(notificaciones.publicacionesNuevas);
+  }
 }

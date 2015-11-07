@@ -19,6 +19,7 @@ define(function(require) {
       'recover': 'recover',
       'register': 'register',
       'propuestas/nueva': 'propuestasAdd',
+      'propuestas/nuevas': 'verPropuestasNuevas',
       'propuestas/:id_propuesta': 'propuestasOverview',
       'propuestas': 'propuestas',
       'quejas/nueva': 'quejasAdd',
@@ -97,6 +98,10 @@ define(function(require) {
         id_encuesta: id_encuesta
       });
       ViewManager.render(completarEncuestaView, $('#main-container'));
+    },
+    verPropuestasNuevas: function() {
+      var propuestasNuevasView = new PropuestasNuevasView();
+      ViewManager.render(propuestasNuevasView, $('#main-container'));
     }
   });
 });
