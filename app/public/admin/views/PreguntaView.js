@@ -44,6 +44,7 @@ define(function(require) {
     },
 
     agregarRespuesta: function() {
+      this.$('#agregar-respuesta-input').focus();
       this.respuestas.add(this.getAttributes());
       this.$('#agregar-respuesta-input').val('');
     },
