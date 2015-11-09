@@ -5,10 +5,10 @@
 		<p><%= descripcion %></p>
 	</div>
 </td>
-  <button id="crear-respuesta-button" type="button" class="btn btn-primary">
+  <button data-id="crear-respuesta-button-<%=id%>" id="crear-respuesta-button" type="button" class="btn btn-primary">
 	<span class="glyphicon glyphicon-ok"></span> Responder
   </button>
-<div id="crearRespuesta" class="required-field-block" hidden>
+<div data-id="crearRespuesta-<%=id%>" class="required-field-block" hidden>
   <textarea id="respuestaDescripcion" rows="3" class="form-control textarea-respuestas" placeholder="Respoder"></textarea>
   <button id="guardar-respuesta-button" type="button" class="btn btn-primary">
 	<span class="glyphicon glyphicon-ok"></span> Guardar
@@ -29,7 +29,7 @@
 	</button>
 </span></td>
 
-<div style="margin-top:25px">
+<div style="margin-left:20px">
 	<div id="respuestas-container"></div>
 </div>
 <hr/>

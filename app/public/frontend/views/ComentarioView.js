@@ -44,8 +44,8 @@ define(function(require) {
     },
 	
 	crearRespuesta: function() {
-	  $("#crearRespuesta").show();
-	  $("#crear-respuesta-button").hide();
+	  $("[data-id=crearRespuesta-" + data._id + "]").show();
+	  $("[data-id=crear-respuesta-button-" + data._id + "]").hide();
 	},
 	
 	guardarRespuesta: function(event) {
@@ -71,8 +71,8 @@ define(function(require) {
   
 	limpiarRespuesta: function() {
 	  $("#respuestaDescripcion").val("");
-	  $("#crearRespuesta").hide();
-	  $("#crear-respuesta-button").show();
+	  $("[data-id=crearRespuesta-" + data._id + "]").hide();
+	  $("[data-id=crear-respuesta-button-" + data._id + "]").show();
 	},
 	
 	likeComentario: function(event) {
@@ -86,8 +86,6 @@ define(function(require) {
       })
       .done( function(data){
 		  	  $("[data-id=likeComentario-" + data._id + "]").html(data.cantidad_likes + 1);
-			  $("#likeComentario").disable();
-			  $("#disLikeComentario").disable();
 		})
       .fail(function(jqXHR, textStatus, errorThrown) {
 		  ErrorHelper.showError(jqXHR);
@@ -105,8 +103,6 @@ define(function(require) {
       })
       .done( function(data){
 		  	  $("[data-id=disLikeComentario-" + data._id + "]").html(data.cantidad_disLikes + 1);
-			  $("#likeComentario").disable();
-			  $("#disLikeComentario").disable();
 		})
       .fail(function(jqXHR, textStatus, errorThrown) {
           ErrorHelper.showError(jqXHR);
