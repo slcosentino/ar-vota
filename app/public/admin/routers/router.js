@@ -9,7 +9,9 @@ define(function(require) {
       CrearEncuestaView = require('admin/views/CrearEncuestaView'),
       VerEncuestasView = require('admin/views/VerEncuestasView'),
       PreviewEncuestaView = require('admin/views/PreviewEncuestaView'),
-      EnvioEncuestaView = require('admin/views/EnvioEncuestaView');
+      EnvioEncuestaView = require('admin/views/EnvioEncuestaView'),
+      EstadisticasEncuestasView = require('admin/views/EstadisticasEncuestasView'),
+      EstadisticasEncuestaView = require('admin/views/EstadisticasEncuestaView');
 
 
   return Backbone.Router.extend({
@@ -24,7 +26,9 @@ define(function(require) {
       'encuestas': 'verEncuestas',
       'encuestas/:id_encuesta/preview': 'previewEncuesta',
       'encuestas/:id_encuesta/editar': 'editarEncuesta',
-      'encuestas/:id_encuesta/enviar': 'enviarEncuesta'
+      'encuestas/:id_encuesta/enviar': 'enviarEncuesta',
+      'estadisticas/encuestas': 'estadisticasEncuestas',
+      'estadisticas/encuestas/:id_encuesta': 'estadisticasEncuesta'
     },
 
     bienvenida: function() {
@@ -91,6 +95,18 @@ define(function(require) {
         id_encuesta: id_encuesta
       });
       ViewManager.render(envioEncuestaView, $('#main-container'));
+    },
+
+    estadisticasEncuestas: function() {
+      var estadisticasEncuestasView = new EstadisticasEncuestasView();
+      ViewManager.render(estadisticasEncuestasView, $('#main-container'));
+    },
+
+    estadisticasEncuesta: function(id_encuesta) {
+      var estadisticasEncuestaView = new EstadisticasEncuestaView({
+        id_encuesta: id_encuesta
+      });
+      ViewManager.render(estadisticasEncuestaView, $('#main-container'));
     }
 
   });
