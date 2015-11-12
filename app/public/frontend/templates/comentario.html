@@ -5,7 +5,7 @@
 		<p><%= descripcion %></p>
 	</div>
 </td>
-  <button data-id="crear-respuesta-button-<%=id%>" id="crear-respuesta-button" type="button" class="btn btn-primary">
+  <button data-id="<%=id%>" name="crear-respuesta-button" type="button" class="btn btn-primary">
 	<span class="glyphicon glyphicon-ok"></span> Responder
   </button>
 <div data-id="crearRespuesta-<%=id%>" class="required-field-block" hidden>
@@ -14,7 +14,7 @@
 	<span class="glyphicon glyphicon-ok"></span> Guardar
   </button>
 
-  <button id="cancelar-respuesta-button" type="button" class="btn btn-default">
+  <button data-id="<%=id%>" name="cancelar-respuesta-button" type="button" class="btn btn-default">
 	<span class="glyphicon glyphicon-remove"></span> Cancelar
   </button>
 </div>

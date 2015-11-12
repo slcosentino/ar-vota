@@ -7,24 +7,23 @@ define(function(require) {
   return Backbone.View.extend({
     template: _.template(template),
     events: {
-      'click #crear-respuesta-button': 'crearRespuesta',
+      'click [name=crear-respuesta-button]': 'crearRespuesta',
       'click #guardar-respuesta-button': 'guardarRespuesta',
-      'click #cancelar-respuesta-button': 'limpiarRespuesta',
+      'click [name=cancelar-respuesta-button]': 'limpiarRespuesta',
       'click #likeComentario-button': 'likeComentario',
       'click #disLikeComentario-button': 'disLikeComentario'
     },
 
-    render: function() {
-	  this.$el.html(this.template(this.model.attributes));
-    
-    this.collection = new Respuestas();
+    render: function() {  
+      this.collection = new Respuestas();
+
 	  this.collection.url = '/api/publicaciones/' + this.model.id + '/respuestas';
 	  this.listenTo(this.collection, 'reset', this.renderCollection);
 
 	  this.model.urlRoot = '/api/publicaciones/comentarios/';
 	  this.listenTo(this.collection, 'add', this.refresh);
-	  this.listenTo(this.model, 'change', this.renderModel);
-
+	  //this.listenTo(this.model, 'change', this.$el.html(this.template(this.model.attributes)););
+ 
 	  this.model.fetch({
 	    error: function(collection, xhr, options) {
         ErrorHelper.showError(xhr);
@@ -35,7 +34,8 @@ define(function(require) {
       error: function(collection, xhr, options) {
         ErrorHelper.showError(xhr);
       }});
-	  
+
+	  this.$el.html(this.template(this.model.attributes));
 	  return this;
     },
 	
@@ -43,9 +43,10 @@ define(function(require) {
       this.$el.html(this.template(this.model.attributes));
     },
 	
-	crearRespuesta: function() {
-	  $("[data-id=crearRespuesta-" + data._id + "]").show();
-	  $("[data-id=crear-respuesta-button-" + data._id + "]").hide();
+	crearRespuesta: function(ev) {
+      var id = $(ev.currentTarget).data('id');
+      $("[data-id=crearRespuesta-" + id + "]").show();
+	  $(ev.currentTarget).hide();
 	},
 	
 	guardarRespuesta: function(event) {
@@ -69,10 +70,11 @@ define(function(require) {
 	  return false;
 	},
   
-	limpiarRespuesta: function() {
-	  $("#respuestaDescripcion").val("");
-	  $("[data-id=crearRespuesta-" + data._id + "]").hide();
-	  $("[data-id=crear-respuesta-button-" + data._id + "]").show();
+	limpiarRespuesta: function(ev) {
+      var id = $(ev.currentTarget).data('id');
+	  $("[data-id=crearRespuesta-" + id + "] textarea").val("");
+	  $("[data-id=crearRespuesta-" + id + "]").hide();
+	  $("[data-id=" + id + "]").show();
 	},
 	
 	likeComentario: function(event) {
@@ -134,3 +136,5 @@ define(function(require) {
 	}
   });
 });
+
+
