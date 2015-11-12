@@ -53,13 +53,42 @@ router.get('/encuestas/:id_encuesta', function(req, res, next) {
         selecciones: {$sum: 1}
       }
     },
-    { $sort: {'_id.nro_pregunta': 1}},
-    { $sort: {'_id.nro_respuesta': 1}}
+    { $sort: {'_id.nro_pregunta': 1, '_id.nro_respuesta': 1}}
   ], function(err, result) {
     if (err) {
       console.log(err);
     }
-    res.json(result);
+
+    resultArray = [];
+    var aux = 1;
+    var respuestasArray = [];
+
+    for (var i = 0 ; i < result.length ; i++) {
+      if (result[i]._id.nro_pregunta == aux) {
+        var respuesta = {};
+        respuesta.nro_respuesta = result[i]._id.nro_respuesta;
+        respuesta.selecciones = result[i].selecciones;
+        respuestasArray.push(respuesta);
+      } else {
+        var pregunta = {};
+        pregunta.nro_pregunta = aux;
+        pregunta.respuestas = respuestasArray;
+        resultArray.push(pregunta);
+        respuestasArray = [];
+
+        var respuesta = {};
+        respuesta.nro_respuesta = result[i]._id.nro_respuesta;
+        respuesta.selecciones = result[i].selecciones;
+        respuestasArray.push(respuesta);
+        aux++;
+      }
+    }
+        var pregunta = {};
+        pregunta.nro_pregunta = aux;
+        pregunta.respuestas = respuestasArray;
+        resultArray.push(pregunta);
+
+    res.json(resultArray);
   });
 });
 

@@ -76,13 +76,29 @@ router.post('/nuevas', authentication.isLoggedInAdmin, function(req, res, next) 
 
     encuestaNueva.save(function(err) {
       if (!err) {
-        res.json({message: 'Encuesta anunciada con exito'});
+        Encuesta.findOneAndUpdate({_id: id_encuesta},  {$set: {enviada: true}}, function(err, encuesta) {
+          if (!err) {
+            res.json(encuesta);
+          } else {
+            res.status(500).json({message: 'Intente de nuevo'});
+          }
+        });
       } else {
-        res.status(500).json({message: 'Error al crear encuestaNueva'});
+        res.status(500).json({message: 'Error al guardar encuestaNueva, intente de nuevo'});
       }
     });
   });
 
+});
+
+router.get('/enviadas', authentication.isLoggedInAdmin, function(req, res, next) {
+  Encuesta.find({enviada: true},function(err, encuestas){
+    if (!err) {
+      res.json(encuestas);
+    } else {
+      return next(err);
+    }
+  });
 });
 
 router.get('/:id_encuesta', authentication.isLoggedInAdmin, function(req, res, next) {
