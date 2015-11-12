@@ -276,14 +276,22 @@ transition: all 0.3s ease-in-out;
 }
 
 .avatar {
-	width: 40px;
-	height: 40px;
+	width: 50px;
+	height: 50px;
 	border: 1px solid gray;
 	border-radius: 50%;
 	margin-right: 10px;
 }
 
 /* comentarios */
+
+#comentarios-container .avatar {
+	width: 40px;
+	height: 40px;
+	border: 1px solid gray;
+	border-radius: 50%;
+	margin-right: 10px;
+}
 
 #comentarios-container {
 	margin-top: 50px;
@@ -333,6 +341,14 @@ transition: all 0.3s ease-in-out;
 	margin-bottom: 10px;
 }
 
+/* Respuestas */
+#respuesta-container .avatar {
+	width: 30px;
+	height: 30px;
+	border: 1px solid gray;
+	border-radius: 50%;
+	margin-right: 10px;
+}
 /* line breaks */
 .formateado {
 	white-space: pre-wrap;

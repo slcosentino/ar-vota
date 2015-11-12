@@ -224,6 +224,7 @@ router.post('/:id_comentario/respuestas', authentication.isLoggedIn, function(re
     } else {
       comentario.toObject();
       respuesta.id_usuario = req.user.id_usuario;
+	  respuesta.imagen_perfil = req.user.imagen_perfil;
       respuesta.id_comentario = comentario['_id'];
       respuesta.descripcion = req.body.descripcion;
 
