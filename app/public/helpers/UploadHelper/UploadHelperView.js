@@ -14,7 +14,8 @@ define(function(require) {
     },
 
     upload: function(event) {
-      this.$('#status').html('Subiendo imagen...');
+      this.$('#status')
+        .html('<i class="fa fa-spinner fa-spin"></i>&nbsp Subiendo...');
       event.preventDefault();
       var form = this.$('#upload-form')[0];
       var formData = new FormData(form);
