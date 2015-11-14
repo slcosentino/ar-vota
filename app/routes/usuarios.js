@@ -109,8 +109,11 @@ router.get('/', authentication.isLoggedInAdmin, function(req, res, next) {
 });
 
 router.get('/logout', function(req, res, next){
-  req.logout();
-  res.redirect('/');
+  req.session.destroy(function(err) {
+    res.redirect('/');
+  });
+  //req.logout();
+  //res.redirect('/');
 });
 
 router.post('/encuestas', authentication.isLoggedIn, function(req, res, next) {
