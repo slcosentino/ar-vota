@@ -13,7 +13,7 @@ var template = require('text!frontend/templates/index.html'),
       this.$el.html(this.template);
       this.collection = new Publicaciones();
       this.listenTo(this.collection, 'reset', this.renderCollection);
-
+      
       this.collection.fetch({
         reset : true,
         error : function(collection, xhr, options) {

@@ -5,7 +5,8 @@ notificaciones = {
 };
 
 $(document).ready(function() {
-  notificaciones.consultar();
+ $('#main-loading').addClass('hidden');
+ notificaciones.consultar();
 });
 
 notificaciones.consultar = function() {
