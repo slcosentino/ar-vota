@@ -13,7 +13,8 @@ var UsuarioSchema = new mongoose.Schema({
 	  esCiudadano:{ type: Boolean, default: true }, 
     desactivado: {type: Boolean, default: false },
     imagen_perfil: { type: String, required: true},
-    zona: { type: String, required: true}
+    zona: { type: String, required: true},
+	  verificado:{ type: Boolean, default: false },
 	});
 
 UsuarioSchema.methods.hashPassword = function(password) {

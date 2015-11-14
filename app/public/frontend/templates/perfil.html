@@ -1,51 +1,71 @@
 <div class="container" style="margin-top: 20px; margin-bottom: 20px;">
   <div>
     <div class="row panel">
-      <div class="col-md-4 text-center">
-        <img src="/api/images/<%= imagen_perfil %>" class="img-thumbnail picture"/>
+      <div class="col-md-4">
+        <img src="/api/images/<%= imagen_perfil %>" class="img-thumbnail picture pull-left"/>
       </div>
 
-      <div class="header hidden-sm hidden-xs">
+      <div class="header hidden-xs">
         <% if (!esCiudadano) {%>
-          <button id="seguir-button" class="btn btn-lg btn-primary pull-right">
-            <i class="fa fa-heart"></i>&nbsp Seguir
-          </button>
+        <button class="seguir-button btn btn-lg btn-primary pull-right">
+          <i class="fa fa-heart"></i>&nbsp Seguir
+        </button>
         <% } %>
         <h3>Nombre y apellido</h3>
         <h4><%= nombre %> <%= apellido %></h4>
         <h3>Tipo de usuario</h3>
         <% if (esCiudadano) {%>
-          <h4> Ciudadano </h4>
+        <h4> Ciudadano </h4>
         <% } else { %>
-          <h4> Candidato </h4>
+        <h4 class="text-success"> Candidato
+          <% if (verificado) {%>
+           Verificado <i class="fa fa-check"></i>
+          <% } %>
+        </h4>
         <% } %>
       </div>
-      <div class="header text-center visible-sm visible-xs">
+      <div class="header text-center visible-xs" style="margin-top:320px">
         <h4><%= nombre %> <%= apellido %></h4>
         <% if (esCiudadano) {%>
-          <h4> Ciudadano </h4>
+        <h4> Ciudadano </h4>
         <% } else { %>
-        <h4> Candidato </h4>
-          <button id="seguir-button" class="btn btn-lg btn-primary">
-            <i class="fa fa-heart"></i>&nbsp Seguir
-          </button>
-          <hr>
+        <h4 class="text-success"> Candidato
+          <% if (verificado) {%>
+           Verificado <i class="fa fa-check"></i>
+          <% } %>
+        </h4>
+        <button class="seguir-button btn btn-lg btn-primary">
+          <i class="fa fa-heart"></i>&nbsp Seguir
+        </button>
+        <hr>
         <% } %>
       </div>
     </div>   
 
-    <div class="row nav">    
-      <div class="col-md-4"></div>
-      <div class="col-md-8 col-xs-12" style="margin: 0px;padding: 0px;">
-        <% if (esCiudadano) {%>
-          <div class="col-md-4 col-xs-4 profile-well"><i class="fa fa-university"></i> &nbsp 14</div>
-          <div class="col-md-4 col-xs-4 profile-well"><i class="fa fa-bullhorn"></i> &nbsp 2</div>
-          <div class="col-md-4 col-xs-4 profile-well"><i class="fa fa-thumbs-o-up"></i> &nbsp 26</div>
-        <% } else { %>
-          <div class="col-md-4 col-xs-4 profile-well"><i class="fa fa-university"></i> &nbsp 14</div>
-          <div class="col-md-4 col-xs-4 profile-well"><i class="fa fa-bullhorn"></i> &nbsp 2</div>
-          <div class="col-md-4 col-xs-4 profile-well"><i class="fa fa-heart-o"></i> &nbsp 26</div>
-        <% } %>
+    <div class="row nav"> 
+      <div class="hidden-xs">
+        <div class="col-md-4"></div>
+        <div class="col-md-8" style="margin: 0px;padding: 0px;">
+          <% if (esCiudadano) {%>
+          <div class="col-md-4 profile-well pull-right"><i class="fa fa-bullhorn"></i> &nbsp Quejas publicadas: <%= publicaciones %></div>
+          <% } else { %>
+          <div class="col-md-4">
+          </div>
+            <div class="col-md-4 col-xs-4 profile-well"><i class="fa fa-university"></i> &nbsp Propuestas publicadas: <%= publicaciones %></div>
+            <div class="col-md-4 col-xs-4 profile-well"><i class="fa fa-heart-o"></i> &nbsp Seguidores: <%= seguidores %></div>
+          <% } %>
+        </div>
+      </div>
+      <div class="visible-xs">
+        <div class="col-md-4"></div>
+        <div class="col-md-8 col-xs-12" style="margin: 0px;padding: 0px;">
+          <% if (esCiudadano) {%>
+          <div class="profile-well"><i class="fa fa-bullhorn"></i> &nbsp Quejas publicadas: <%= publicaciones %></div>
+          <% } else { %>
+          <div class="col-xs-6 profile-well"><i class="fa fa-university"></i> &nbsp <%= publicaciones %></div>
+          <div class="col-xs-6 profile-well"><i class="fa fa-heart-o"></i> &nbsp  <%= seguidores %></div>
+          <% } %>
+        </div>
       </div>
     </div>
   </div>
@@ -53,7 +73,7 @@
   <br>
 
   <div class="row">
-    <h4>Publicaciones más recientes de <%= nombre %></h4>
+    <h4>Publicaciones de <b><%= nombre %></b>:</h4>
     <hr>
     <section id="publicaciones-container" class="grid"></section>
   </div>

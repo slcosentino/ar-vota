@@ -295,7 +295,27 @@ router.get('/:id_usuario', function(req, res, next) {
 
   Usuario.findOne({id_usuario: id_usuario}, filter, function(err, usuario) {
     if (!err) {
-      res.json(usuario);
+      Publicacion.count({id_usuario: id_usuario}, function(err, publicaciones) {
+        if (!err) {
+          var usuarioObject = usuario.toObject();
+          usuarioObject.publicaciones = publicaciones;
+
+          UsuarioSeguidor.findOne({id_usuario: id_usuario}, function(err, usuarioSeguidor){
+            if (usuarioSeguidor) {
+              var usuarioSeguidorObject = usuarioSeguidor.toObject();
+              var seguidores = usuarioSeguidorObject['id_seguidores'];
+
+              usuarioObject.seguidores = seguidores.length;
+            } else {
+              usuarioObject.seguidores = 0;
+            }
+            console.log(usuarioObject);
+            res.json(usuarioObject);
+          });
+        } else {
+          return next(err);
+        }
+      });
     } else {
       res.status(401).json({message: 'Usuario no encontrado'});
     }

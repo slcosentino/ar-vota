@@ -8,7 +8,7 @@ define(function(require) {
   return Backbone.View.extend({
     template: _.template(template),
     events: {
-      'click #seguir-button': 'seguir'
+      'click .seguir-button': 'seguir'
     },
 
     render: function() {
@@ -27,18 +27,19 @@ define(function(require) {
       this.publicaciones.url = '/api/usuarios/' + this.id_usuario + '/publicaciones';
       this.listenTo(this.publicaciones, 'reset', this.renderPublicaciones);
 
-      this.publicaciones.fetch({
-        reset : true,
-        error : function(collection, xhr, options) {
-          ErrorHelper.showError(xhr);
-        }
-      });
 
       return this;
     },
 
     renderModel: function() {
       this.$el.html(this.template(this.model.attributes));
+
+      this.publicaciones.fetch({
+        reset : true,
+        error : function(collection, xhr, options) {
+          ErrorHelper.showError(xhr);
+        }
+      });
     },
 
     renderPublicaciones: function() {
@@ -63,6 +64,8 @@ define(function(require) {
       this.$('#publicaciones-container').append(publicacionView.render().el);
     },
     seguir: function() {
+      this.$('.seguir-button')
+        .html('<i class="fa fa-spinner fa-spin"></i>&nbsp Seguir');
       view = this;
       $.ajax({
         method: 'POST',
@@ -74,9 +77,12 @@ define(function(require) {
       })
       .done(
         function(data, textStatus, jqXHR) {
-          console.log('listo');
+          view.$('.seguir-button')
+            .html('<i class="fa fa-check"></i>&nbsp Seguir');
       })
       .fail(function(jqXHR, textStatus, errorThrown) {
+        view.$('.seguir-button')
+        .html('<i class="fa fa-heart"></i>&nbsp Seguir');
         ErrorHelper.showError(jqXHR);
       });
     }
