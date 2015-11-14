@@ -49,3 +49,10 @@
     color: #ffffff;
   }
 }
+
+/* Panel */
+.panel-default > .panel-heading {
+  background-image: none;
+  background-color: #0269c2;
+  color: white;
+}
