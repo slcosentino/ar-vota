@@ -24,18 +24,13 @@ define(function(require) {
       
     this.model.urlRoot = '/api/publicaciones/' + this.id_publicacion;
     this.listenTo(this.collection, 'add', this.refresh);
-	this.listenTo(this.model, 'change', this.renderModel);
+    this.listenTo(this.model, 'change', this.renderModel);
 
 	this.model.fetch({
 	  error: function(collection, xhr, options) {
 		  ErrorHelper.showError(xhr);
 	  }});
     
-	this.collection.fetch({
-	  reset: true,
-	  error: function(collection, xhr, options) {
-	  ErrorHelper.showError(xhr);
-      }});
 	  
 	return this;
     },
@@ -51,6 +46,11 @@ define(function(require) {
 	
     renderModel: function() {
         this.$el.html(this.template(this.model.attributes));
+        this.collection.fetch({
+          reset: true,
+          error: function(collection, xhr, options) {
+            ErrorHelper.showError(xhr);
+          }});
     },
     
     comentar: function(event) {
