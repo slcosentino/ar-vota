@@ -12,11 +12,14 @@ define(function(require) {
       return this;
     },
 
-    initialize: function() {
+    initialize: function(options) {
+      this.nuevas = options.nuevas;
     },
     
     completarEncuesta: function() {
-      notificaciones.actualizarEncuestaLocal();
+      if (this.nuevas == true) {
+        notificaciones.actualizarEncuestaLocal();
+      }
       url = '#encuestas/' + this.model.get('id_encuesta') + '/completar';
       Backbone.history.navigate(url, true);
       
