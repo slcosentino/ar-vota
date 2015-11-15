@@ -56,3 +56,24 @@
   background-color: #0269c2;
   color: white;
 }
+
+/* charts */
+
+.chart-legend {
+}
+
+.chart-legend ul li {
+  display: block;
+  padding-left: 30px;
+  position: relative;
+  margin-bottom: 4px;
+}
+.chart-legend li span {
+  display: block;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 20px;
+  height: 100%;
+  border-radius: 5px;
+}

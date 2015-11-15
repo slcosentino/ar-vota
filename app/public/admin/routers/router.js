@@ -11,7 +11,8 @@ define(function(require) {
       PreviewEncuestaView = require('admin/views/PreviewEncuestaView'),
       EnvioEncuestaView = require('admin/views/EnvioEncuestaView'),
       EstadisticasEncuestasView = require('admin/views/EstadisticasEncuestasView'),
-      EstadisticasEncuestaView = require('admin/views/EstadisticasEncuestaView');
+      EstadisticasEncuestaView = require('admin/views/EstadisticasEncuestaView'),
+      VerificarView = require('admin/views/VerificarView');
 
 
   return Backbone.Router.extend({
@@ -19,6 +20,7 @@ define(function(require) {
       '' : 'bienvenida',
       'inicio': 'inicio',
       'usuarios': 'usuarios',
+      'candidatos': 'candidatos',
       'login': 'login',
       'usuarios/:id_usuario': 'perfil',
       'usuarios/:id_usuario/editar': 'editar',
@@ -28,7 +30,8 @@ define(function(require) {
       'encuestas/:id_encuesta/editar': 'editarEncuesta',
       'encuestas/:id_encuesta/enviar': 'enviarEncuesta',
       'estadisticas/encuestas': 'estadisticasEncuestas',
-      'estadisticas/encuestas/:id_encuesta': 'estadisticasEncuesta'
+      'estadisticas/encuestas/:id_encuesta': 'estadisticasEncuesta',
+      'verificar': 'verificar'
     },
 
     bienvenida: function() {
@@ -42,7 +45,16 @@ define(function(require) {
     },
 
     usuarios: function() {
-      var usuariosView = new UsuariosView();
+      var usuariosView = new UsuariosView({
+        candidatos: false
+      });
+      ViewManager.render(usuariosView, $('#main-container'));
+    },
+
+    candidatos: function() {
+      var usuariosView = new UsuariosView({
+        candidatos: true
+      });
       ViewManager.render(usuariosView, $('#main-container'));
     },
 
@@ -52,7 +64,9 @@ define(function(require) {
     },
 
     perfil: function(id_usuario) {
-      var perfilView = new PerfilView();
+      var perfilView = new PerfilView({
+        verificar: false
+      });
       perfilView.id_usuario = id_usuario;
       ViewManager.render(perfilView, $('#main-container'));
     },
@@ -107,7 +121,12 @@ define(function(require) {
         id_encuesta: id_encuesta
       });
       ViewManager.render(estadisticasEncuestaView, $('#main-container'));
-    }
+    },
+
+    verificar: function() {
+      var verificarView = new VerificarView();
+      ViewManager.render(verificarView, $('#main-container'));
+    },
 
   });
 });
