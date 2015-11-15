@@ -4,10 +4,14 @@
   </div>
 
   <div class="row">
-    <div class="col-md-10 col-md-offset-1">
+    <div class="col-md-8 col-md-offset-2">
 
+      <button class="btn btn-primary pull-right" id="generar-button">Generar</button>
       <div><h4><b>Tópico:</b> <%= topico %></h4></div>
       <div><h4><b>Título:</b> <%= titulo %> </h4></div>
+      <div><h4><b>Encuestas procesadas:</b> <%= total %> </h4></div>
+
+      
       <hr>
-  <div id="preguntas-container"></div>
+  <div id="preguntas-container" class="hidden"></div>
 </div>

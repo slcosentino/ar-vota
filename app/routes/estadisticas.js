@@ -88,7 +88,7 @@ router.get('/encuestas/:id_encuesta', function(req, res, next) {
         pregunta.respuestas = respuestasArray;
         resultArray.push(pregunta);
 
-    res.json(resultArray);
+        res.json(resultArray);
   });
 });
 

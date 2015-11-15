@@ -9,6 +9,7 @@ define(function(require) {
   return Backbone.View.extend({
     template: _.template(template),
     events: {
+      'click #generar-button': 'generar'
     },
 
     render: function(){
@@ -23,6 +24,7 @@ define(function(require) {
       this.highlights = [];
       this.clindex;
       this.hlindex;
+      this.childViews = [];
 
       this.setColors();
 
@@ -66,6 +68,8 @@ define(function(require) {
           pregunta: preguntas[i],
           valores: view.getResultadoDePregunta(i)
         });
+
+        this.childViews.push(estadisticasPreguntaView);
 
         this.$('#preguntas-container').append(estadisticasPreguntaView.render().el);
       }
@@ -132,6 +136,13 @@ define(function(require) {
       }
       this.hlindex++;
       return this.highlights[this.hlindex];
+    },
+
+    generar: function() {
+      this.$('#preguntas-container').removeClass('hidden');
+      for (var i = 0; i < this.childViews.length ; i++) {
+        this.childViews[i].mostrarGrafico();
+      }
     }
   });
 });

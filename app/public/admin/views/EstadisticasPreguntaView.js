@@ -19,10 +19,15 @@ define(function(require) {
       var pieChartView = new PieChartView({
        values: valores
      });
+      this.childView = pieChartView;
 
       this.$('#chart-container').append(pieChartView.render().el);
 
       return this;
+    },
+
+    mostrarGrafico: function() {
+      this.childView.mostrarGrafico();
     }
   });
 });

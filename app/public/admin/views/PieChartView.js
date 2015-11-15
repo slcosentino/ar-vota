@@ -5,7 +5,6 @@ define(function(require) {
   return Backbone.View.extend({
     template: _.template(template),
     events: {
-      'click #boton': 'mostrarGrafico'
     },
 
     initialize: function(options){
@@ -15,12 +14,14 @@ define(function(require) {
     render: function() {
       this.$el.html(this.template());
       this.pieData = this.values;
+
       return this;
     },
 
     mostrarGrafico: function() {
-      this.ctx = $("#chart-area",this.el)[0].getContext("2d");
+      this.ctx = this.$("#chart-area")[0].getContext("2d");
       this.chart = new Chart(this.ctx).Pie(this.pieData);
+      this.$('#legend-container').html(this.chart.generateLegend());
     }
   });
 });

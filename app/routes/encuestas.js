@@ -6,6 +6,7 @@ var authentication = require('../middlewares/authentication');
 var Encuesta = require('../models/EncuestaSchema');
 var Topico = require('../models/TopicoSchema');
 var EncuestaNueva = require('../models/EncuestaNuevaSchema');
+var UsuarioEncuesta = require('../models/UsuarioEncuestaSchema');
 
 router.get('/', authentication.isLoggedInAdmin, function(req, res, next) {
   Encuesta.find(function(err, encuestas){
@@ -106,7 +107,16 @@ router.get('/:id_encuesta', authentication.isLoggedInAdmin, function(req, res, n
  
   Encuesta.findOne({_id: id_encuesta},'-__v', function(err, encuesta) {
     if (!err) {
-      res.json(encuesta);
+      var encuestaObject = encuesta.toObject();
+
+      UsuarioEncuesta.count({id_encuesta: id_encuesta}, function(err, total) {
+        if (!err){
+          encuestaObject.total = total;
+          res.json(encuestaObject);
+        } else {
+          res.status(500).json({message: 'Intente de nuevo'});
+        }
+      });
     } else {
       res.status(400).json({message: 'No se encuentra la encuesta'});
     }
