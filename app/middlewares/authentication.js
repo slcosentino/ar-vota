@@ -1,7 +1,10 @@
 module.exports = {
   isLoggedIn: function (req, res, next) {
     if (req.isAuthenticated()) {
-      return next();
+      if(!req.user.desactivado) {
+        return next();
+      }
+      res.status(401).json({message:'Esta cuenta fue desactivada'});
     }
     res.status(401).json({message:'Debe realizar log in para acceder al recurso'});
   },
@@ -17,7 +20,10 @@ module.exports = {
   isCiudadano: function (req, res, next) {
     if (req.isAuthenticated()) {
       if (req.user.esCiudadano) { 
-        return next();
+        if(!req.user.desactivado) {
+          return next();
+        }
+        res.status(401).json({message:'Esta cuenta fue desactivada'});
       }
       res.status(401).json({message:'Debe ser ciudadano'});
     }
@@ -26,7 +32,10 @@ module.exports = {
   isCandidato: function (req, res, next) {
     if (req.isAuthenticated()) {
       if (!req.user.esCiudadano) {
-        return next();
+        if(!req.user.desactivado) {
+          return next();
+        }
+        res.status(401).json({message:'Esta cuenta fue desactivada'});
       }
       res.status(401).json({message:'Debe ser candidato'});
     }
