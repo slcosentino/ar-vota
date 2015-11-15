@@ -1,10 +1,11 @@
 <img class="white-panel-imagen" src="/api/images/<%= imagen %>" alt="">
 <% if (propuesta) { %>
   <h5> Propuesta &nbsp<i class="fa fa-university" style="color:darkblue"></i></h4>
+  <h4><a href="/#propuestas/<%= id %>"><%= titulo %></a></h5>
 <% } else { %>
   <h5> Queja &nbsp<i class="fa fa-bullhorn" style="color:darkred"></i></h4>
+  <h4><a href="/#quejas/<%= id %>"><%= titulo %></a></h5>
 <% } %>
-<h4><a href="/#propuestas/<%= id %>"><%= titulo %></a></h5>
 <p> <%= descripcion %> </p>
 <div class="like-buttons">
 <span>
