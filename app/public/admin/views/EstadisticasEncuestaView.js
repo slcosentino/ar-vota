@@ -139,10 +139,16 @@ define(function(require) {
     },
 
     generar: function() {
-      this.$('#preguntas-container').removeClass('hidden');
-      for (var i = 0; i < this.childViews.length ; i++) {
-        this.childViews[i].mostrarGrafico();
-      }
+      this.$('#estadisticas-status').removeClass('hidden');
+
+      var view = this;
+      setTimeout(function(){
+        view.$('#estadisticas-status').addClass('hidden');
+        view.$('#preguntas-container').removeClass('hidden');
+        for (var i = 0; i < view.childViews.length ; i++) {
+          view.childViews[i].mostrarGrafico();
+        }
+      }, 1500);
     }
   });
 });
