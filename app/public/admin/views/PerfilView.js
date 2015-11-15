@@ -11,22 +11,33 @@ define(function(require) {
       'click #guardar-button': 'guardar'  
     },
 
+    initialize: function(options) {
+      this.verificar = options.verificar;
+    },
     render: function() {
-      this.model = new Usuario();
-      this.model.urlRoot = '/api/usuarios/' + this.id_usuario;
+      if (this.verificar) {
+        var attributes = this.model.attributes;
+        attributes.verificar = true;
+        this.$el.html(this.template(attributes));
+      } else {
+        this.model = new Usuario();
+        this.model.urlRoot = '/api/usuarios/' + this.id_usuario;
 
-      this.listenTo(this.model, 'change', this.renderModel);
+        this.listenTo(this.model, 'change', this.renderModel);
 
-      this.model.fetch({
-        error: function(collection, xhr, options) {
-          ErrorHelper.showError(xhr);
-        }
-      });
+        this.model.fetch({
+          error: function(collection, xhr, options) {
+            ErrorHelper.showError(xhr);
+          }
+        });
+      }
       return this;
     },
 
     renderModel: function() {
-      this.$el.html(this.template(this.model.attributes));
+      var attributes = this.model.attributes;
+      attributes.verificar = false;
+      this.$el.html(this.template(attributes));
     },
 
     editar: function() {

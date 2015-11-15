@@ -1,9 +1,11 @@
-<td>
-  <input type="checkbox"/>
-</td>
 <td><%= id_usuario %></td>
 <td><%= nombre %></td>
 <td><%= apellido %></td>
+<% if (verificado) { %>
+<td>Verificado</td>
+<% } else { %>
+<td>Sin verificar</td>
+<% } %>
 <td>
   <button id="ver-button" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-user"></span></button>
 </td>

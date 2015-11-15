@@ -7,12 +7,20 @@ define(function(require) {
   return Backbone.View.extend({
     template: _.template(template),
 
+    initialize: function(options) {
+      this.candidatos = options.candidatos;
+    },
+
     render: function() {
-      this.$el.html(this.template());
+      this.$el.html(this.template({
+        candidatos: this.candidatos
+      }));
 
       this.collection = new Usuarios();
+      if (this.candidatos) {
+        this.collection.url = this.collection.url + '/candidatos'
+      }
       this.listenTo(this.collection, 'reset', this.renderCollection);
-
 
       this.collection.fetch({
         reset: true,

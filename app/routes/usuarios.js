@@ -17,6 +17,9 @@ router.post('/login', function(req, res, next) {
     if (!usuario) {
       return res.status(401).json({message:'Nombre de usuario o password incorrecto'});
     }
+    if (usuario.desactivado) {
+      return res.status(401).json({message:'Usuario desactivado por el administrador'});
+    }
     req.login(usuario, function(err) {
       if (err) {
         return next(err);
@@ -100,6 +103,16 @@ router.get('/me', authentication.isLoggedIn, function(req, res, next) {
 
 router.get('/', authentication.isLoggedInAdmin, function(req, res, next) {
   Usuario.find(function(err, usuarios) {
+    if (!err) {
+      res.json(usuarios);
+    } else {
+      res.status(403).json({message: 'No esta logueado'});
+    }
+  });
+});
+
+router.get('/candidatos', authentication.isLoggedInAdmin, function(req, res, next) {
+  Usuario.find({esCiudadano: false}, function(err, usuarios) {
     if (!err) {
       res.json(usuarios);
     } else {

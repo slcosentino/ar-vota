@@ -34,6 +34,18 @@
                   <% }%>
                 </td>
               </tr>
+              <% if (!esCiudadano) { %>
+              <tr>
+                <td class="Col-md-2">Verificado:</td>
+                <td id="tipo" class="user-data">
+                  <% if (verificado) { %>
+                  <b>Si</b>
+                  <% } else { %>
+                    No
+                  <% }%>
+                </td>
+              </tr>
+              <% } %>
               <tr>
                 <td class="Col-md-2">Estado:</td>
                 <td id="tipo" class="user-data">
@@ -51,11 +63,26 @@
       <div id="ui-container" class="text-center">
       </div>
     </div>
-    <div class="panel-footer">
-      <button id="mensaje-button" type="button" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-envelope"></span></button>
+    <div class="panel-footer clearfix">
       <span class="pull-right">
-        <button id="editar-button" type="button" class="btn btn-sm btn-warning"><span class="glyphicon glyphicon-edit"></span></button>
-
+        <% if (verificar) { %>
+          <% if (verificado) { %>
+          <button id="verificar-button" type="button" class="btn btn-primary" disabled>
+            Verificar
+            <span class="glyphicon glyphicon-ok"></span>
+          </button>
+          <% } else { %>
+          <button id="verificar-button" type="button" class="btn btn-primary">
+            Verificar
+            <span class="glyphicon glyphicon-ok"></span>
+          </button>
+          <% } %>
+        <% } else { %>
+        <button id="editar-button" type="button" class="btn btn-primary">
+          Editar
+          <span class="glyphicon glyphicon-edit"></span>
+        </button>
+        <% } %>
       </span>
     </div>
 
