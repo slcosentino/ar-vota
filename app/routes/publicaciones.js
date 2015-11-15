@@ -74,6 +74,7 @@ router.put('/likeComentario/:id_comentario', function(req, res, next) {
   ComentarioLike.findOne({id_usuario: req.user.id_usuario, id_comentario: id_comentario}, function(err, comentarioLike) {
 	if (!err) {
 	  if (comentarioLike) {
+		res.status(400).json({message: 'Sólo se puede dar un me gusta'});
 	  } else {
         var comentarioLike = new ComentarioLike();
 		
@@ -107,6 +108,7 @@ router.put('/disLikeComentario/:id_comentario', function(req, res, next) {
   ComentarioDisLike.findOne({id_usuario: req.user.id_usuario, id_comentario: id_comentario}, function(err, comentarioDisLike) {
 	if (!err) {
 	  if (comentarioDisLike) {
+		res.status(400).json({message: 'Sólo se puede dar un no me gusta'});
 	  } else {
         var comentarioDisLike = new ComentarioDisLike();
 		
@@ -142,6 +144,7 @@ router.put('/likeRespuesta/:id_respuesta', function(req, res, next) {
   RespuestaLike.findOne({id_usuario: req.user.id_usuario, id_respuesta: id_respuesta}, function(err, respuestaLike) {
 	if (!err) {
 	  if (respuestaLike) {
+		res.status(400).json({message: 'Sólo se puede dar un me gusta'});
 	  } else {
         var respuestaLike = new RespuestaLike();
 		
@@ -174,6 +177,7 @@ router.put('/disLikeRespuesta/:id_respuesta', function(req, res, next) {
 
   RespuestaDisLike.findOne({id_usuario: req.user.id_usuario, id_respuesta: id_respuesta}, function(err, respuestaDisLike) {
 	if (!err) {
+		res.status(400).json({message: 'Sólo se puede dar un no me gusta'});
 	  if (respuestaDisLike) {
 	  } else {
         var respuestaDisLike = new RespuestaDisLike();
@@ -282,6 +286,7 @@ router.put('/:id_publicacion/like', function(req, res, next) {
   PublicacionLike.findOne({id_usuario: req.user.id_usuario, id_publicacion: id_publicacion}, function(err, publicacionLike) {
 	if (!err) {
 	  if (publicacionLike) {
+		res.status(400).json({message: 'Sólo se puede dar un me gusta'});
 	  } else {
         var publicacionLike = new PublicacionLike();
 		
@@ -315,6 +320,7 @@ router.put('/:id_publicacion/disLike', function(req, res, next) {
   PublicacionDisLike.findOne({id_usuario: req.user.id_usuario, id_publicacion: id_publicacion}, function(err, publicacionDisLike) {
 	if (!err) {
 	  if (publicacionDisLike) {
+		res.status(400).json({message: 'Sólo se puede dar un no me gusta'});
 	  } else {
         var publicacionDisLike = new PublicacionDisLike();
 		
