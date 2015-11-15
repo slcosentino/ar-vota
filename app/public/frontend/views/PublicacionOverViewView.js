@@ -104,7 +104,7 @@ define(function(require) {
     },
 
     renderCollection: function() {
-	  //this.collection.sort();
+	  this.collection.sort();
 
       this.collection.each(function(item) {
         this.renderItem(item);

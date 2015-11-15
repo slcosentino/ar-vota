@@ -9,6 +9,7 @@ var template = require('text!frontend/templates/publicaciones.html'),
   return Backbone.View.extend({
     template : _.template(template),
     events : {
+      'change [name=orden]': 'cambiarOrden'
     },
 
     render : function() {
@@ -19,8 +20,13 @@ var template = require('text!frontend/templates/publicaciones.html'),
         this.$el.html(this.template({tipo: 'Quejas'}));
         this.collection = new Quejas();
       }
-
-      this.listenTo(this.collection, 'reset', this.renderCollection);
+	  
+	  this.collection.comparator = function(model) {
+        return -((new Date(model.get('fechaCreacion'))).getTime());
+	  };
+	  this.collection.sort();
+      
+	  this.listenTo(this.collection, 'reset', this.renderCollection);
 
       this.collection.fetch({
         reset : true,
@@ -28,10 +34,31 @@ var template = require('text!frontend/templates/publicaciones.html'),
           ErrorHelper.showError(xhr);
         }
       });
-      return this;
+      
+	  return this;
     },
+	
+	cambiarOrden: function() {
+	  if($('[name=orden]').val() == 0)
+	  {
+		this.collection.comparator = function(model) {
+          return -(model.get('cantidad_likes'));
+	    };
+	  }
+	  else
+	  {
+		this.collection.comparator = function(model) {
+          return -((new Date(model.get('fechaCreacion'))).getTime());
+	    };
+	  }
 
-    renderCollection: function() {
+	  this.collection.sort();
+	  
+      this.$('#publicaciones-container').empty();
+	  this.renderCollection();
+	},
+	
+    renderCollection: function() {	
       this.collection.each(function(item) {
         this.renderItem(item);
       }, this);

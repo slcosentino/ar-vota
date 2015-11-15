@@ -23,8 +23,10 @@ var template = require('text!frontend/templates/index.html'),
       return this;
     },
 
-    renderCollection: function() {
-      this.collection.each(function(item) {
+    renderCollection: function() {	  
+      this.collection.sort();
+	  
+	  this.collection.each(function(item) {
         this.renderItem(item);
       }, this);
 

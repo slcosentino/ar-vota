@@ -1,6 +1,13 @@
 <div class="container">
   <div class="row">
     <h2><%= tipo %></h2>
+	<div class="form-group" id="orden">
+	  <label for="input-orden">Orden</label>
+	  <select class="form-control" name="orden" placeholder="Orden">
+	    <option value="1" selected>Recientes</option>
+	    <option value="0">Populares</option>
+      </select>
+    </div>	
     <hr>
     <section id="publicaciones-container" class="grid"></section>
     <hr>

@@ -6,5 +6,19 @@
 <% } %>
 <h4><a href="/#propuestas/<%= id %>"><%= titulo %></a></h5>
 <p> <%= descripcion %> </p>
+<div class="like-buttons">
+<span>
+  <button id="likePublicacion-button" type="button" class="btn btn-default tip fav ladda-button" title="" data-style="expand-right" data-spinner-color="#428bca" data-original-title="like" disabled>
+	<span id="likePublicacion" class="glyphicon glyphicon-thumbs-up"><%= cantidad_likes %></span>
+  </button>
+</span>
+
+<span>
+  <button id="disLikePublicacion-button" class="btn btn-default tip fav ladda-button" title="" data-style="expand-right" data-spinner-color="#428bca" data-original-title="dislike" disabled>
+	<span id="disLikePublicacion" class="glyphicon glyphicon-thumbs-down"><%= cantidad_disLikes %></span>
+  </button>
+</span>
+</div>
+</div>
 <h5><img class="avatarMenu" src="api/images/<%= imagen_perfil %>"><a href="#usuarios/<%= id_usuario %>"><%= id_usuario %></a></h5>
 

@@ -3,6 +3,9 @@ define(function(require) {
 
   return Backbone.Collection.extend({
     model: Usuario,
-    url: '/api/publicaciones'
+    url: '/api/publicaciones',
+    comparator: function(item) {
+      return -((new Date(item.get('fechaCreacion'))).getTime());
+    }
   });
 });
