@@ -1,6 +1,11 @@
 <div class="container">
   <div class="row">
-    <h2><%= tipo %></h2>
+    <h2>
+      <%= tipo %>
+      <span id="status-orden" class="hidden">
+        <i class="fa fa-spinner fa-spin fa-lg"></i>
+      </span>
+    </h2>
 	<div class="form-group" id="orden">
 	  <label for="input-orden">Orden</label>
 	  <select class="form-control" name="orden" placeholder="Orden">

@@ -20,12 +20,7 @@ var template = require('text!frontend/templates/publicaciones.html'),
         this.$el.html(this.template({tipo: 'Quejas'}));
         this.collection = new Quejas();
       }
-	  
-	  this.collection.comparator = function(model) {
-        return -((new Date(model.get('fechaCreacion'))).getTime());
-	  };
-	  this.collection.sort();
-      
+	 
 	  this.listenTo(this.collection, 'reset', this.renderCollection);
 
       this.collection.fetch({
@@ -53,9 +48,17 @@ var template = require('text!frontend/templates/publicaciones.html'),
 	  }
 
 	  this.collection.sort();
-	  
-      this.$('#publicaciones-container').empty();
+
+    this.$('#publicaciones-container').empty();
+    this.$('#publicaciones-container').addClass('hidden');
+    this.$('#status-orden').removeClass('hidden');
 	  this.renderCollection();
+
+    setTimeout(function(){
+      this.$('#status-orden').addClass('hidden');
+      this.$('#publicaciones-container').removeClass('hidden');
+    }, 1000);
+    
 	},
 	
     renderCollection: function() {	
