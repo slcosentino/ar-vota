@@ -234,7 +234,7 @@ color: #A92733;
 	text-transform: uppercase;
 	margin-bottom: 0;
 	max-width: 50vm;
-	word-break: break-all;
+	word-break: normal;
 }
 
 .cabecera-publicacion img {
