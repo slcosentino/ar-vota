@@ -177,8 +177,8 @@ router.put('/disLikeRespuesta/:id_respuesta', function(req, res, next) {
 
   RespuestaDisLike.findOne({id_usuario: req.user.id_usuario, id_respuesta: id_respuesta}, function(err, respuestaDisLike) {
 	if (!err) {
-		res.status(400).json({message: 'Sólo se puede dar un no me gusta'});
 	  if (respuestaDisLike) {
+		res.status(400).json({message: 'Sólo se puede dar un no me gusta'});
 	  } else {
         var respuestaDisLike = new RespuestaDisLike();
 		
