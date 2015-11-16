@@ -3,7 +3,8 @@ define(function(require) {
       Usuario = require('frontend/models/Usuario'),
       ErrorHelper = require('frontend/helpers/ErrorHelper'),
       Publicaciones = require('frontend/collections/Publicaciones'),
-      PublicacionView = require('frontend/views/PublicacionView');
+      PublicacionView = require('frontend/views/PublicacionView'),
+      UsuarioAccion = require('frontend/models/UsuarioAccion');
 
   return Backbone.View.extend({
     template: _.template(template),
@@ -13,9 +14,12 @@ define(function(require) {
 
     render: function() {
       this.model = new Usuario();
+      this.acciones = new UsuarioAccion();
+
       this.model.urlRoot = '/api/usuarios/' + this.id_usuario;
 
       this.listenTo(this.model, 'change', this.renderModel);
+      this.listenTo(this.acciones, 'change', this.renderAcciones);
 
       this.model.fetch({
         error: function(collection, xhr, options) {
@@ -37,6 +41,12 @@ define(function(require) {
       this.publicaciones.fetch({
         reset : true,
         error : function(collection, xhr, options) {
+          ErrorHelper.showError(xhr);
+        }
+      });
+
+      this.acciones.fetch({
+        error: function(collection, xhr, options) {
           ErrorHelper.showError(xhr);
         }
       });
@@ -63,6 +73,19 @@ define(function(require) {
 
       this.$('#publicaciones-container').append(publicacionView.render().el);
     },
+
+    renderAcciones: function(){
+      var candidatosSeguidos = this.acciones.get('id_candidatos_seguidos');
+      for (var i = 0; i < candidatosSeguidos.length ; i++) {
+        if (candidatosSeguidos[i] === this.id_usuario){
+        this.$('.seguir-button')
+        .html('<i class="fa fa-heart"></i>')
+        .addClass('disabled');
+        }
+      }
+      
+    },
+
     seguir: function() {
       this.$('.seguir-button')
         .html('<i class="fa fa-spinner fa-spin"></i>&nbsp Seguir');
