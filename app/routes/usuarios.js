@@ -282,6 +282,18 @@ router.post('/seguimientos', authentication.isLoggedIn, function(req, res, next)
   });
 });
 
+router.get('/acciones', authentication.isLoggedIn, function(req, res, next) {
+  var id_usuario = req.user.id_usuario;
+ 
+  UsuarioAccion.findOne({id_usuario: id_usuario}, '-__v -_id', function(err, usuarioAcciones) {
+    if (!err) {
+      res.json(usuarioAcciones);
+    } else {
+      res.status(500).json({message: 'Intente de nuevo'});
+    }
+  });
+});
+
 router.get('/seguimientos/publicaciones', authentication.isLoggedIn, function(req, res, next) {
   var id_usuario = req.user.id_usuario;
  
