@@ -35,6 +35,17 @@ define(function(require) {
       this.collection.each(function(item) {
         this.renderItem(item);
       }, this);
+
+      /* filtro */
+      var filas = this.$('#tabla tr');
+      this.$('#filtrar-input').keyup(function() {
+        var valor = $.trim($(this).val()).replace(/ +/g, '').toLowerCase();
+
+        filas.show().filter(function() {
+          var texto = $(this).text().replace(/\s+/g,'').toLowerCase();
+          return !~texto.indexOf(valor);
+        }).hide();
+      });
     },
 
     renderItem: function(item) {
