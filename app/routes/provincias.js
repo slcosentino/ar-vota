@@ -7,9 +7,13 @@ var Provincia = require('../models/ProvinciaSchema');
 router.get('/', function(req, res, next) {
   Provincia.find(function(err, provincias) {
     if (!err) {
-      res.json(provincias);
+      if (provincias) {
+        res.json(provincias);
+      } else {
+        return res.status(500).json({message:'No hay provincias'});
+      }
     } else {
-      return next(err);
+      return res.status(500).json({message:'Intente de nuevo'});
     }
   });
 });
