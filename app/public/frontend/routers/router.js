@@ -21,11 +21,13 @@ define(function(require) {
       'register': 'register',
       'propuestas/nueva': 'propuestasAdd',
       'propuestas/nuevas': 'verPropuestasNuevas',
+      'propuestas/recientes': 'propuestasRecientes',
+      'propuestas/populares': 'propuestasPopulares',
       'propuestas/:id_propuesta': 'propuestasOverview',
-      'propuestas': 'propuestas',
       'quejas/nueva': 'quejasAdd',
+      'quejas/recientes': 'quejasRecientes',
+      'quejas/populares': 'quejasPopulares',
       'quejas/:id_queja': 'quejasOverview',
-      'quejas': 'quejas',
       'usuarios/:id_usuario': 'perfil',
       'encuestas/disponibles': 'verEncuestasDisponibles',
       'encuestas/nuevas': 'verEncuestasNuevas',
@@ -57,9 +59,18 @@ define(function(require) {
       publicacionOverViewView.id_publicacion = id_propuesta;
       ViewManager.render(publicacionOverViewView, $('#main-container'));
     },
-    propuestas: function() {  
-      var publicacionesView = new PublicacionesView();
-      publicacionesView.propuestas = true;
+    propuestasRecientes: function() {  
+      var publicacionesView = new PublicacionesView({
+        propuestas: true,
+        populares: false
+      });
+      ViewManager.render(publicacionesView, $('#main-container'));
+    },
+    propuestasPopulares: function() {  
+      var publicacionesView = new PublicacionesView({
+        propuestas: true,
+        populares: true
+      });
       ViewManager.render(publicacionesView, $('#main-container'));
     },
     quejasAdd: function() {
@@ -71,6 +82,20 @@ define(function(require) {
       var publicacionOverViewView = new PublicacionOverViewView();
       publicacionOverViewView.id_publicacion = id_queja;
       ViewManager.render(publicacionOverViewView, $('#main-container'));
+    },
+    quejasRecientes: function() {  
+      var publicacionesView = new PublicacionesView({
+        propuestas: false,
+        populares: false
+      });
+      ViewManager.render(publicacionesView, $('#main-container'));
+    },
+    quejasPopulares: function() {  
+      var publicacionesView = new PublicacionesView({
+        propuestas: false,
+        populares: true
+      });
+      ViewManager.render(publicacionesView, $('#main-container'));
     },
     quejas: function() {  
       var publicacionesView = new PublicacionesView();

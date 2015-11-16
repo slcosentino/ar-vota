@@ -9,19 +9,36 @@ var template = require('text!frontend/templates/publicaciones.html'),
   return Backbone.View.extend({
     template : _.template(template),
     events : {
-      'change [name=orden]': 'cambiarOrden'
+      'click #cambiar': 'cambiarOrden'
+    },
+
+    initialize: function(options) {
+      this.propuestas = options.propuestas;
+      this.populares = options.populares;
     },
 
     render : function() {
+      this.$el.html(this.template({
+        propuestas: this.propuestas,
+        populares: this.populares
+      }));
       if (this.propuestas == true) {
-        this.$el.html(this.template({tipo: 'Propuestas'}));
         this.collection = new Propuestas();
       } else {
-        this.$el.html(this.template({tipo: 'Quejas'}));
         this.collection = new Quejas();
       }
+
+      if (this.populares == true){
+        this.collection.comparator = function(model) {
+          return -(model.get('cantidad_likes'));
+        };
+      } else {
+        this.collection.comparator = function(model) {
+          return -((new Date(model.get('fechaCreacion'))).getTime());
+        };
+      }
 	 
-	  this.listenTo(this.collection, 'reset', this.renderCollection);
+      this.listenTo(this.collection, 'reset', this.renderCollection);
 
       this.collection.fetch({
         reset : true,
@@ -29,36 +46,29 @@ var template = require('text!frontend/templates/publicaciones.html'),
           ErrorHelper.showError(xhr);
         }
       });
-      
-	  return this;
+
+      return this;
     },
 	
-	cambiarOrden: function() {
-	  if($('[name=orden]').val() == 0)
-	  {
-		this.collection.comparator = function(model) {
-          return -(model.get('cantidad_likes'));
-	    };
-	  }
-	  else
-	  {
-		this.collection.comparator = function(model) {
-          return -((new Date(model.get('fechaCreacion'))).getTime());
-	    };
-	  }
+    cambiarOrden: function() {
+      var url;
+      if (this.propuestas) {
+        url = '#propuestas/';
+      } else {
+        url = '#quejas/';
+      }
 
-	  this.collection.sort();
+      if(this.populares) {
+        url = url + 'recientes'
+      }
+      else {
+        url = url + 'populares'
+      }
 
-    this.$('#publicaciones-container').empty();
-    this.$('#publicaciones-container').addClass('hidden');
-    this.$('#status-orden').removeClass('hidden');
-	  this.renderCollection();
-
-    setTimeout(function(){
-      this.$('#status-orden').addClass('hidden');
-      this.$('#publicaciones-container').removeClass('hidden');
-    }, 1000);
-    
+      this.$('#status-orden').removeClass('hidden');
+      setTimeout(function(){
+        Backbone.history.navigate(url, true); 
+      }, 1000);
 	},
 	
     renderCollection: function() {	

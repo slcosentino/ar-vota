@@ -1,18 +1,38 @@
 <div class="container">
-  <div class="row">
+  <div>
     <h2>
-      <%= tipo %>
+      <% if (propuestas == true) { %>
+      Propuestas
+      <% } else { %>
+      Quejas
+      <% } %>
+
+      <% if (populares == true) { %>
+      por popularidad
+      <div>
+      <br>
+        <button id="cambiar" class="btn btn-primary">
+          <i class="fa fa-heart"></i>&nbsp Ver mas recientes &nbsp
+        </button>
       <span id="status-orden" class="hidden">
-        <i class="fa fa-spinner fa-spin fa-lg"></i>
+        <i class="fa fa-spinner fa-spin"></i>
       </span>
+      </div>
+      <% } else { %>
+      más recientes
+      <div>
+      <br>
+        <button id="cambiar" class="btn btn-primary">
+          <i class="fa fa-heart"></i>&nbsp Ver por popularidad
+        </button>
+      <span id="status-orden" class="hidden">
+        <i class="fa fa-spinner fa-spin"></i>
+      </span>
+      </div>
+      <% } %>
+
     </h2>
-	<div class="form-group" id="orden">
-	  <label for="input-orden">Orden</label>
-	  <select class="form-control" name="orden" placeholder="Orden">
-	    <option value="1" selected>Recientes</option>
-	    <option value="0">Populares</option>
-      </select>
-    </div>	
+
     <hr>
     <section id="publicaciones-container" class="grid"></section>
     <hr>
