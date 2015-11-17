@@ -59,7 +59,8 @@
 
 /* charts */
 
-.chart-legend {
+.chart-legend ul {
+  padding-left:0px;
 }
 
 .chart-legend ul li {

@@ -60,19 +60,49 @@ define(function(require) {
         this.parsePregunta(resultado);
       }, this);
 
+      var respuestasSeleccionadasArray = this.getRespuestasSeleccionadasArray();
+      console.log(respuestasSeleccionadasArray);
+
       var preguntas = this.encuesta.get('preguntas');
       var view = this;
-      for (var i = 0; i < preguntas.length ; i++) {
 
+      for (var i = 0 ; i < preguntas.length ; i++) {
         var estadisticasPreguntaView = new EstadisticasPreguntaView({
           pregunta: preguntas[i],
-          valores: view.getResultadoDePregunta(i)
+          valores: view.getResultadoDePregunta(i),
+          respuestasSeleccionadas: respuestasSeleccionadasArray[i]
         });
 
-        this.childViews.push(estadisticasPreguntaView);
 
+        this.childViews.push(estadisticasPreguntaView);
         this.$('#preguntas-container').append(estadisticasPreguntaView.render().el);
       }
+
+    },
+
+    getRespuestasSeleccionadasArray: function() {
+      var respuestasSeleccionadasArray = [];
+
+      var preguntas = this.encuesta.get('preguntas');
+
+      for (var i = 0 ; i < preguntas.length ; i++) {
+        var respuestasEncuesta = preguntas[i].respuestas;
+        respuestasSeleccionadasArray[i] = [];
+
+        for (var j = 0 ; j < respuestasEncuesta.length ; j++) {
+          this.resultado.each(function(resultado) {
+            var respuestasResultado = resultado.get('respuestas');
+            respuestasSeleccionadasArray[i][j] = false;
+
+            for (var k = 0 ; k < respuestasResultado.length ; k++) {
+              if(respuestasEncuesta[j].nro_respuesta == respuestasResultado[k].nro_respuesta) {
+                respuestasSeleccionadasArray[i][j] = true;
+              }
+            }
+          }, this);
+        }
+      }
+      return respuestasSeleccionadasArray;
     },
 
     parsePregunta: function(resultado) {
@@ -81,6 +111,7 @@ define(function(require) {
       var respuestas = resultado.get('respuestas');
       var preguntas = this.encuesta.get('preguntas');
       var nro_pregunta = resultado.get('nro_pregunta');
+      var total = this.encuesta.get('total');
 
       var values = [];
 
@@ -91,7 +122,7 @@ define(function(require) {
 
           var respuesta = {};
           respuesta.label = texto_respuesta;
-          respuesta.value = selecciones;
+          respuesta.value = Math.round(selecciones * 100 / total);
 					respuesta.color = this.getColor();
 					respuesta.highlight = this.getHighlight();
 
