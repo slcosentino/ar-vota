@@ -50,6 +50,14 @@
                          &nbsp Mi perfil
                       </a>
                     </li>
+                    <% if (!usuario.esCiudadano) { %>
+                    <li>
+                    <a href="#verificacion">
+                      <i class="fa fa-check"></i>
+                      &nbsp Solicitar verificación
+                    </a>
+                    </li>
+                    <% } %>
                     <li>
                       <a href="/api/usuarios/logout">
                         <i class="fa fa-power-off"></i>

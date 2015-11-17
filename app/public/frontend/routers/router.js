@@ -10,7 +10,8 @@ define(function(require) {
   PerfilView = require('frontend/views/PerfilView'),
   EncuestasDisponiblesView = require('frontend/views/EncuestasDisponiblesView'),
   CompletarEncuestaView = require('frontend/views/CompletarEncuestaView'),
-  PropuestasNuevasView = require('frontend/views/PropuestasNuevasView');
+  PropuestasNuevasView = require('frontend/views/PropuestasNuevasView')
+  VerificacionView = require('frontend/views/VerificacionView');
 
   return Backbone.Router.extend({
     routes: {
@@ -31,7 +32,8 @@ define(function(require) {
       'usuarios/:id_usuario': 'perfil',
       'encuestas/disponibles': 'verEncuestasDisponibles',
       'encuestas/nuevas': 'verEncuestasNuevas',
-      'encuestas/:id_encuesta/completar': 'completarEncuesta'
+      'encuestas/:id_encuesta/completar': 'completarEncuesta',
+      'verificacion': 'verificacion'
     },
     index: function() {
         var indexView = new IndexView();
@@ -128,6 +130,10 @@ define(function(require) {
     verPropuestasNuevas: function() {
       var propuestasNuevasView = new PropuestasNuevasView();
       ViewManager.render(propuestasNuevasView, $('#main-container'));
+    },
+    verificacion: function() {
+      var verificacionView = new VerificacionView();
+      ViewManager.render(verificacionView, $('#main-container'));
     }
   });
 });
