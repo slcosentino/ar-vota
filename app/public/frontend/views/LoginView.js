@@ -15,6 +15,8 @@ define(function(require) {
 		
 	login: function(event) {
       event.preventDefault();
+      this.$('#login-status').removeClass('hidden');
+
       view = this;
       $.ajax({
         method: 'POST',
@@ -29,6 +31,7 @@ define(function(require) {
             window.location.replace('/');
         })
         .fail(function(jqXHR, textStatus, errorThrown) {
+          this.$('#login-status').addClass('hidden');
           ErrorHelper.showError(jqXHR);
         });
     }
