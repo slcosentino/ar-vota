@@ -3,12 +3,26 @@
     <div id="legend-container" class="chart-legend"></div>
     <br>
     <div id="observaciones-container"></div>
-    </div>
+  </div>
   <div class="col-md-4">
     <div id="canvas-holder">
       <canvas id="chart-area" width="250" height="250"/>
     </div>
   </div>
+
   <div class="col-md-4">
+    <div class="col-md-offset-1">
+      <div class="form-group">
+        <label for="detalle-select">Ver detalle por</label>
+        <select class="form-control" name="detalle-select">
+          <option value="region" selected>Region</option>
+          <option value="edad">Edad</option>
+        </select>
+      </div> 
+      <br>
+      <button id="detalle-button" class="btn btn-primary pull-right">
+        <i class="fa fa-area-chart"></i>&nbsp Ver
+      </button>
+    </div>
   </div>
 </div>
