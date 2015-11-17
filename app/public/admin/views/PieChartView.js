@@ -38,8 +38,17 @@ define(function(require) {
     getPieOptions: function() {
       return options = {
         tooltipTemplate: '<%= value %> %',
-        legendTemplate: "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<segments.length; i++){%><li><span style=\"background-color:<%=segments[i].fillColor%>\"></span><%if(segments[i].label){%><%=segments[i].label%>: <b><%=segments[i].value%> %</b><%}%></li><%}%></ul>"
-
+        legendTemplate: 
+          '<ul class=\"<%=name.toLowerCase()%>-legend\">' +
+            '<% for (var i=0; i<segments.length; i++){%>' +
+              '<li>' +
+                '<span style=\"background-color:<%=segments[i].fillColor%>\"></span>' +
+                  '<%if(segments[i].label){%>' +
+                    '<%=segments[i].label%>: <b><%=segments[i].value%> %</b>' +
+                  '<%}%>' +
+              '</li>' +
+            '<%}%>' +
+          '</ul>'
       };
     }
   });
