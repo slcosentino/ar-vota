@@ -8,26 +8,30 @@
       <% } %>
 
       <% if (populares == true) { %>
-      por popularidad
+      más populares
       <div>
-      <br>
-        <button id="cambiar" class="btn btn-primary">
-          <i class="fa fa-heart"></i>&nbsp Ver mas recientes &nbsp
-        </button>
-      <span id="status-orden" class="hidden">
-        <i class="fa fa-spinner fa-spin"></i>
-      </span>
+        <h5>
+          Ordenar por: &nbsp
+          <button id="cambiar" class="btn btn-primary btn-sm">
+            <i class="fa fa-clock-o"></i> &nbsp Más recientes
+          </button>
+          <span id="status-orden" class="hidden">
+            &nbsp<i class="fa fa-spinner fa-spin fa-lg"></i>
+          </span>
+        </h5>
       </div>
       <% } else { %>
       más recientes
       <div>
-      <br>
-        <button id="cambiar" class="btn btn-primary">
-          <i class="fa fa-heart"></i>&nbsp Ver por popularidad
-        </button>
-      <span id="status-orden" class="hidden">
-        <i class="fa fa-spinner fa-spin"></i>
-      </span>
+        <h5>
+          Ordenar por: &nbsp
+          <button id="cambiar" class="btn btn-primary btn-sm">
+            <i class="fa fa-thumbs-o-up"></i> &nbsp Más populares
+          </button>
+          <span id="status-orden" class="hidden">
+            &nbsp<i class="fa fa-spinner fa-spin fa-lg"></i>
+          </span>
+        </h5>
       </div>
       <% } %>
 
