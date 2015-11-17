@@ -26,13 +26,25 @@ router.get('/encuestas/filtro/zona', function(req, res, next) {
         cantidad: {$sum: 1}
       }
     },
-    { $sort: {'_id.cantidad': 1}},
+    { $sort: {'cantidad': -1}},
     { $limit: 5 }
   ], function(err, result) {
     if (err) {
       console.log(err);
     }
-    res.json(result);
+    
+    var resultArray = [];
+
+    for (var i = 0 ; i < result.length ; i++) {
+      var zonaObject = {};
+
+      zonaObject.zona = result[i]._id.zona;
+      zonaObject.cantidad = result[i].cantidad;
+
+      resultArray.push(zonaObject);
+    }
+
+    res.json(resultArray);
   });
 });
 

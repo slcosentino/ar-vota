@@ -1,15 +1,20 @@
 define(function(require) {
-  var template = require('text!admin/templates/pie-chart.html');
+  var template = require('text!admin/templates/pie-chart.html'),
+      DetallePreguntaView = require('admin/views/DetallePreguntaView');
 
 
   return Backbone.View.extend({
     template: _.template(template),
     events: {
+      'click #detalle-button': 'verDetalle'
     },
 
     initialize: function(options){
       this.values = options.values;
       this.respuestasNuncaSeleccionadas = options.respuestasNuncaSeleccionadas;
+      this.id_encuesta = options.id_encuesta;
+      this.nro_pregunta = options.pregunta.nro_pregunta;
+      this.pregunta = options.pregunta;
     },
 
     render: function() {
@@ -26,12 +31,11 @@ define(function(require) {
 
       this.$('#observaciones-container').html('<b>Respuestas sin selecciones <b><br>');
       if (this.respuestasNuncaSeleccionadas.length < 1) {
-        console.log('vacio');
         this.$('#observaciones-container').append('(No hay)');
       } else {
         for (var i = 0 ; i < this.respuestasNuncaSeleccionadas.length ; i++) {
           this.$('#observaciones-container').append(this.respuestasNuncaSeleccionadas[i].texto + '<br>' );
-      }
+        }
       }
     },
 
@@ -50,6 +54,16 @@ define(function(require) {
             '<%}%>' +
           '</ul>'
       };
+    },
+
+    verDetalle: function() {
+      var detallePreguntaView = new DetallePreguntaView({
+        id_encuesta: this.id_encuesta,
+        nro_pregunta: this.nro_pregunta,
+        tipo: this.tipo,
+        pregunta: this.pregunta
+      });
+      this.$('#detalle-container').html(detallePreguntaView.render().$el); 
     }
   });
 });

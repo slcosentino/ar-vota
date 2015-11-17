@@ -61,7 +61,6 @@ define(function(require) {
       }, this);
 
       var respuestasSeleccionadasArray = this.getRespuestasSeleccionadasArray();
-      console.log(respuestasSeleccionadasArray);
 
       var preguntas = this.encuesta.get('preguntas');
       var view = this;
@@ -70,7 +69,8 @@ define(function(require) {
         var estadisticasPreguntaView = new EstadisticasPreguntaView({
           pregunta: preguntas[i],
           valores: view.getResultadoDePregunta(i),
-          respuestasSeleccionadas: respuestasSeleccionadasArray[i]
+          respuestasSeleccionadas: respuestasSeleccionadasArray[i],
+          id_encuesta: this.id_encuesta
         });
 
 

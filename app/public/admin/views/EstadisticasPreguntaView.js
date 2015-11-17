@@ -11,6 +11,7 @@ define(function(require) {
       this.pregunta = options.pregunta;
       this.valores = options.valores;
       this.respuestasSeleccionadas = options.respuestasSeleccionadas;
+      this.id_encuesta = options.id_encuesta;
     },
 
     render: function() {
@@ -22,7 +23,9 @@ define(function(require) {
 
       var pieChartView = new PieChartView({
        values: valores,
-       respuestasNuncaSeleccionadas: respuestasNuncaSeleccionadas
+       respuestasNuncaSeleccionadas: respuestasNuncaSeleccionadas,
+       id_encuesta: this.id_encuesta,
+       pregunta: this.pregunta
      });
       this.childView = pieChartView;
 
