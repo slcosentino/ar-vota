@@ -11,6 +11,7 @@ var EncuestaNueva = require('../models/EncuestaNuevaSchema');
 var UsuarioEncuesta = require('../models/UsuarioEncuestaSchema');
 var UsuarioSeguidor = require('../models/UsuarioSeguidorSchema');
 var UsuarioNotificacion = require('../models/UsuarioNotificacionSchema');
+var SolicitudVerificacion = require('../models/SolicitudVerificacionSchema');
 
 router.post('/login', function(req, res, next) {
   passport.authenticate('local', function(err, usuario, info) {
@@ -309,6 +310,30 @@ router.get('/seguimientos/publicaciones', authentication.isLoggedIn, function(re
   });
 });
 
+router.post('/verificaciones/solicitar', authentication.isCandidato, function(req, res, next) {
+  var id_usuario = req.user.id_usuario;
+  var telefono = req.body.telefono;
+  var social = req.body.social;
+
+  if (!telefono || !social) {
+    res.status(400).json({message: 'Verifique los campos'});
+    return;
+  }
+
+  var solicitudVerificacion = new SolicitudVerificacion();
+  solicitudVerificacion.id_usuario = id_usuario;
+  solicitudVerificacion.telefono = telefono;
+  solicitudVerificacion.social = social;
+
+  solicitudVerificacion.save(function(err) {
+    if (!err) {
+      res.json(solicitudVerificacion);
+    } else {
+      res.status(500).json({message: 'Intente de nuevo'});
+    }
+  });
+
+});
 router.get('/:id_usuario', function(req, res, next) {
   var id_usuario = req.params.id_usuario;
  
