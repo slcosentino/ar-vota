@@ -57,13 +57,21 @@ define(function(require) {
     },
 
     verDetalle: function() {
+      this.$('#detalle-status').removeClass('hidden');
+      var tipo = this.$('[name=detalle-select]').val();
+
       var detallePreguntaView = new DetallePreguntaView({
         id_encuesta: this.id_encuesta,
         nro_pregunta: this.nro_pregunta,
-        tipo: this.tipo,
-        pregunta: this.pregunta
+        tipo: tipo,
+        pregunta: this.pregunta,
       });
-      this.$('#detalle-container').html(detallePreguntaView.render().$el); 
+      
+      view = this;
+      setTimeout(function(){
+        view.$('#detalle-container').html(detallePreguntaView.render().$el); 
+        view.$('#detalle-status').addClass('hidden');
+      }, 1000);
     }
   });
 });

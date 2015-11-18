@@ -29,7 +29,7 @@ define(function(require) {
           nro_pregunta: this.nro_pregunta,
           tipo: this.tipo,
           pregunta: this.pregunta,
-          respuesta: respuestas[i].texto
+          respuesta: respuestas[i].texto,
         });
         this.$('#detalle-respuesta-container').append(detalleRespuestaView.render().$el); 
       }

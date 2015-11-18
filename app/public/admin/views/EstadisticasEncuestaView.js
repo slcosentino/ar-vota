@@ -70,7 +70,7 @@ define(function(require) {
           pregunta: preguntas[i],
           valores: view.getResultadoDePregunta(i),
           respuestasSeleccionadas: respuestasSeleccionadasArray[i],
-          id_encuesta: this.id_encuesta
+          id_encuesta: this.id_encuesta,
         });
 
 
@@ -78,6 +78,7 @@ define(function(require) {
         this.$('#preguntas-container').append(estadisticasPreguntaView.render().el);
       }
 
+      this.generar();
     },
 
     getRespuestasSeleccionadasArray: function() {

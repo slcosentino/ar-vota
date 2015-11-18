@@ -1,5 +1,5 @@
 define(function() {
   return Backbone.Collection.extend({
-    url: '/api/estadisticas/encuestas/filtro/zona'
+    url: '/api/estadisticas/encuestas/filtro'
   });
 });

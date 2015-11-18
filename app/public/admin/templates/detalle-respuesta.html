@@ -1,4 +1,12 @@
-<div id="canvas-holder">
-  <div><%= respuesta %></div>
-  <canvas id="chart-area" width="250" height="250"/>
+<% if (tipo === 'zona') { %>
+<div>Top 5 zonas de los que respondieron: <%= respuesta %></div>
+<% } %>
+<% if (tipo === 'edad') { %>
+<div>Rangos etareos de los que respondieron: <%= respuesta %></div>
+<% } %>
+<div class="text-center">
+  <div id="canvas-holder">
+    <canvas id="chart-area" width="800" height="250"/>
+  </div>
 </div>
+<br>

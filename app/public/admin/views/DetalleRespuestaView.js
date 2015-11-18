@@ -23,13 +23,19 @@ define(function(require) {
     },
 
     render: function() {
-      console.log(this.respuesta);
-      this.$el.html(this.template({ respuesta: this.respuesta}));
+      this.$el.html(this.template({
+        respuesta: this.respuesta,
+        tipo: this.tipo
+      }));
       var respuestas = this.pregunta.respuestas;
 
-      this.listenTo(this.detalles, 'reset', this.parseDetalles);
+      if (this.tipo === 'zona'){
+        this.listenTo(this.detalles, 'reset', this.parseDetallesZona);
+      } else if (this.tipo === "edad"){
+        this.listenTo(this.detalles, 'reset', this.parseDetallesEdad);
+      }
 
-      this.detalles.url = this.detalles.url + '?id_encuesta='  + this.id_encuesta +
+      this.detalles.url = this.detalles.url + '/' + this.tipo + '?id_encuesta='  + this.id_encuesta +
         '&nro_pregunta=' + this.nro_pregunta +
         '&nro_respuesta=' + respuestas[i].nro_respuesta;
 
@@ -43,10 +49,10 @@ define(function(require) {
       return this;
     },
 
-    parseDetalles: function() {
+    parseDetallesZona: function() {
 
       this.detalles.each(function(detalle) {
-        this.parseDetalle(detalle);
+        this.parseDetalleZona(detalle);
       }, this);
 
       this.dataset.label = 'Detalle de respuestas';
@@ -58,24 +64,31 @@ define(function(require) {
 
       var view = this;
       setTimeout(function(){
-        view.mostrarGrafico();
+        view.mostrarGraficoZona();
       }, 1000);
     },
 
-    parseDetalle: function(detalle) {
+    parseDetalleZona: function(detalle) {
+      var totalRespuesta = 0;
+      this.detalles.each(function(detalle) {
+        totalRespuesta = totalRespuesta + detalle.get('cantidad');
+      }, this);
+
       this.labels.push(detalle.get('zona'));
-      this.data.push(detalle.get('cantidad'));
+      var cantidad = detalle.get('cantidad');
+      var porcentaje = Math.round(cantidad * 100 / totalRespuesta);
+
+      this.data.push(porcentaje);
     },
 
-    mostrarGrafico: function() {
+    mostrarGraficoZona: function() {
       this.ctx = this.$("#chart-area")[0].getContext("2d");
       this.chart = new Chart(this.ctx).Bar(this.getBarData(), this.getBarOptions());
-      this.$('#legend-container').html(this.chart.generateLegend());
     },
 
     getBarOptions: function() {
       return options = {
-        tooltipTemplate: '<%= value %> respuestas'
+        tooltipTemplate: '<%= value %> %'
       };
     },
 
@@ -84,7 +97,46 @@ define(function(require) {
         labels: this.labels,
         datasets: [this.dataset]
       };
-    }
+    },
+
+    parseDetallesEdad: function() {
+
+      this.detalles.each(function(detalle) {
+        this.parseDetalleEdad(detalle);
+      }, this);
+
+      this.dataset.label = 'Detalle de respuestas';
+      this.dataset.fillColor = 'rgba(220,220,220,0.2)';
+      this.dataset.strokeColor = 'rgba(220,220,220,1)';
+      this.dataset.pointColor = 'rgba(220,220,220,1)';
+      this.dataset.pointStrokeColor = '#fff';
+      this.dataset.pointHighlightFill = '#fff';
+      this.dataset.pointHighlightStroke = 'rgba(220,220,220,1)';
+      this.dataset.data = this.data;
+
+      var view = this;
+      setTimeout(function(){
+        view.mostrarGraficoEdad();
+      }, 1000);
+    },
+
+    parseDetalleEdad: function(detalle) {
+      var totalRespuesta = 0;
+      this.detalles.each(function(detalle) {
+        totalRespuesta = totalRespuesta + detalle.get('cantidad');
+      }, this);
+
+      this.labels.push(detalle.get('descripcion'));
+      var cantidad = detalle.get('cantidad');
+      var porcentaje = Math.round(cantidad * 100 / totalRespuesta);
+
+      this.data.push(porcentaje);
+    },
+
+    mostrarGraficoEdad: function() {
+      this.ctx = this.$("#chart-area")[0].getContext("2d");
+      this.chart = new Chart(this.ctx).Line(this.getBarData(), this.getBarOptions());
+    },
 
   });
 });

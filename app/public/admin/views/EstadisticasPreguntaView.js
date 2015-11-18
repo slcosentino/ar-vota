@@ -25,7 +25,7 @@ define(function(require) {
        values: valores,
        respuestasNuncaSeleccionadas: respuestasNuncaSeleccionadas,
        id_encuesta: this.id_encuesta,
-       pregunta: this.pregunta
+       pregunta: this.pregunta,
      });
       this.childView = pieChartView;
 
