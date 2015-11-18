@@ -11,7 +11,16 @@ define(function(require) {
 
     render: function() {
       this.$el.html(this.template(this.model.attributes));
-      return this;
-    }
+	  
+	  this.formatDate();
+      
+	  return this;
+    },
+	
+	formatDate: function() {
+	  $(".fecha").each(function( index, value ) {
+	    $(value).html( $.format.date ( new Date ($(value).html()), 'dd-MMM-yyyy hh:mm'))
+	  });
+	}
   });
 });
