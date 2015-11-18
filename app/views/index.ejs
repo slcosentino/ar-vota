@@ -219,7 +219,10 @@
     <script type="text/javascript">
       var userObject = {};
       <% if (usuario) { %>
+        userObject.logueado = true;
         userObject.esCiudadano = <%= usuario.esCiudadano %>;
+      <% } else {%>
+        userObject.logueado = false;
       <% } %>
     </script>
 

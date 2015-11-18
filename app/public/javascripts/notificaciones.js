@@ -9,6 +9,10 @@ $(document).ready(function() {
 });
 
 notificaciones.consultar = function() {
+  if (userObject.logueado = false) {
+    console.log('deslogueado');
+    return;
+  }
   $.ajax({
     method: 'GET',
     url: '/api/notificaciones/',
