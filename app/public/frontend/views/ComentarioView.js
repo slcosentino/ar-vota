@@ -14,6 +14,9 @@ define(function(require) {
       'click #disLikeComentario-button': 'disLikeComentario'
     },
 
+    initialize: function() {
+      this.childViews = [];
+    },
     render: function() {  
       this.collection = new Respuestas();
 
@@ -126,6 +129,7 @@ define(function(require) {
         model: respuesta,
         parent: this
        });
+      this.childViews.push(respuestaView);
       this.$('#respuestas-container').append(respuestaView.render().$el); 
     },
 	
@@ -133,7 +137,13 @@ define(function(require) {
 	  $(".fecha").each(function( index, value ) {
 		$(value).html( $.format.date ( new Date ($(value).html()), 'dd-MMM-yyyy hh:mm'))
 	  });
-	}
+	},
+
+  onClose: function() {
+    for (var i = 0 ; i < this.childViews.length ; i++) {
+      this.childViews[i].close();
+    }
+  }
   });
 });
 

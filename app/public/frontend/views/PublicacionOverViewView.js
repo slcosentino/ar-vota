@@ -17,6 +17,9 @@ define(function(require) {
       'click #aceptar-queja-button': 'aceptarQueja'
     },
 
+    initialize: function() {
+      this.childViews = [];
+    },
     render: function() {
     this.model = new Publicacion();
     this.collection = new Comentarios();
@@ -119,6 +122,8 @@ define(function(require) {
         model: comentario,
         parent: this
        });
+
+      this.childViews.push(comentarioView);
       this.$('#comentarios-container').append(comentarioView.render().$el); 
     },
 	
@@ -145,6 +150,12 @@ define(function(require) {
       .fail(function(jqXHR, textStatus, errorThrown) {
         ErrorHelper.showError(jqXHR);
       });
+    },
+
+    onClose: function() {
+      for (var i = 0 ; i < this.childViews.length ; i++) {
+        this.childViews[i].close();
+      }
     }
   });
 });
