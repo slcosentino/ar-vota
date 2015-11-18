@@ -11,7 +11,8 @@ define(function(require) {
   EncuestasDisponiblesView = require('frontend/views/EncuestasDisponiblesView'),
   CompletarEncuestaView = require('frontend/views/CompletarEncuestaView'),
   PropuestasNuevasView = require('frontend/views/PropuestasNuevasView')
-  VerificacionView = require('frontend/views/VerificacionView');
+  VerificacionView = require('frontend/views/VerificacionView'),
+  CambiarImagenView = require('frontend/views/CambiarImagenView');
 
   return Backbone.Router.extend({
     routes: {
@@ -29,6 +30,7 @@ define(function(require) {
       'quejas/recientes': 'quejasRecientes',
       'quejas/populares': 'quejasPopulares',
       'quejas/:id_queja': 'quejasOverview',
+      'usuarios/imagen': 'cambiarImagenPerfil',
       'usuarios/:id_usuario': 'perfil',
       'encuestas/disponibles': 'verEncuestasDisponibles',
       'encuestas/nuevas': 'verEncuestasNuevas',
@@ -134,6 +136,10 @@ define(function(require) {
     verificacion: function() {
       var verificacionView = new VerificacionView();
       ViewManager.render(verificacionView, $('#main-container'));
+    },
+    cambiarImagenPerfil: function() {
+      var cambiarImagenView = new CambiarImagenView();
+      ViewManager.render(cambiarImagenView, $('#main-container'));
     }
   });
 });

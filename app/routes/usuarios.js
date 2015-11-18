@@ -373,6 +373,23 @@ router.get('/:id_usuario', function(req, res, next) {
   });
 });
 
+router.put('/imagenes', authentication.isLoggedIn, function(req, res, next) {
+  var id_usuario = req.user.id_usuario;
+  var imagen_perfil = req.body.imagen_perfil;
+
+  Usuario.findOneAndUpdate({id_usuario: id_usuario},  {$set: {imagen_perfil: imagen_perfil}}, {runValidators: true}, function(err, usuario) {
+    if (!err) {
+      usuario = usuario.toObject();
+      delete usuario['password'];
+      delete usuario['__v'];
+
+      res.json(usuario);
+    } else {
+      res.status(401).json({message: 'Verifique los campos'});
+    }
+  });
+});
+
 router.put('/:id_usuario', authentication.isLoggedIn, function(req, res, next) {
   var id_usuario = req.params.id_usuario;
 
