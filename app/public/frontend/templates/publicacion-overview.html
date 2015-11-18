@@ -8,6 +8,11 @@
   <hr>
   <% } %>
   <% } %>
+  <% if (userObject.admin == true ) { %>
+  <div>
+    <button id="eliminar-button" class="btn btn-sm btn-danger pull-right">Eliminar</button>
+  </div>
+  <% } %>
   <div class="overviewContainer">
     <div class="col-md-7 col-md-offset-2">
       <div>

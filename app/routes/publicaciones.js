@@ -27,7 +27,7 @@ router.post('/quejas', authentication.isCiudadano, function(req, res, next) {
 });
 
 router.get('/', function(req, res, next) {
-  Publicacion.find(function(err, publicaciones) {
+  Publicacion.find({eliminada: false}, function(err, publicaciones) {
     if (!err) {
       res.json(publicaciones);
     } else {
@@ -37,7 +37,7 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/propuestas', function(req, res, next) {
-  Publicacion.find( {propuesta: true}, function(err, publicaciones) {
+  Publicacion.find( {propuesta: true, eliminada: false}, function(err, publicaciones) {
     if (!err) {
       res.json(publicaciones);
     } else {
@@ -47,7 +47,7 @@ router.get('/propuestas', function(req, res, next) {
 });
 
 router.get('/quejas', function(req, res, next) {
-  Publicacion.find( {propuesta: false}, function(err, publicaciones) {
+  Publicacion.find( {propuesta: false, eliminada: false}, function(err, publicaciones) {
     if (!err) {
       res.json(publicaciones);
     } else {
@@ -249,6 +249,10 @@ router.get('/:id_publicacion', function(req, res, next) {
 
   Publicacion.findOne({_id: id_publicacion},'-__v', function(err, publicacion) {
     if (!err) {
+      if (publicacion.eliminada == true) {
+        res.status(400).json({message: 'Publicacion eliminada'});
+        return;
+      }
       if (req.user){
         UsuarioAccion.findOneAndUpdate(
           {id_usuario: req.user.id_usuario},

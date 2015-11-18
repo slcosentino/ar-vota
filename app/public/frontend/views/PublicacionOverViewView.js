@@ -14,7 +14,8 @@ define(function(require) {
       'click #cancelar-comentario-button': 'limpiarComentario',
          'click #likePublicacion-button': 'likePropuesta',
          'click #disLikePublicacion-button': 'disLikePropuesta',
-         'click #aceptar-queja-button': 'aceptarQueja'
+         'click #aceptar-queja-button': 'aceptarQueja',
+         'click #eliminar-button': 'eliminar'
     },
 
     initialize: function() {
@@ -157,6 +158,25 @@ define(function(require) {
       for (var i = 0 ; i < this.childViews.length ; i++) {
         this.childViews[i].close();
       }
-    }
+    },
+
+    eliminar: function() {
+      view = this;
+      $.ajax({
+        method: 'DELETE',
+        url: '/api/admin/publicaciones',
+        contentType: 'application/json',
+        data: JSON.stringify({
+          id_publicacion: this.model.get('id')
+        })
+      })
+      .done(function(data, textStatus, jqXHR) {
+        view.$('#eliminar-button').addClass('disabled');
+        SuccessHelper.show(data.message);
+      })
+      .fail(function(jqXHR, textStatus, errorThrown) {
+        ErrorHelper.showError(jqXHR);
+      });
+    },
   });
 });

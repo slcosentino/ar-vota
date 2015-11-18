@@ -5,6 +5,7 @@ var passport = require('passport');
 var authentication = require('../middlewares/authentication');
 var Usuario = require('../models/UsuarioSchema');
 var Encuesta = require('../models/EncuestaSchema');
+var Publicacion = require('../models/PublicacionSchema');
 
 router.post('/login', function(req, res, next) {
   passport.authenticate('local', function(err, usuario, info) {
@@ -52,6 +53,17 @@ router.get('/me', authentication.isLoggedIn, function(req, res, next) {
 router.get('/logout', function(req, res, next){
   req.logout();
   res.redirect('/admin');
+});
+
+router.delete('/publicaciones', authentication.isLoggedInAdmin, function(req, res, next){
+  Publicacion.findOneAndUpdate(
+    {_id: req.body.id_publicacion},
+    {$set: {eliminada: true}},
+    function(err, publicacion) {
+      if (!err) {
+        res.status(200).json({message: 'Listo'});
+      }
+    });
 });
 
 module.exports = router;

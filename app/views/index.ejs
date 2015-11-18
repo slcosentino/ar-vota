@@ -221,6 +221,7 @@
       <% if (usuario) { %>
         userObject.logueado = true;
         userObject.esCiudadano = <%= usuario.esCiudadano %>;
+        userObject.admin = <%= usuario.admin %>
       <% } else {%>
         userObject.logueado = false;
       <% } %>
