@@ -15,6 +15,7 @@ var ComentarioLike = require('../models/ComentarioLikeSchema');
 var ComentarioDisLike = require('../models/ComentarioDisLikeSchema');
 var RespuestaLike = require('../models/RespuestaLikeSchema');
 var RespuestaDisLike = require('../models/RespuestaDisLikeSchema');
+var UsuarioAceptacion = require('../models/UsuarioAceptacionSchema');
 
 router.post('/propuestas', authentication.isCandidato, function(req, res, next) {
   Publicator.propuesta(req, res, next);
@@ -397,15 +398,24 @@ router.post('/:id_publicacion/aceptaciones', authentication.isLoggedIn, function
       if (!publicacion) {
         res.status(400).json({message: 'Queja no encontrada'})
       }
-
       if (publicacion.aceptada_por) {
         res.status(400).json({message: 'La Queja ya fue aceptada'})
       }
+      publicacion.aceptada = true;
       publicacion.aceptada_por = id_usuario;
 
       publicacion.save(function(err) {
         if (!err) {
-          res.json({message: 'Queja aceptada con exito!'})
+          UsuarioAceptacion.findOneAndUpdate(
+            {id_usuario: req.user.id_usuario},
+            {$addToSet: {id_quejas_aceptadas: id_publicacion}},
+            function(err, usuarioAccion) {
+              if (err) {
+                res.status(500).json({message: 'Intente de nuevo'})
+              } else {
+                res.json({message: 'Queja aceptada con exito!'})
+              }
+            });
         } else {
           res.status(400).json({message: 'Verifique los campos'});
         }

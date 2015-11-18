@@ -12,6 +12,7 @@ var UsuarioEncuesta = require('../models/UsuarioEncuestaSchema');
 var UsuarioSeguidor = require('../models/UsuarioSeguidorSchema');
 var UsuarioNotificacion = require('../models/UsuarioNotificacionSchema');
 var SolicitudVerificacion = require('../models/SolicitudVerificacionSchema');
+var UsuarioAceptacion = require('../models/UsuarioAceptacionSchema');
 
 router.post('/login', function(req, res, next) {
   passport.authenticate('local', function(err, usuario, info) {
@@ -64,6 +65,19 @@ router.post('/registro', function(req, res, next) {
         var usuarioSeguidor = new UsuarioSeguidor();
         usuarioSeguidor.id_usuario = req.body.id_usuario;
         usuarioSeguidor.save(function(err) {
+          if (err) {
+            res.status(500).json({message: 'Error interno, intente de nuevo'});
+            return;
+          }
+        });
+      }
+      /* fin */
+
+      /* creando la coleccion usuariosaceptaciones*/
+      if (req.body.esCiudadano == false) {
+        var usuarioAceptacion = new UsuarioAceptacion();
+        usuarioAceptacion.id_usuario = req.body.id_usuario;
+        usuarioAceptacion.save(function(err) {
           if (err) {
             res.status(500).json({message: 'Error interno, intente de nuevo'});
             return;
@@ -284,7 +298,7 @@ router.post('/seguimientos', authentication.isLoggedIn, function(req, res, next)
   });
 });
 
-router.get('/acciones', authentication.isLoggedIn, function(req, res, next) {
+router.get('/acciones', function(req, res, next) {
   var id_usuario = req.user.id_usuario;
  
   UsuarioAccion.findOne({id_usuario: id_usuario}, '-__v -_id', function(err, usuarioAcciones) {
@@ -352,6 +366,10 @@ router.get('/:id_usuario', function(req, res, next) {
           usuarioObject.publicaciones = publicaciones;
 
           UsuarioSeguidor.findOne({id_usuario: id_usuario}, function(err, usuarioSeguidor){
+            if (err) {
+              res.status(500).json({message: 'Intente de nuevo'});
+              return;
+            }
             if (usuarioSeguidor) {
               var usuarioSeguidorObject = usuarioSeguidor.toObject();
               var seguidores = usuarioSeguidorObject['id_seguidores'];
@@ -360,8 +378,23 @@ router.get('/:id_usuario', function(req, res, next) {
             } else {
               usuarioObject.seguidores = 0;
             }
-            console.log(usuarioObject);
-            res.json(usuarioObject);
+
+            UsuarioAceptacion.findOne({id_usuario: id_usuario}, function(err, usuarioAceptacion){
+              if (err) {
+                res.status(500).json({message: 'Intente de nuevo'});
+                return;
+              }
+              if (usuarioAceptacion) {
+                var usuarioAceptacionObject = usuarioAceptacion.toObject();
+                var aceptaciones = usuarioAceptacionObject['id_quejas_aceptadas'];
+
+                usuarioObject.aceptaciones = aceptaciones.length;
+              } else {
+                usuarioObject.aceptaciones = 0;
+              }
+              res.json(usuarioObject);
+            });
+
           });
         } else {
           return next(err);

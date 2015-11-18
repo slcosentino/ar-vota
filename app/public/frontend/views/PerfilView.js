@@ -76,6 +76,7 @@ define(function(require) {
 
     renderAcciones: function(){
       var candidatosSeguidos = this.acciones.get('id_candidatos_seguidos');
+
       for (var i = 0; i < candidatosSeguidos.length ; i++) {
         if (candidatosSeguidos[i] === this.id_usuario){
         this.$('.seguir-button')

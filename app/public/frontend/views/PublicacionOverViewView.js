@@ -41,8 +41,8 @@ define(function(require) {
 		return false;
 	},
   
-	limpiarComentario: function() {
-		$("#comentarioDescripcion").val("");
+	  limpiarComentario: function() {
+		  $("#comentarioDescripcion").val("");
 	},
 	
     renderModel: function() {
@@ -138,7 +138,7 @@ define(function(require) {
         })
       })
       .done(function(data, textStatus, jqXHR) {
-        //view.$('#aceptar-queja-button').addClass('disabled');
+        view.$('#aceptar-queja-button').addClass('disabled');
         SuccessHelper.show(data.message);
 
       })
