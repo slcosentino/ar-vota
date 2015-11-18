@@ -386,4 +386,32 @@ router.post('/:id_publicacion/comentarios', authentication.isLoggedIn, function(
   });
 });
 
+router.post('/:id_publicacion/aceptaciones', authentication.isLoggedIn, function(req, res, next) {
+  var id_publicacion = req.params.id_publicacion;
+  var id_usuario = req.user.id_usuario;
+
+  var publicacion = Publicacion.findOne({_id: id_publicacion}, function(err, publicacion) {
+    if (err) {
+      res.status(500).json({message: 'Intente de nuevo'})
+    } else {
+      if (!publicacion) {
+        res.status(400).json({message: 'Queja no encontrada'})
+      }
+
+      if (publicacion.aceptada_por) {
+        res.status(400).json({message: 'La Queja ya fue aceptada'})
+      }
+      publicacion.aceptada_por = id_usuario;
+
+      publicacion.save(function(err) {
+        if (!err) {
+          res.json({message: 'Queja aceptada con exito!'})
+        } else {
+          res.status(400).json({message: 'Verifique los campos'});
+        }
+      });
+    }
+  });
+});
+
 module.exports = router;

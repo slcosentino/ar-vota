@@ -1,10 +1,23 @@
+
 <div class="container">
+  <% if (userObject.esCiudadano == false && propuesta == false) { %>
+  <% if (!aceptada_por) { %>
+  <div>
+    <button id="aceptar-queja-button" class="btn btn-sm btn-primary pull-right">Aceptar queja</button>
+  </div>
+  <br>
+  <hr>
+  <% } %>
+  <% } %>
   <div class="overviewContainer">
     <div class="col-md-7 col-md-offset-2">
       <div>
         <div>
           <div class="cabecera-publicacion">
             <h1><%= titulo %></h1>
+            <% if (aceptada_por) { %>
+            (Aceptada por <a href="#/usuarios/<%= aceptada_por %>"><%= aceptada_por %></a>)
+            <% } %>
             <div class="formateado">
               <p><%= descripcion %></p>
             </div>

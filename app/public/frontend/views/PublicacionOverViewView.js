@@ -3,7 +3,8 @@ define(function(require) {
       Publicacion = require('frontend/models/Publicacion'),
       Comentarios = require('frontend/collections/Comentarios'),
       ComentarioView = require('frontend/views/ComentarioView'),
-      ErrorHelper = require('frontend/helpers/ErrorHelper');
+      ErrorHelper = require('frontend/helpers/ErrorHelper'),
+      SuccessHelper = require('helpers/SuccessHelper');
 
 
   return Backbone.View.extend({
@@ -12,7 +13,8 @@ define(function(require) {
       'click #guardar-comentario-button': 'comentar',
       'click #cancelar-comentario-button': 'limpiarComentario',
       'click #likePublicacion-button': 'likePropuesta',
-      'click #disLikePublicacion-button': 'disLikePropuesta'
+      'click #disLikePublicacion-button': 'disLikePropuesta',
+      'click #aceptar-queja-button': 'aceptarQueja'
     },
 
     render: function() {
@@ -26,13 +28,12 @@ define(function(require) {
     this.listenTo(this.collection, 'add', this.refresh);
     this.listenTo(this.model, 'change', this.renderModel);
 
-	this.model.fetch({
-	  error: function(collection, xhr, options) {
+	  this.model.fetch({
+	    error: function(collection, xhr, options) {
 		  ErrorHelper.showError(xhr);
 	  }});
-    
 	  
-	return this;
+    return this;
     },
   
     refresh: function() {
@@ -97,10 +98,10 @@ define(function(require) {
       })
       .done( function(data){
 		  	  $("#disLikePublicacion").html(data.cantidad_disLikes + 1);
-		})
-        .fail(function(jqXHR, textStatus, errorThrown) {
-          ErrorHelper.showError(jqXHR);
-        });
+      })
+      .fail(function(jqXHR, textStatus, errorThrown) {
+        ErrorHelper.showError(jqXHR);
+      });
     },
 
     renderCollection: function() {
@@ -121,10 +122,29 @@ define(function(require) {
       this.$('#comentarios-container').append(comentarioView.render().$el); 
     },
 	
-	formatDate: function() {
-	  $(".fecha").each(function( index, value ) {
-		$(value).html( $.format.date ( new Date ($(value).html()), 'dd-MMM-yyyy hh:mm'))
-	  });
-	}
+    formatDate: function() {
+      $(".fecha").each(function( index, value ) {
+        $(value).html( $.format.date ( new Date ($(value).html()), 'dd-MMM-yyyy hh:mm'))
+      });
+    },
+
+    aceptarQueja: function() {
+      view = this;
+      $.ajax({
+        method: 'POST',
+        url: '/api/publicaciones/' + this.model.get('id') + '/aceptaciones',
+        contentType: 'application/json',
+        data: JSON.stringify({
+        })
+      })
+      .done(function(data, textStatus, jqXHR) {
+        //view.$('#aceptar-queja-button').addClass('disabled');
+        SuccessHelper.show(data.message);
+
+      })
+      .fail(function(jqXHR, textStatus, errorThrown) {
+        ErrorHelper.showError(jqXHR);
+      });
+    }
   });
 });

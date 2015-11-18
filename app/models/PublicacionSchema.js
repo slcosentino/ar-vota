@@ -11,7 +11,8 @@ var publicacionSchema = new Schema({
   cantidad_disLikes: { type: Number, default: 0 },
   fechaCreacion: { type: Date, default: Date.now },
   fechaModificacion: { type: Date },
-  imagen_perfil: { type: String}
+  imagen_perfil: { type: String},
+  aceptada_por: {type: String}
 }, {collection: 'publicaciones'});
 
 module.exports = mongoose.model('Publicacion', publicacionSchema);
