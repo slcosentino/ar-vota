@@ -30,12 +30,12 @@
 	font-size: 1em;
 	text-transform: uppercase;
 	max-width: 10vm;
-	word-break: break-all;
+	word-break: normal;
 }
 
 .white-panel p {
 	max-width: 101vm;
-	word-break: break-all;
+	word-break: normal;
 
 }
 
