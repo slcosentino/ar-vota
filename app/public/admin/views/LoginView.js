@@ -33,7 +33,7 @@ define(function(require) {
             location.reload();
         })
         .fail(function(jqXHR, textStatus, errorThrown) {
-          this.$('#login-status').addClass('hidden');
+          view.$('#login-status').addClass('hidden');
           ErrorHelper.showError(jqXHR);
         });
     }

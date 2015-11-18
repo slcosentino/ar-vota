@@ -31,7 +31,7 @@ define(function(require) {
             window.location.replace('/');
         })
         .fail(function(jqXHR, textStatus, errorThrown) {
-          this.$('#login-status').addClass('hidden');
+          view.$('#login-status').addClass('hidden');
           ErrorHelper.showError(jqXHR);
         });
     }
