@@ -30,7 +30,7 @@ var template = require('text!frontend/templates/publicaciones.html'),
 
       if (this.populares == true){
         this.collection.comparator = function(model) {
-          return -(model.get('cantidad_likes'));
+          return -(model.get('cantidad_likes') - model.get('cantidad_disLikes'));
         };
       } else {
         this.collection.comparator = function(model) {
