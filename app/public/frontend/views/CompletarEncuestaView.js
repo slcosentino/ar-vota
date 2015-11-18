@@ -90,8 +90,9 @@ define(function(require) {
     },
 
     guardar: function(selectionArray) {
-      console.log(selectionArray);
+      this.$('#completar-status').removeClass('hidden');
       if (this.incompleta) {
+        this.$('#completar-status').addClass('hidden');
         return;
       }
 
@@ -107,9 +108,12 @@ define(function(require) {
       })
       .done(
         function(data, textStatus, jqXHR) {
-          console.log('listo');
+          SuccessHelper.show(data.message);
+          view.$('#completar-status').addClass('hidden');
+          view.$('#completar-button').addClass('disabled');
       })
       .fail(function(jqXHR, textStatus, errorThrown) {
+        view.$('#completar-status').addClass('hidden');
         ErrorHelper.showError(jqXHR);
       });
     },
