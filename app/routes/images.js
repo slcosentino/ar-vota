@@ -11,33 +11,18 @@ var Image = require('../models/ImageSchema');
 
 router.post('/', function(req, res, next) {
   var form = new multiparty.Form();
+  form.autoFiles = true;
+  form.uploadDir = './data/imagenes'; 
 
   form.on('error', function(err) {
     console.log('Error parsing form: ' + err.stack);
     res.status(500).json({message: 'Error al intentar guardar la imagen'});
   });
 
-  form.on('part', function(part) {
-    var chunks = [];
-
-    if (part.filename) {
-      part.on('data', function (chunk){
-        chunks.push(chunk);
-      });
-
-      part.on('end', function() {
-        var image = new Image();
-        image.type = part.headers['content-type'];
-        image.data = Buffer.concat(chunks);
-        
-        image.save(function(err, image) {
-          if (err) {
-           res.status(500).json({message: 'Error al intentar guardar la imagen'});
-          }
-          res.status(200).json({id: image._id});
-        });
-      });
-    }
+  form.on('file', function(name, file) {
+    var path = file.path;
+    var returnPath = path.substring(path.indexOf('/') + 1);
+    res.status(200).json({path: returnPath});
   });
 
   form.on('close', function() {
@@ -47,6 +32,7 @@ router.post('/', function(req, res, next) {
   form.parse(req);
 
 });
+
 
 router.get('/:id_imagen', function(req, res, next) {
   var id_imagen = req.params.id_imagen;

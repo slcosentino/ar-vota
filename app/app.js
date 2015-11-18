@@ -41,6 +41,10 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Images
+var dataDir = './data';
+app.use('/imagenes', express.static(path.join(dataDir,'imagenes')));
+
 // routes
 require('./config/routes')(app);
 

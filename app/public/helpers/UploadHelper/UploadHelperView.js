@@ -34,7 +34,7 @@ define(function(require) {
           view.$('#status').html('<span class="text-success">Imagen subida con éxito ' + '<span class="glyphicon glyphicon-ok"></span></span>');
           view.$('#upload-button').prop('disabled', true);
 
-          view.imageId = data.id;
+          view.imagePath = data.path;
         })
         .fail(function(jqXHR, textStatus, errorThrown) {
           ErrorHelper.showError(jqXHR);
@@ -42,7 +42,7 @@ define(function(require) {
     },
 
     getImage: function() {
-      return this.imageId;
+      return this.imagePath;
     }
 
   });

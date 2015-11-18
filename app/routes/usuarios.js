@@ -92,6 +92,7 @@ router.post('/registro', function(req, res, next) {
       if (err.code == 11000) {
         res.status(400).json({message: 'El id de usuario ya existe'});
       } else {
+        console.log(err);
         res.status(400).json({message: 'Verifique los campos'});
       }
     }
