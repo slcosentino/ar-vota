@@ -58,7 +58,7 @@ router.get('/quejas', function(req, res, next) {
 
 router.get('/comentarios/:id_comentario', function(req, res, next) {
   var id_comentario = req.params.id_comentario;
- 
+
   Comentario.findOne({_id: id_comentario},'-__v', function(err, comentario) {
     if (!err) {
       res.json(comentario);
@@ -73,32 +73,32 @@ router.put('/likeComentario/:id_comentario', function(req, res, next) {
   var id_comentario = req.params.id_comentario;
 
   ComentarioLike.findOne({id_usuario: req.user.id_usuario, id_comentario: id_comentario}, function(err, comentarioLike) {
-	if (!err) {
-	  if (comentarioLike) {
-		res.status(400).json({message: 'Sólo se puede dar un me gusta'});
-	  } else {
+    if (!err) {
+      if (comentarioLike) {
+        res.status(400).json({message: 'Sólo se puede dar un me gusta'});
+      } else {
         var comentarioLike = new ComentarioLike();
-		
-		comentarioLike.id_usuario = req.user.id_usuario;
-		comentarioLike.id_comentario = id_comentario;
+
+        comentarioLike.id_usuario = req.user.id_usuario;
+        comentarioLike.id_comentario = id_comentario;
 
         comentarioLike.save(function(err) {
           if (!err) {
-		    Comentario.findOneAndUpdate({_id: id_comentario},  {$inc: {cantidad_likes: 1}}, function(err, comentario) {
-			  if (!err) {
-				res.json(comentario);
-			  } else {
-				console.log(err);
-				return next(err);
-			  }   
-			});
+            Comentario.findOneAndUpdate({_id: id_comentario},  {$inc: {cantidad_likes: 1}}, function(err, comentario) {
+              if (!err) {
+                res.json(comentario);
+              } else {
+                console.log(err);
+                return next(err);
+              }   
+            });
           } else {
             res.status(400).json({message: 'Verifique los campos'});
           }
         });
       }
     } else {
-            res.status(400).json({message: 'Error'});
+      res.status(400).json({message: 'Error'});
     }
   });
 });
@@ -107,32 +107,32 @@ router.put('/disLikeComentario/:id_comentario', function(req, res, next) {
   var id_comentario = req.params.id_comentario;
 
   ComentarioDisLike.findOne({id_usuario: req.user.id_usuario, id_comentario: id_comentario}, function(err, comentarioDisLike) {
-	if (!err) {
-	  if (comentarioDisLike) {
-		res.status(400).json({message: 'Sólo se puede dar un no me gusta'});
-	  } else {
+    if (!err) {
+      if (comentarioDisLike) {
+        res.status(400).json({message: 'Sólo se puede dar un no me gusta'});
+      } else {
         var comentarioDisLike = new ComentarioDisLike();
-		
-		comentarioDisLike.id_usuario = req.user.id_usuario;
-		comentarioDisLike.id_comentario = id_comentario;
+
+        comentarioDisLike.id_usuario = req.user.id_usuario;
+        comentarioDisLike.id_comentario = id_comentario;
 
         comentarioDisLike.save(function(err) {
           if (!err) {
-		    Comentario.findOneAndUpdate({_id: id_comentario},  {$inc: {cantidad_disLikes: 1}}, function(err, comentario) {
-			  if (!err) {
-				res.json(comentario);
-			  } else {
-				console.log(err);
-				return next(err);
-			  }   
-			});
+            Comentario.findOneAndUpdate({_id: id_comentario},  {$inc: {cantidad_disLikes: 1}}, function(err, comentario) {
+              if (!err) {
+                res.json(comentario);
+              } else {
+                console.log(err);
+                return next(err);
+              }   
+            });
           } else {
             res.status(400).json({message: 'Verifique los campos'});
           }
         });
       }
     } else {
-            res.status(400).json({message: 'Error'});
+      res.status(400).json({message: 'Error'});
     }
   });
 });
@@ -143,32 +143,32 @@ router.put('/likeRespuesta/:id_respuesta', function(req, res, next) {
   var id_respuesta = req.params.id_respuesta;
 
   RespuestaLike.findOne({id_usuario: req.user.id_usuario, id_respuesta: id_respuesta}, function(err, respuestaLike) {
-	if (!err) {
-	  if (respuestaLike) {
-		res.status(400).json({message: 'Sólo se puede dar un me gusta'});
-	  } else {
+    if (!err) {
+      if (respuestaLike) {
+        res.status(400).json({message: 'Sólo se puede dar un me gusta'});
+      } else {
         var respuestaLike = new RespuestaLike();
-		
-		respuestaLike.id_usuario = req.user.id_usuario;
-		respuestaLike.id_respuesta = id_respuesta;
+
+        respuestaLike.id_usuario = req.user.id_usuario;
+        respuestaLike.id_respuesta = id_respuesta;
 
         respuestaLike.save(function(err) {
           if (!err) {
-		    Respuesta.findOneAndUpdate({_id: id_respuesta},  {$inc: {cantidad_likes: 1}}, function(err, respuesta) {
-			  if (!err) {
-				res.json(respuesta);
-			  } else {
-				console.log(err);
-				return next(err);
-			  }   
-			});
+            Respuesta.findOneAndUpdate({_id: id_respuesta},  {$inc: {cantidad_likes: 1}}, function(err, respuesta) {
+              if (!err) {
+                res.json(respuesta);
+              } else {
+                console.log(err);
+                return next(err);
+              }   
+            });
           } else {
             res.status(400).json({message: 'Verifique los campos'});
           }
         });
       }
     } else {
-            res.status(400).json({message: 'Error'});
+      res.status(400).json({message: 'Error'});
     }
   });
 });
@@ -177,32 +177,32 @@ router.put('/disLikeRespuesta/:id_respuesta', function(req, res, next) {
   var id_respuesta = req.params.id_respuesta;
 
   RespuestaDisLike.findOne({id_usuario: req.user.id_usuario, id_respuesta: id_respuesta}, function(err, respuestaDisLike) {
-	if (!err) {
-	  if (respuestaDisLike) {
-		res.status(400).json({message: 'Sólo se puede dar un no me gusta'});
-	  } else {
+    if (!err) {
+      if (respuestaDisLike) {
+        res.status(400).json({message: 'Sólo se puede dar un no me gusta'});
+      } else {
         var respuestaDisLike = new RespuestaDisLike();
-		
-		respuestaDisLike.id_usuario = req.user.id_usuario;
-		respuestaDisLike.id_respuesta = id_respuesta;
+
+        respuestaDisLike.id_usuario = req.user.id_usuario;
+        respuestaDisLike.id_respuesta = id_respuesta;
 
         respuestaDisLike.save(function(err) {
           if (!err) {
-		    Respuesta.findOneAndUpdate({_id: id_respuesta},  {$inc: {cantidad_disLikes: 1}}, function(err, respuesta) {
-			  if (!err) {
-				res.json(respuesta);
-			  } else {
-				console.log(err);
-				return next(err);
-			  }   
-			});
+            Respuesta.findOneAndUpdate({_id: id_respuesta},  {$inc: {cantidad_disLikes: 1}}, function(err, respuesta) {
+              if (!err) {
+                res.json(respuesta);
+              } else {
+                console.log(err);
+                return next(err);
+              }   
+            });
           } else {
             res.status(400).json({message: 'Verifique los campos'});
           }
         });
       }
     } else {
-            res.status(400).json({message: 'Error'});
+      res.status(400).json({message: 'Error'});
     }
   });
 });
@@ -229,7 +229,7 @@ router.post('/:id_comentario/respuestas', authentication.isLoggedIn, function(re
     } else {
       comentario.toObject();
       respuesta.id_usuario = req.user.id_usuario;
-	  respuesta.imagen_perfil = req.user.imagen_perfil;
+      respuesta.imagen_perfil = req.user.imagen_perfil;
       respuesta.id_comentario = comentario['_id'];
       respuesta.descripcion = req.body.descripcion;
 
@@ -246,31 +246,31 @@ router.post('/:id_comentario/respuestas', authentication.isLoggedIn, function(re
 
 router.get('/:id_publicacion', function(req, res, next) {
   var id_publicacion = req.params.id_publicacion;
- 
+
   Publicacion.findOne({_id: id_publicacion},'-__v', function(err, publicacion) {
     if (!err) {
       if (req.user){
         UsuarioAccion.findOneAndUpdate(
-            {id_usuario: req.user.id_usuario},
-            {$addToSet: {id_propuestas_vistas: id_publicacion}},
-            function(err, usuarioAccion) {
-              if (err) {
-                res.status(500).json({message: 'Intente de nuevo'});
-                return;
-              } else {
-                UsuarioNotificacion.findOneAndUpdate(
-                    {id_usuario: req.user.id_usuario},
-                    {$pull: {notificacion_publicaciones: {id_objeto: id_publicacion}}},
-                    function(err, usuarioNotificacion) {
-                      if (err) {
-                        res.status(500).json({message: 'Intente de nuevo'});
-                        return;
-                      } else {
-                        res.json(publicacion);
-                      }
-                    });
-              }
-            });
+          {id_usuario: req.user.id_usuario},
+          {$addToSet: {id_propuestas_vistas: id_publicacion}},
+          function(err, usuarioAccion) {
+            if (err) {
+              res.status(500).json({message: 'Intente de nuevo'});
+              return;
+            } else {
+              UsuarioNotificacion.findOneAndUpdate(
+                {id_usuario: req.user.id_usuario},
+                {$pull: {notificacion_publicaciones: {id_objeto: id_publicacion}}},
+                function(err, usuarioNotificacion) {
+                  if (err) {
+                    res.status(500).json({message: 'Intente de nuevo'});
+                    return;
+                  } else {
+                    res.json(publicacion);
+                  }
+                });
+            }
+          });
       } else {
         res.json(publicacion);
       }
@@ -285,32 +285,32 @@ router.put('/:id_publicacion/like', function(req, res, next) {
   var id_publicacion = req.params.id_publicacion;
 
   PublicacionLike.findOne({id_usuario: req.user.id_usuario, id_publicacion: id_publicacion}, function(err, publicacionLike) {
-	if (!err) {
-	  if (publicacionLike) {
-		res.status(400).json({message: 'Sólo se puede dar un me gusta'});
-	  } else {
+    if (!err) {
+      if (publicacionLike) {
+        res.status(400).json({message: 'Sólo se puede dar un me gusta'});
+      } else {
         var publicacionLike = new PublicacionLike();
-		
-		publicacionLike.id_usuario = req.user.id_usuario;
-		publicacionLike.id_publicacion = id_publicacion;
+
+        publicacionLike.id_usuario = req.user.id_usuario;
+        publicacionLike.id_publicacion = id_publicacion;
 
         publicacionLike.save(function(err) {
           if (!err) {
-		    Publicacion.findOneAndUpdate({_id: id_publicacion},  {$inc: {cantidad_likes: 1}}, function(err, publicacion) {
-			  if (!err) {
-				res.json(publicacion);
-			  } else {
-				console.log(err);
-				return next(err);
-			  }   
-			});
+            Publicacion.findOneAndUpdate({_id: id_publicacion},  {$inc: {cantidad_likes: 1}}, function(err, publicacion) {
+              if (!err) {
+                res.json(publicacion);
+              } else {
+                console.log(err);
+                return next(err);
+              }   
+            });
           } else {
             res.status(400).json({message: 'Verifique los campos'});
           }
         });
       }
     } else {
-            res.status(400).json({message: 'error'});
+      res.status(400).json({message: 'error'});
     }
   });
 });
@@ -319,32 +319,32 @@ router.put('/:id_publicacion/disLike', function(req, res, next) {
   var id_publicacion = req.params.id_publicacion;
 
   PublicacionDisLike.findOne({id_usuario: req.user.id_usuario, id_publicacion: id_publicacion}, function(err, publicacionDisLike) {
-	if (!err) {
-	  if (publicacionDisLike) {
-		res.status(400).json({message: 'Sólo se puede dar un no me gusta'});
-	  } else {
+    if (!err) {
+      if (publicacionDisLike) {
+        res.status(400).json({message: 'Sólo se puede dar un no me gusta'});
+      } else {
         var publicacionDisLike = new PublicacionDisLike();
-		
-		publicacionDisLike.id_usuario = req.user.id_usuario;
-		publicacionDisLike.id_publicacion = id_publicacion;
+
+        publicacionDisLike.id_usuario = req.user.id_usuario;
+        publicacionDisLike.id_publicacion = id_publicacion;
 
         publicacionDisLike.save(function(err) {
           if (!err) {
-		    Publicacion.findOneAndUpdate({_id: id_publicacion},  {$inc: {cantidad_disLikes: 1}}, function(err, publicacion) {
-			  if (!err) {
-				res.json(publicacion);
-			  } else {
-				console.log(err);
-				return next(err);
-			  }   
-			});
+            Publicacion.findOneAndUpdate({_id: id_publicacion},  {$inc: {cantidad_disLikes: 1}}, function(err, publicacion) {
+              if (!err) {
+                res.json(publicacion);
+              } else {
+                console.log(err);
+                return next(err);
+              }   
+            });
           } else {
             res.status(400).json({message: 'Verifique los campos'});
           }
         });
       }
     } else {
-            res.status(400).json({message: 'error'});
+      res.status(400).json({message: 'error'});
     }
   });
 });
