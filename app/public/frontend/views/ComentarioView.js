@@ -50,6 +50,9 @@ define(function(require) {
       var id = $(ev.currentTarget).data('id');
       $("[data-id=crearRespuesta-" + id + "]").show();
 	  $(ev.currentTarget).hide();
+    this.$('#likeComentario-button').hide();
+    this.$('#disLikeComentario-button').hide();
+    
 	},
 	
 	guardarRespuesta: function(event) {
@@ -78,6 +81,8 @@ define(function(require) {
 	  $("[data-id=crearRespuesta-" + id + "] textarea").val("");
 	  $("[data-id=crearRespuesta-" + id + "]").hide();
 	  $("[data-id=" + id + "]").show();
+    this.$('#likeComentario-button').show();
+    this.$('#disLikeComentario-button').show();
 	},
 	
 	likeComentario: function(event) {
