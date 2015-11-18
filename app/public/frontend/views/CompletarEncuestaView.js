@@ -11,8 +11,8 @@ define(function(require) {
       'click #completar-button': 'completarEncuesta',
     },
 
-         
     initialize : function(options) {
+      this.childViews = [];
       this.id_encuesta = options.id_encuesta;
       this.preguntaEncuestaViews = [];
       this.incompleta = false;
@@ -50,7 +50,7 @@ define(function(require) {
           parent: this
         });
 
-        console.log(model);
+        view.childViews.push(preguntaEncuestaView);
         view.$('#preguntas-container').append(preguntaEncuestaView.render().el);
 
         view.preguntaEncuestaViews.push(preguntaEncuestaView);
@@ -112,6 +112,12 @@ define(function(require) {
       .fail(function(jqXHR, textStatus, errorThrown) {
         ErrorHelper.showError(jqXHR);
       });
+    },
+
+    onClose: function() {
+      for (var i = 0 ; i < this.childViews.length ; i++) {
+        this.childViews[i].close();
+      }
     }
 
   });
