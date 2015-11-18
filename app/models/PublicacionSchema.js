@@ -13,7 +13,8 @@ var publicacionSchema = new Schema({
   fechaModificacion: { type: Date },
   imagen_perfil: { type: String},
   aceptada: {type: Boolean, default: false},
-  aceptada_por: {type: String}
+  aceptada_por: {type: String},
+  eliminada: {type: Boolean, default: false}
 }, {collection: 'publicaciones'});
 
 module.exports = mongoose.model('Publicacion', publicacionSchema);
