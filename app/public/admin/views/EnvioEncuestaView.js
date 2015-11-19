@@ -20,8 +20,7 @@ define(function(require) {
 
     enviar: function(event) {
       event.preventDefault();
-
-      this.$('#status').html('Procesando...');
+      this.$('#confirmar-status').removeClass('hidden');
 
       view = this;
       $.ajax({
@@ -35,6 +34,7 @@ define(function(require) {
       .done(
         function(data, textStatus, jqXHR) {
           view.$('#status').html('<span class="text-success">Encuesta enviada con éxito ' + '<span class="glyphicon glyphicon-ok"></span></span>');
+          view.$('#confirmar-status').addClass('hidden');
           SuccessHelper.show('Encuesta enviada con éxito!');
           view.$('#enviar-button').addClass('disabled');
       })

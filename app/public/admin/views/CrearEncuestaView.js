@@ -163,14 +163,20 @@ define(function(require) {
     },
 
     guardarEncuesta: function() {
-      if (this.editar) {
-        this.actualizarEncuesta();
-      } else {
-        this.guardarEncuestaNueva();
-      }
+      this.$('#guardar-status').removeClass('hidden');
+      var view = this;
+      setTimeout(function(){
+        if (this.editar) {
+          view.actualizarEncuesta();
+        } else {
+          view.guardarEncuestaNueva();
+        }
+      }, 1000);
     },
 
     actualizarEncuesta: function () {
+      var view = this;
+
       for (var i = 0; i < this.preguntaViews.length ; i++) {
         this.preguntaViews[i].updateModel();
       }
@@ -181,16 +187,20 @@ define(function(require) {
 
       var xhr = this.encuesta.save(null, {
         success: function() {
+          view.$('#guardar-status').addClass('hidden');
           url = '#encuestas/' + xhr.responseJSON.id + '/preview';
           Backbone.history.navigate(url, true);
         },
         error: function() {
+          view.$('#guardar-status').addClass('hidden');
           ErrorHelper.showError(xhr);
         }
       });
     },
 
     guardarEncuestaNueva: function() {
+      var view = this;
+
       for (var i = 0; i < this.preguntaViews.length ; i++) {
         this.preguntaViews[i].updateModel();
       }
@@ -202,10 +212,12 @@ define(function(require) {
 
       var xhr = encuesta.save(null, {
         success: function() {
+          view.$('#guardar-status').addClass('hidden');
           url = '#encuestas/' + xhr.responseJSON.id + '/preview';
           Backbone.history.navigate(url, true);
         },
         error: function() {
+          view.$('#guardar-status').addClass('hidden');
           ErrorHelper.showError(xhr);
         }
       });
