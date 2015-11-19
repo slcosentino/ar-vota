@@ -19,6 +19,8 @@ define(function(require) {
       this.collection = new Usuarios();
       if (this.candidatos) {
         this.collection.url = this.collection.url + '/candidatos'
+      } else {
+        this.collection.url = this.collection.url + '/ciudadanos'
       }
       this.listenTo(this.collection, 'reset', this.renderCollection);
 

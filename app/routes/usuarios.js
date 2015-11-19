@@ -137,6 +137,16 @@ router.get('/candidatos', authentication.isLoggedInAdmin, function(req, res, nex
   });
 });
 
+router.get('/ciudadanos', authentication.isLoggedInAdmin, function(req, res, next) {
+  Usuario.find({esCiudadano: true}, function(err, usuarios) {
+    if (!err) {
+      res.json(usuarios);
+    } else {
+      res.status(403).json({message: 'No esta logueado'});
+    }
+  });
+});
+
 router.get('/logout', function(req, res, next){
   req.session.destroy(function(err) {
     res.redirect('/');
@@ -349,6 +359,7 @@ router.post('/verificaciones/solicitar', authentication.isCandidato, function(re
   });
 
 });
+
 router.get('/:id_usuario', function(req, res, next) {
   var id_usuario = req.params.id_usuario;
  
