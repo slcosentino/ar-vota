@@ -461,7 +461,7 @@ router.put('/:id_usuario', authentication.isLoggedIn, function(req, res, next) {
 router.get('/:id_usuario/publicaciones', function(req, res, next) {
   var id_usuario = req.params.id_usuario;
   
-  Publicacion.find({id_usuario: id_usuario}, function(err, publicaciones) {
+  Publicacion.find({id_usuario: id_usuario, eliminada: false}, function(err, publicaciones) {
     if (!err) {
       res.json(publicaciones);
     } else {

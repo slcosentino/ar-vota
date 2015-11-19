@@ -13,6 +13,8 @@ var template = require('text!frontend/templates/grid-view.html'),
 
     initialize: function(options) {
       this.todas = options.todas;
+      this.de_usuario = options.de_usuario;
+      this.id_usuario = options.id_usuario;
       this.propuestas = options.propuestas;
       this.populares = options.populares;
     },
@@ -26,6 +28,9 @@ var template = require('text!frontend/templates/grid-view.html'),
 
       if (this.todas == true) {
         this.collection = new Publicaciones();
+        if (this.de_usuario) {
+          this.collection.url = '/api/usuarios/' + this.id_usuario  + '/publicaciones';
+        }
       } else {
         if (this.propuestas == true) {
           this.collection = new Propuestas();

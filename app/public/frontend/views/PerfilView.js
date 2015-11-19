@@ -36,6 +36,8 @@ define(function(require) {
       
       var gridView = new GridView({
         todas: true,
+        de_usuario: true,
+        id_usuario: this.id_usuario,
         propuestas: true,
         populares: false
       });
