@@ -1,6 +1,7 @@
 define(function(require) {
   var template = require('text!admin/templates/envio-encuesta.html'),
-      ErrorHelper = require('admin/helpers/ErrorHelper');
+      ErrorHelper = require('admin/helpers/ErrorHelper'),
+      SuccessHelper = require('helpers/SuccessHelper');
 
   return Backbone.View.extend({
     template: _.template(template),
@@ -34,6 +35,8 @@ define(function(require) {
       .done(
         function(data, textStatus, jqXHR) {
           view.$('#status').html('<span class="text-success">Encuesta enviada con éxito ' + '<span class="glyphicon glyphicon-ok"></span></span>');
+          SuccessHelper.show('Encuesta enviada con éxito!');
+          view.$('#enviar-button').addClass('disabled');
       })
       .fail(function(jqXHR, textStatus, errorThrown) {
         ErrorHelper.showError(jqXHR);

@@ -12,6 +12,7 @@ define(function(require) {
       this.encuestas = new Encuestas();
       this.listenTo(this.encuestas, 'reset', this.renderEncuestas);
 
+      this.$('#encuestas-status').removeClass('hidden');
       this.encuestas.fetch({
         reset: true,
         error: function(collection, xhr, options) {
@@ -29,6 +30,8 @@ define(function(require) {
       this.encuestas.each(function(item) {
         this.renderItem(item);
       }, this);
+
+      this.$('#encuestas-status').addClass('hidden');
 
       /* filtro */
       var filas = this.$('#tabla tr');

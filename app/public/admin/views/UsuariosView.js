@@ -22,6 +22,7 @@ define(function(require) {
       }
       this.listenTo(this.collection, 'reset', this.renderCollection);
 
+      this.$('#usuarios-status').removeClass('hidden');
       this.collection.fetch({
         reset: true,
         error: function(collection, xhr, options) {
@@ -35,6 +36,8 @@ define(function(require) {
       this.collection.each(function(item) {
         this.renderItem(item);
       }, this);
+
+      this.$('#usuarios-status').addClass('hidden');
 
       /* filtro */
       var filas = this.$('#tabla tr');

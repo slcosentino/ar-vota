@@ -76,7 +76,11 @@ define(function(require) {
 
       this.labels.push(detalle.get('zona'));
       var cantidad = detalle.get('cantidad');
-      var porcentaje = Math.round(cantidad * 100 / totalRespuesta);
+      if (totalRespuesta == 0) {
+        var porcentaje = 0;
+      } else {
+        var porcentaje = Math.round(cantidad * 100 / totalRespuesta);
+      }
 
       this.data.push(porcentaje);
     },
@@ -128,7 +132,11 @@ define(function(require) {
 
       this.labels.push(detalle.get('descripcion'));
       var cantidad = detalle.get('cantidad');
-      var porcentaje = Math.round(cantidad * 100 / totalRespuesta);
+      if (totalRespuesta == 0) {
+        var porcentaje = 0;
+      } else {
+        var porcentaje = Math.round(cantidad * 100 / totalRespuesta);
+      }
 
       this.data.push(porcentaje);
     },
