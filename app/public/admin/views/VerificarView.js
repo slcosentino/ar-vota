@@ -6,8 +6,6 @@ define(function(require) {
   return Backbone.View.extend({
     template: _.template(template),
     events: {
-      'click #agregar-pregunta-button': 'agregarPregunta',
-      'click #guardar-encuesta-button': 'guardarEncuesta',
       'change #candidato-select': 'candidatoSeleccionado'
     },
 
@@ -19,6 +17,7 @@ define(function(require) {
 
       this.listenTo(this.candidatos, 'reset', this.setCandidatos);
 
+      this.$('#verificar-select-status').removeClass('hidden');
       this.candidatos.fetch({
         reset: true,
         error: function(collection, xhr, options) {
@@ -44,19 +43,24 @@ define(function(require) {
         theme: "bootstrap",
         data: this.candidatosArray
       });
+
+      this.$('#verificar-select-status').addClass('hidden');
     },
 
     candidatoSeleccionado: function(){
+      this.$('#verificar-select-status').removeClass('hidden');
       var seleccion = this.$('#candidato-select').find('option:selected').text();
       var candidato = this.candidatos.where({id_usuario: seleccion})[0];
-      console.log(candidato.attributes);
 
-      //var verificarCandidatoView = new VerificarCandidatoView({
       var usuarioView = new PerfilView({
         verificar: true,
         model: candidato
       });
-      this.$('#candidato-container').html(usuarioView.render().$el); 
+
+      setTimeout(function(){
+        this.$('#candidato-container').html(usuarioView.render().$el); 
+        this.$('#verificar-select-status').addClass('hidden');
+      }, 1000);
     }
 
   });

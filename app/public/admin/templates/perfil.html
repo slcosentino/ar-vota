@@ -1,7 +1,14 @@
 <div class="container">
   <div class="panel panel-default">
     <div class="panel-heading">
-      <h3 class="panel-title"><%= id_usuario %></h3>
+      <h3 class="panel-title">
+        <%= id_usuario %>
+        <% if (verificar) { %>
+        <span id="verificar-status" class="hidden">
+          &nbsp<i class="fa fa-spinner fa-spin fa-lg"></i>
+        </span>
+        <% } %>
+      </h3>
     </div>
     <div class="panel-body">
       <div class="row">

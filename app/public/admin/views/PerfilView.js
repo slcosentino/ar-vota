@@ -8,7 +8,8 @@ define(function(require) {
     events: {
       'click #editar-button': 'editar',
       'click #cancelar-button': 'cancelar',
-      'click #guardar-button': 'guardar'  
+      'click #guardar-button': 'guardar',
+      'click #verificar-button': 'verificar'
     },
 
     initialize: function(options) {
@@ -56,7 +57,6 @@ define(function(require) {
     guardar: function() {
       var view = this;
       this.$('.user-data').each(function(index, element) {
-        //var value = view.model.set($(element).attr('id'), '');
         var value = $(element).children('input').val();
         view.model.set($(element).attr('id'), value);
         $(element).html(value);
@@ -64,6 +64,29 @@ define(function(require) {
 
       this.model.urlRoot = '/api/usuarios/';
       this.model.save();
+    },
+
+    verificar: function() {
+      this.$('#verificar-status').removeClass('hidden');
+      view = this;
+      $.ajax({
+        method: 'PUT',
+        url: '/api/admin/candidatos/verificar',
+        contentType: 'application/json',
+        data: JSON.stringify({
+          'id_usuario': this.model.get('id_usuario')
+        })
+      })
+      .done(function(data, textStatus, jqXHR) {
+        setTimeout(function(){
+          view.$('#verificar-status').addClass('hidden');
+          Backbone.history.navigate('#usuarios/' + view.model.get('id_usuario'), true);
+        }, 1000);
+      })
+      .fail(function(jqXHR, textStatus, errorThrown) {
+        view.$('#verificar-status').addClass('hidden');
+        ErrorHelper.showError(jqXHR);
+      })
     }
 
   });

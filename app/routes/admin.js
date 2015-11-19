@@ -66,4 +66,17 @@ router.delete('/publicaciones', authentication.isLoggedInAdmin, function(req, re
     });
 });
 
+router.put('/candidatos/verificar', authentication.isLoggedInAdmin, function(req, res, next) {
+  var id_usuario = req.body.id_usuario;
+  
+  Usuario.findOneAndUpdate({id_usuario: id_usuario}, {$set: {verificado: true}}, function(err, usuario) {
+    if (!err) {
+      res.json(usuario);
+    } else {
+      console.log(err);
+      res.status(500).json({message: 'No se pudo verificar al candidato, intente de nuevo'});
+    }
+  });
+
+});
 module.exports = router;
