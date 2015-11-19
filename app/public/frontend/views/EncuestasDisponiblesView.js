@@ -51,7 +51,7 @@ var template = require('text!frontend/templates/encuestas.html'),
     renderItem: function(item) {
       var itemEncuestaView = new ItemEncuestaView({
        model: item,
-       nueva: this.nuevas
+       nuevas: this.nuevas
      });
 
       this.$('#encuestas-container').append(itemEncuestaView.render().el);

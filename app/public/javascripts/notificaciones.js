@@ -9,10 +9,6 @@ $(document).ready(function() {
 });
 
 notificaciones.consultar = function() {
-  if (userObject.logueado = false) {
-    console.log('deslogueado');
-    return;
-  }
   $.ajax({
     method: 'GET',
     url: '/api/notificaciones/',
@@ -63,6 +59,7 @@ notificaciones.notificar = function(data) {
 }
 
 notificaciones.actualizarEncuestaLocal = function() {
+  console.log('actualizar local');
   notificaciones.encuestasNuevas = notificaciones.encuestasNuevas -1;
   notificaciones.actualizarUI();
 }

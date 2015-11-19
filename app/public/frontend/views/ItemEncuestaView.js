@@ -22,8 +22,7 @@ define(function(require) {
       }
       url = '#encuestas/' + this.model.get('id_encuesta') + '/completar';
       Backbone.history.navigate(url, true);
-      
-    },
+    }
 
   });
 });
