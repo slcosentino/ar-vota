@@ -10,9 +10,8 @@ var template = require('text!frontend/templates/propuestas-nuevas.html'),
     },
 
     initialize : function() {
-      this.titulo_vista = 'Propuestas nuevas';
+      this.titulo_vista = 'Notificaciones de publicaciones';
       this.propuestasNuevas = new PropuestasNuevas();
-
 
       this.listenTo(this.propuestasNuevas, 'doRender', this.renderPropuestasNuevas);
 
@@ -20,8 +19,9 @@ var template = require('text!frontend/templates/propuestas-nuevas.html'),
       this.propuestasNuevas.fetch({
         reset: true,
         success: function(collection, response ,options) {
-          if (options.xhr.status == 204) {
-            view.$('#status-container').html('No hay propuestas nuevas para mostrar');
+          this.$('#titulo-status').addClass('hidden');
+          if (collection.length == 0) {
+            view.$('#status-container').html('No hay publicaciones nuevas para mostrar');
           } else {
             view.propuestasNuevas.trigger('doRender');
           }
@@ -45,7 +45,7 @@ var template = require('text!frontend/templates/propuestas-nuevas.html'),
        model: item
      });
 
-      this.$('#propuestas-nuevas-container').append(itemPropuestaNuevaView.render().el);
+      this.$('#publicaciones-nuevas-container').append(itemPropuestaNuevaView.render().el);
     }
   });
 });

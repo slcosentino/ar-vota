@@ -22,7 +22,7 @@ define(function(require) {
       'recover': 'recover',
       'register': 'register',
       'propuestas/nueva': 'propuestasAdd',
-      'propuestas/nuevas': 'verPropuestasNuevas',
+      'publicaciones/nuevas': 'verPropuestasNuevas',
       'propuestas/recientes': 'propuestasRecientes',
       'propuestas/populares': 'propuestasPopulares',
       'propuestas/:id_propuesta': 'propuestasOverview',

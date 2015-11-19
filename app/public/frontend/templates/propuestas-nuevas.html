@@ -1,11 +1,15 @@
 <div class="container">
   <div>
-    <h3><%= this.titulo_vista %></h3>
+    <h3><%= this.titulo_vista %>
+      <span id="titulo-status" class="">
+        &nbsp<i class="fa fa-spinner fa-spin"></i>
+      </span>
+    </h3>
   </div>
   <hr>
   <div class="row">
     <div class="col-md-8 col-md-offset-2">
-      <div id="propuestas-nuevas-container"></div>
+      <div id="publicaciones-nuevas-container"></div>
       <div id="status-container" class="text-center"></div>
     </div>
   </div>

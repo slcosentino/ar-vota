@@ -40,7 +40,8 @@ module.exports = {
                     notificacion_publicaciones: {
                       id_candidato: id_usuario,
                       id_objeto: publicacion._id,
-                      titulo: publicacion.titulo
+                      titulo: publicacion.titulo,
+                      aceptacion: false
                     }
                   }
                 },

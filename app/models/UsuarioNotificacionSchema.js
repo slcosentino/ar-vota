@@ -5,7 +5,8 @@ var UsuarioNotificacionSchema = new mongoose.Schema({
   notificacion_publicaciones: [{
     id_candidato: String,
     id_objeto: String,
-    titulo: String
+    titulo: String,
+    aceptacion: Boolean
   }]
 }, {collection: 'usuarionotificaciones'});
 

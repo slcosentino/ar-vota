@@ -16,6 +16,7 @@ var ComentarioDisLike = require('../models/ComentarioDisLikeSchema');
 var RespuestaLike = require('../models/RespuestaLikeSchema');
 var RespuestaDisLike = require('../models/RespuestaDisLikeSchema');
 var UsuarioAceptacion = require('../models/UsuarioAceptacionSchema');
+var UsuarioSeguidor = require('../models/UsuarioSeguidorSchema');
 
 router.post('/propuestas', authentication.isCandidato, function(req, res, next) {
   Publicator.propuesta(req, res, next);
@@ -417,6 +418,34 @@ router.post('/:id_publicacion/aceptaciones', authentication.isLoggedIn, function
               if (err) {
                 res.status(500).json({message: 'Intente de nuevo'})
               } else {
+
+                /* crear notificacion para cada seguidor */
+                UsuarioSeguidor.findOne({id_usuario: id_usuario}, function(err, usuarioSeguidor) {
+                  if (err) {
+                    res.status(500).json({message: 'Intente de nuevo'});
+                    return;
+                  }
+                  usuarioSeguidor.id_seguidores.forEach(function(id_seguidor, index){
+                    UsuarioNotificacion.findOneAndUpdate(
+                      {id_usuario: id_seguidor},
+                      {
+                        $addToSet: {
+                          notificacion_publicaciones: {
+                            id_candidato: id_usuario,
+                            id_objeto: publicacion._id,
+                            titulo: publicacion.titulo,
+                            aceptacion: true
+                          }
+                        }
+                      },
+                      function(err, usuarioNotificacion) {
+                        if (err) {
+                          res.status(500).json({message: 'Intente de nuevo'});
+                        }
+                      });
+                  });
+                });
+
                 res.json({message: 'Queja aceptada con exito!'})
               }
             });

@@ -28,6 +28,7 @@ var template = require('text!frontend/templates/encuestas.html'),
       this.encuestas.fetch({
         reset: true,
         success: function(collection, response ,options) {
+          this.$('#titulo-status').addClass('hidden');
           if (options.xhr.status == 204) {
             view.$('#status-container').html('No hay encuestas para mostrar');
           } else {

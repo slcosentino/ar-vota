@@ -6,9 +6,17 @@
   </div>
   <div class="offer-content">
     <br>
+    <% if (aceptacion == true) { %>
+    <h4>Queja Aceptada</h4>
+    <span>
+      <b>Aceptada por: </b> <%= id_candidato %>
+    </span>
+    <% } else {  %>
+    <h4>Propuesta nueva</h4>
     <span>
       <b>Publicada por: </b> <%= id_candidato %>
     </span>
+    <% } %>
     <br>    
     <br>
     <p>
