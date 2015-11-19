@@ -12,7 +12,8 @@ define(function(require) {
       EnvioEncuestaView = require('admin/views/EnvioEncuestaView'),
       EstadisticasEncuestasView = require('admin/views/EstadisticasEncuestasView'),
       EstadisticasEncuestaView = require('admin/views/EstadisticasEncuestaView'),
-      VerificarView = require('admin/views/VerificarView');
+      VerificarView = require('admin/views/VerificarView'),
+      SolicitudesView = require('admin/views/SolicitudesView');
 
 
   return Backbone.Router.extend({
@@ -31,7 +32,8 @@ define(function(require) {
       'encuestas/:id_encuesta/enviar': 'enviarEncuesta',
       'estadisticas/encuestas': 'estadisticasEncuestas',
       'estadisticas/encuestas/:id_encuesta': 'estadisticasEncuesta',
-      'verificar': 'verificar'
+      'verificar': 'verificar',
+      'verificar/solicitudes': 'verSolicitudes'
     },
 
     bienvenida: function() {
@@ -126,6 +128,11 @@ define(function(require) {
     verificar: function() {
       var verificarView = new VerificarView();
       ViewManager.render(verificarView, $('#main-container'));
+    },
+
+    verSolicitudes: function() {
+      var solicitudesView = new SolicitudesView();
+      ViewManager.render(solicitudesView, $('#main-container'));
     },
 
   });

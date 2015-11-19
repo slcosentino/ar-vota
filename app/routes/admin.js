@@ -6,6 +6,7 @@ var authentication = require('../middlewares/authentication');
 var Usuario = require('../models/UsuarioSchema');
 var Encuesta = require('../models/EncuestaSchema');
 var Publicacion = require('../models/PublicacionSchema');
+var SolicitudVerificacion = require('../models/SolicitudVerificacionSchema');
 
 router.post('/login', function(req, res, next) {
   passport.authenticate('local', function(err, usuario, info) {
@@ -79,4 +80,16 @@ router.put('/candidatos/verificar', authentication.isLoggedInAdmin, function(req
   });
 
 });
+
+router.get('/verificaciones/solicitudes', authentication.isLoggedInAdmin, function(req, res, next) {
+  SolicitudVerificacion.find({},null,{sort: {_id: -1}},function(err, solicitudes) {
+    if (!err) {
+      res.json(solicitudes);
+    } else {
+      res.status(500).json({message: 'Intente de nuevo'});
+    }
+  });
+
+});
+
 module.exports = router;

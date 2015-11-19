@@ -360,6 +360,7 @@ router.post('/verificaciones/solicitar', authentication.isCandidato, function(re
 
 });
 
+
 router.get('/:id_usuario', function(req, res, next) {
   var id_usuario = req.params.id_usuario;
  
