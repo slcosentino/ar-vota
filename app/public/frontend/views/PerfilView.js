@@ -4,6 +4,7 @@ define(function(require) {
       ErrorHelper = require('frontend/helpers/ErrorHelper'),
       Publicaciones = require('frontend/collections/Publicaciones'),
       PublicacionView = require('frontend/views/PublicacionView'),
+      GridView = require('frontend/views/GridView'),
       UsuarioAccion = require('frontend/models/UsuarioAccion');
 
   return Backbone.View.extend({
@@ -38,12 +39,21 @@ define(function(require) {
     renderModel: function() {
       this.$el.html(this.template(this.model.attributes));
 
+      
+      var gridView = new GridView({
+        propuestas: true,
+        populares: false
+      });
+      this.$('#grid-container').append(gridView.render().el);
+
+      /*
       this.publicaciones.fetch({
         reset : true,
         error : function(collection, xhr, options) {
           ErrorHelper.showError(xhr);
         }
       });
+      */
 
       this.acciones.fetch({
         error: function(collection, xhr, options) {
