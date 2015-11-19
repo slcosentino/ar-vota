@@ -28,60 +28,25 @@ define(function(require) {
         }
       });
 
-      this.publicaciones = new Publicaciones();
-      this.publicaciones.url = '/api/usuarios/' + this.id_usuario + '/publicaciones';
-      this.listenTo(this.publicaciones, 'reset', this.renderPublicaciones);
-
-
       return this;
     },
 
     renderModel: function() {
       this.$el.html(this.template(this.model.attributes));
-
       
       var gridView = new GridView({
+        todas: true,
         propuestas: true,
         populares: false
       });
-      this.$('#grid-container').append(gridView.render().el);
 
-      /*
-      this.publicaciones.fetch({
-        reset : true,
-        error : function(collection, xhr, options) {
-          ErrorHelper.showError(xhr);
-        }
-      });
-      */
+      this.$('#grid-container').append(gridView.render().el);
 
       this.acciones.fetch({
         error: function(collection, xhr, options) {
           ErrorHelper.showError(xhr);
         }
       });
-    },
-
-    renderPublicaciones: function() {
-      this.publicaciones.each(function(item) {
-        this.renderPublicacion(item);
-      }, this);
-
-      this.$('#publicaciones-container').pinterest_grid({
-        no_columns: 4,
-        padding_x: 10,
-        padding_y: 10,
-        margin_bottom: 50,
-        single_column_breakpoint: 700
-      });
-    },
-
-    renderPublicacion: function(item) {
-      var publicacionView = new PublicacionView({
-        model: item
-      });
-
-      this.$('#publicaciones-container').append(publicacionView.render().el);
     },
 
     renderAcciones: function(){

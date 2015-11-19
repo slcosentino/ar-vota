@@ -26,6 +26,7 @@ var template = require('text!frontend/templates/publicaciones.html'),
 
 
       var gridView = new GridView({
+        todas: false,
         propuestas: this.propuestas,
         populares: this.populares
       });
