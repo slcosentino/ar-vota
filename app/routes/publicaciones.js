@@ -37,6 +37,18 @@ router.get('/', function(req, res, next) {
   });
 });
 
+router.get('/aceptadas/:id_usuario', function(req, res, next) {
+  var id_usuario = req.params.id_usuario;
+
+  Publicacion.find({aceptada: true, aceptada_por: id_usuario, eliminada: false}, function(err, publicaciones) {
+    if (!err) {
+      res.json(publicaciones);
+    } else {
+      return next(err);
+    }
+  });
+});
+
 router.get('/propuestas', function(req, res, next) {
   Publicacion.find( {propuesta: true, eliminada: false}, function(err, publicaciones) {
     if (!err) {

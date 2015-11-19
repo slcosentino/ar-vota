@@ -12,7 +12,9 @@ define(function(require) {
   CompletarEncuestaView = require('frontend/views/CompletarEncuestaView'),
   PropuestasNuevasView = require('frontend/views/PropuestasNuevasView')
   VerificacionView = require('frontend/views/VerificacionView'),
-  CambiarImagenView = require('frontend/views/CambiarImagenView');
+  CambiarImagenView = require('frontend/views/CambiarImagenView'),
+  QuejasAceptadasView = require('frontend/views/QuejasAceptadasView');
+
 
   return Backbone.Router.extend({
     routes: {
@@ -29,6 +31,7 @@ define(function(require) {
       'quejas/nueva': 'quejasAdd',
       'quejas/recientes': 'quejasRecientes',
       'quejas/populares': 'quejasPopulares',
+      'quejas/aceptadas/:id_usuario': 'quejasAceptadas',
       'quejas/:id_queja': 'quejasOverview',
       'usuarios/imagen': 'cambiarImagenPerfil',
       'usuarios/:id_usuario': 'perfil',
@@ -140,6 +143,12 @@ define(function(require) {
     cambiarImagenPerfil: function() {
       var cambiarImagenView = new CambiarImagenView();
       ViewManager.render(cambiarImagenView, $('#main-container'));
-    }
+    },
+    quejasAceptadas: function(id_usuario) {
+      var quejasAceptadasView = new QuejasAceptadasView({
+        id_usuario: id_usuario
+      });
+      ViewManager.render(quejasAceptadasView, $('#main-container'));
+    },
   });
 });

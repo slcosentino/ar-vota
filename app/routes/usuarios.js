@@ -309,7 +309,11 @@ router.post('/seguimientos', authentication.isLoggedIn, function(req, res, next)
 });
 
 router.get('/acciones', function(req, res, next) {
-  var id_usuario = req.user.id_usuario;
+  if (req.isAuthenticated()) {
+    var id_usuario = req.user.id_usuario;
+  } else {
+    var id_usuario = 'anonimo';
+  }
  
   UsuarioAccion.findOne({id_usuario: id_usuario}, '-__v -_id', function(err, usuarioAcciones) {
     if (!err) {

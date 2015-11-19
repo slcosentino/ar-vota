@@ -10,7 +10,9 @@ define(function(require) {
   return Backbone.View.extend({
     template: _.template(template),
     events: {
-      'click .seguir-button': 'seguir'
+      'click .seguir-button': 'seguir',
+      'click .quejas-aceptadas': 'quejasAceptadas'
+
     },
 
     render: function() {
@@ -86,6 +88,12 @@ define(function(require) {
         .html('<i class="fa fa-heart"></i>&nbsp Seguir');
         ErrorHelper.showError(jqXHR);
       });
+    },
+
+    quejasAceptadas: function() {
+      var url = '#quejas/aceptadas/' + this.id_usuario;
+      Backbone.history.navigate(url, true); 
     }
+
   });
 });

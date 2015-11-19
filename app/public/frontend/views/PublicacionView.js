@@ -12,9 +12,9 @@ define(function(require) {
     render: function() {
       this.$el.html(this.template(this.model.attributes));
 	  
-	  this.formatDate();
+      this.formatDate();
       
-	  return this;
+      return this;
     },
 	
 	formatDate: function() {
